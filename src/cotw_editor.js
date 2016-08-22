@@ -3,28 +3,24 @@ var FileInput = React.createClass({
 		onChange: React.PropTypes.func.isRequired
 	},
 	render: function(){
-		return React.createElement('input', {
-			type: 'file',
-			id: 'file',
-			onChange: this.props.onChange
-		});
+		return <input type='file' id='file' onChange={this.props.onChange} />;
 	}
 })
 
 var CharacterProfile = React.createClass({
 	render: function(){
 		return (
-			React.createElement('div', {},
-				React.createElement('img', {src: 'assets/hero_male.png'}),
-				React.createElement('div', {}, 'HP: ', this.props.hp, '/', this.props.maxHp),
-				React.createElement('div', {}, 'Mana: ', this.props.mp, '/', this.props.maxMp),
-				React.createElement('div', {}, 'Armor Class: ', this.props.armorClass),
-				React.createElement('div', {}, 'Experience: ', this.props.exp),
-				React.createElement('div', {}, 'Strength: ', this.props.str),
-				React.createElement('div', {}, 'Intelligence: ', this.props.int),
-				React.createElement('div', {}, 'Constitution: ', this.props.con),
-				React.createElement('div', {}, 'Dextery: ', this.props.dex)
-			)
+			<div>
+				<img src='assets/hero_male.png' />
+				<div>HP: {this.props.hp} / {this.props.maxHp}</div>
+				<div>Mana: {this.props.mp} / {this.props.maxMp}</div>
+				<div>Armor Class: {this.props.armorClass}</div>
+				<div>Experience: {this.props.exp}</div>
+				<div>Strength: {this.props.str}</div>
+				<div>Intelligence: {this.props.int}</div>
+				<div>Constitution: {this.props.con}</div>
+				<div>Dextery: {this.props.dex}</div>
+			</div>
 		);
 	}
 });
@@ -65,19 +61,16 @@ var MainEditor = React.createClass({
 	},
 	render: function(){
 		return (
-			React.createElement('div', {},
-				React.createElement(FileInput, {onChange: this.savefileSelected}),
-				React.createElement(CharacterProfile, {
-					str: this.state.str, int: this.state.int, con: this.state.con, dex: this.state.dex,
-					hp: this.state.hp, maxHp: this.state.maxHp,
-					mp: this.state.mp, maxMp: this.state.maxMp,
-					exp: this.state.exp, armorClass: this.state.armorClass
-				})
-			)
+			<div>
+				<FileInput onChange={this.savefileSelected} />
+				<CharacterProfile
+					str={this.state.str} int={this.state.int} con={this.state.con} dex={this.state.dex}
+					hp={this.state.hp} maxHp={this.state.maxHp}
+					mp={this.state.mp} maxMp={this.state.maxMp}
+					exp={this.state.exp} armorClass={this.state.armorClass} />
+			</div>
 		);
 	}
 });
-var rootElement = React.createElement(MainEditor);
 
-
-ReactDOM.render(rootElement, document.getElementById('react-app'));
+ReactDOM.render(<MainEditor />, document.getElementById('react-app'));
