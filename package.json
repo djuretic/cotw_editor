@@ -1,0 +1,9 @@
+{
+  "name": "cotw_editor",
+  "version": "1.0.0",
+  "description": "Castle of the Winds online savegame editor",
+  "main": "index.js",
+  "devDependencies": {
+    "babel-cli": "^6.11.4"
+  }
+}
