@@ -1,3 +1,36 @@
+// source: https://www.gamefaqs.com/pc/574556-castle-of-the-winds-1-a-question-of-vengeance/faqs/2405
+// fieldName: [offset, numberOfBytes (littleEndian)]
+var FIELDS = {
+	str: [0x80, 1],
+	int: [0x81, 1],
+	con: [0x82, 1],
+	dex: [0x83, 1],
+	strBase: [0x84, 1],
+	intBase: [0x85, 1],
+	conBase: [0x86, 1],
+	dexBase: [0x87, 1],
+
+	hp: [0x94, 2],
+	maxHp: [0x96, 2],
+	mp: [0x98, 2],
+	maxMp: [0x9A, 2],
+	level: [0x9C, 2],
+	armorClass: [0xA6, 2],
+
+	exp: [0x9E, 4],
+	expAlt: [0xA2, 4],
+
+	// spells: {
+	// 	heaMinorWounds: [0x1B2, 1],
+	// 	fireBall: [0x31A, 1]
+	// },
+
+	// spellsSlots:
+	// 	[
+	// 		[0x38E, 2], [0x390, 2], [0x392, 2], [0x394, 2], [0x396, 2], [0x398, 2], [0x39A, 2], [0x39C, 2], [0x39E, 2], [0x3A0, 2]
+	// 	]
+}
+
 var FileInput = React.createClass({
 	propTypes: {
 		onChange: React.PropTypes.func.isRequired
@@ -34,28 +67,22 @@ var MainEditor = React.createClass({
 		var self = this;
 		reader.onload = (function(theFile) {
 			console.log(reader.result.byteLength + ' bytes');
-			console.log(self);
 			var dataView = new DataView(reader.result);
-			// source: https://www.gamefaqs.com/pc/574556-castle-of-the-winds-1-a-question-of-vengeance/faqs/2405
-			self.setState({
-				str: dataView.getInt8(0x80),
-				int: dataView.getInt8(0x81),
-				con: dataView.getInt8(0x82),
-				dex: dataView.getInt8(0x83),
-				strBase: dataView.getInt8(0x84),
-				intBase: dataView.getInt8(0x85),
-				conBase: dataView.getInt8(0x86),
-				dexBase: dataView.getInt8(0x87),
-
-				hp: dataView.getInt16(0x94, true),
-				maxHp: dataView.getInt16(0x96, true),
-				mp: dataView.getInt16(0x98, true),
-				maxMp: dataView.getInt16(0x9A, true),
-				armorClass: dataView.getInt16(0xA6, true),
-
-				exp: dataView.getInt32(0x9E, true),
-				expAlt: dataView.getInt32(0xA2, true)
-			});
+			var state = {};
+			for(var property in FIELDS){
+				if(FIELDS.hasOwnProperty(property)){
+					var [offset, numBytes] = FIELDS[property];
+					if (numBytes === 1){
+						state[property] = dataView.getInt8(offset);
+					} else if (numBytes === 2){
+						state[property] = dataView.getInt16(offset, true);
+					} else if (numBytes === 4){
+						state[property] = dataView.getInt32(offset, true);
+					}
+				}
+			}
+			self.setState(state);
+			console.log(self.state);
 		});
 		reader.readAsArrayBuffer(e.target.files[0]);
 	},
