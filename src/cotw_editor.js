@@ -22,6 +22,11 @@ const FIELDS = {
 
 	bonusHit: [0xA8, 2],
 	bonusDamage: [0xAA, 2],
+
+	weight: [0x3FE, 4],
+	bulk: [0x402, 4],
+	maxWeight: [0x406, 4],
+	maxBulk: [0x40A, 4],
 }
 
 const SPELLS = {
