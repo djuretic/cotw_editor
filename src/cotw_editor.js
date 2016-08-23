@@ -23,6 +23,13 @@ const FIELDS = {
 	bonusHit: [0xA8, 2],
 	bonusDamage: [0xAA, 2],
 
+	resistFire: [0x150, 2],
+	resistCold: [0x152, 2],
+	resistLightning: [0x154, 2],
+	resistAcid: [0x156, 2],
+	resistFear: [0x158, 2],
+	resistDrainLife: [0x15A, 2],
+
 	weight: [0x3FE, 4],
 	bulk: [0x402, 4],
 	maxWeight: [0x406, 4],
