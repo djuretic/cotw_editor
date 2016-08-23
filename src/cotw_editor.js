@@ -22,17 +22,14 @@ const FIELDS = {
 
 	bonusHit: [0xA8, 2],
 	bonusDamage: [0xAA, 2],
-
-	// spells: {
-	// 	heaMinorWounds: [0x1B2, 1],
-	// 	fireBall: [0x31A, 1]
-	// },
-
-	// spellsSlots:
-	// 	[
-	// 		[0x38E, 2], [0x390, 2], [0x392, 2], [0x394, 2], [0x396, 2], [0x398, 2], [0x39A, 2], [0x39C, 2], [0x39E, 2], [0x3A0, 2]
-	// 	]
 }
+
+const SPELLS = {
+	healMinorWounds: 0x1B2,
+	fireBall: 0x31A
+}
+
+const SPELL_SLOTS = [0x38E, 0x390, 0x392, 0x394, 0x396, 0x398, 0x39A, 0x39C, 0x39E, 0x3A0]
 
 var FileInput = React.createClass({
 	propTypes: {
@@ -71,19 +68,33 @@ var MainEditor = React.createClass({
 		reader.onload = (function(theFile) {
 			console.log(reader.result.byteLength + ' bytes');
 			var dataView = new DataView(reader.result);
-			var state = {};
-			for(var property in FIELDS){
+			var state = {spellBook: {}};
+			var readInt = function(_dataView, _offset, _numBytes){
+				if (_numBytes === 1){
+					return _dataView.getInt8(_offset);
+				} else if (_numBytes === 2){
+					return _dataView.getInt16(_offset, true);
+				} else if (_numBytes === 4){
+					return _dataView.getInt32(_offset, true);
+				}
+			};
+			for(let property in FIELDS){
 				if(FIELDS.hasOwnProperty(property)){
 					let [offset, numBytes] = FIELDS[property];
-					if (numBytes === 1){
-						state[property] = dataView.getInt8(offset);
-					} else if (numBytes === 2){
-						state[property] = dataView.getInt16(offset, true);
-					} else if (numBytes === 4){
-						state[property] = dataView.getInt32(offset, true);
-					}
+					state[property] = readInt(dataView, offset, numBytes);
 				}
 			}
+
+			for(let property in SPELLS){
+				if(SPELLS.hasOwnProperty(property)){
+					let offset = SPELLS[property];
+					state.spellBook[property] = readInt(dataView, offset, 1);
+				}
+			}
+
+			state.spellSlots = SPELL_SLOTS.map(function(offset) {
+				return readInt(dataView, offset, 2);
+			});
 			self.setState(state);
 			console.log(self.state);
 		});
