@@ -1,6 +1,6 @@
 // source: https://www.gamefaqs.com/pc/574556-castle-of-the-winds-1-a-question-of-vengeance/faqs/2405
 // fieldName: [offset, numberOfBytes (littleEndian)]
-var FIELDS = {
+const FIELDS = {
 	str: [0x80, 1],
 	int: [0x81, 1],
 	con: [0x82, 1],
@@ -19,6 +19,9 @@ var FIELDS = {
 
 	exp: [0x9E, 4],
 	expAlt: [0xA2, 4],
+
+	bonusHit: [0xA8, 2],
+	bonusDamage: [0xAA, 2],
 
 	// spells: {
 	// 	heaMinorWounds: [0x1B2, 1],
@@ -71,7 +74,7 @@ var MainEditor = React.createClass({
 			var state = {};
 			for(var property in FIELDS){
 				if(FIELDS.hasOwnProperty(property)){
-					var [offset, numBytes] = FIELDS[property];
+					let [offset, numBytes] = FIELDS[property];
 					if (numBytes === 1){
 						state[property] = dataView.getInt8(offset);
 					} else if (numBytes === 2){
