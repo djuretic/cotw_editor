@@ -65,6 +65,8 @@ var CharacterProfile = React.createClass({
 				<div>Intelligence: {this.props.int}</div>
 				<div>Constitution: {this.props.con}</div>
 				<div>Dextery: {this.props.dex}</div>
+				<div>Bulk: {this.props.bulk} / {this.props.maxBulk}</div>
+				<div>Weight: {this.props.weight} / {this.props.maxWeight}</div>
 			</div>
 		);
 	}
@@ -120,7 +122,10 @@ var MainEditor = React.createClass({
 					str={this.state.str} int={this.state.int} con={this.state.con} dex={this.state.dex}
 					hp={this.state.hp} maxHp={this.state.maxHp}
 					mp={this.state.mp} maxMp={this.state.maxMp}
-					exp={this.state.exp} armorClass={this.state.armorClass} />
+					exp={this.state.exp} armorClass={this.state.armorClass}
+					bulk={this.state.bulk} maxBulk={this.state.maxBulk}
+					weight={this.state.weight} maxWeight={this.state.maxWeight}
+					/>
 			</div>
 		);
 	}
