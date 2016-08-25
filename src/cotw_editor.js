@@ -34,14 +34,14 @@ const FIELDS = {
 	bulk: [0x402, 4],
 	maxWeight: [0x406, 4],
 	maxBulk: [0x40A, 4],
-}
+};
 
 const SPELLS = {
 	healMinorWounds: 0x1B2,
 	fireBall: 0x31A
-}
+};
 
-const SPELL_SLOTS = [0x38E, 0x390, 0x392, 0x394, 0x396, 0x398, 0x39A, 0x39C, 0x39E, 0x3A0]
+const SPELL_SLOTS = [0x38E, 0x390, 0x392, 0x394, 0x396, 0x398, 0x39A, 0x39C, 0x39E, 0x3A0];
 
 var FileInput = React.createClass({
 	propTypes: {
@@ -50,7 +50,7 @@ var FileInput = React.createClass({
 	render: function(){
 		return <input type='file' id='file' onChange={this.props.onChange} />;
 	}
-})
+});
 
 var CharacterProfile = React.createClass({
 	render: function(){
@@ -79,7 +79,7 @@ var MainEditor = React.createClass({
 	savefileSelected: function(e) {
 		var reader = new FileReader();
 		var self = this;
-		reader.onload = (function(theFile) {
+		reader.onload = (function() {
 			console.log(reader.result.byteLength + ' bytes');
 			var dataView = new DataView(reader.result);
 			var state = {spellBook: {}};
