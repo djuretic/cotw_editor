@@ -61,10 +61,10 @@ var CharacterProfile = React.createClass({
 				<div>Mana: {this.props.mp} / {this.props.maxMp}</div>
 				<div>Armor Class: {this.props.armorClass}</div>
 				<div>Experience: {this.props.exp}</div>
-				<div>Strength: {this.props.str}</div>
-				<div>Intelligence: {this.props.int}</div>
-				<div>Constitution: {this.props.con}</div>
-				<div>Dextery: {this.props.dex}</div>
+				<div>Strength: <input type="number" min="0" max="100" value={this.props.str} onChange={this.props.handleChangeStr}/></div>
+				<div>Intelligence: <input type="number" min="0" max="100" value={this.props.int} onChange={this.props.handleChangeInt}/></div>
+				<div>Constitution: <input type="number" min="0" max="100" value={this.props.con} onChange={this.props.handleChangeCon}/></div>
+				<div>Dextery: <input type="number" min="0" max="100" value={this.props.dex} onChange={this.props.handleChangeDex}/></div>
 				<div>Bulk: {this.props.bulk} / {this.props.maxBulk}</div>
 				<div>Weight: {this.props.weight} / {this.props.maxWeight}</div>
 			</div>
@@ -80,7 +80,7 @@ var MainEditor = React.createClass({
 		var reader = new FileReader();
 		var self = this;
 		reader.onload = (function() {
-			console.log(reader.result.byteLength + ' bytes');
+			// console.log(reader.result.byteLength + ' bytes');
 			var dataView = new DataView(reader.result);
 			var state = {spellBook: {}};
 			var readInt = function(_dataView, _offset, _numBytes){
@@ -106,13 +106,22 @@ var MainEditor = React.createClass({
 				}
 			}
 
-			state.spellSlots = SPELL_SLOTS.map(function(offset) {
-				return readInt(dataView, offset, 2);
-			});
+			state.spellSlots = SPELL_SLOTS.map((offset) => readInt(dataView, offset, 2));
 			self.setState(state);
-			console.log(self.state);
 		});
 		reader.readAsArrayBuffer(e.target.files[0]);
+	},
+	handleChangeStr: function(event) {
+		this.setState({str: +event.target.value});
+	},
+	handleChangeInt: function(event) {
+		this.setState({int: +event.target.value});
+	},
+	handleChangeDex: function(event) {
+		this.setState({dex: +event.target.value});
+	},
+	handleChangeCon: function(event) {
+		this.setState({con: +event.target.value});
 	},
 	render: function(){
 		return (
@@ -125,6 +134,10 @@ var MainEditor = React.createClass({
 					exp={this.state.exp} armorClass={this.state.armorClass}
 					bulk={this.state.bulk} maxBulk={this.state.maxBulk}
 					weight={this.state.weight} maxWeight={this.state.maxWeight}
+					handleChangeStr={this.handleChangeStr}
+					handleChangeInt={this.handleChangeInt}
+					handleChangeCon={this.handleChangeCon}
+					handleChangeDex={this.handleChangeDex}
 					/>
 			</div>
 		);
