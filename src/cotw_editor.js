@@ -52,6 +52,18 @@ var FileInput = React.createClass({
 	}
 });
 
+var CharacterAttribute = React.createClass({
+	render: function() {
+		if(this.props.value){
+			return (
+				<div>{this.props.name}: <input type="number" min="0" max="100" value={this.props.value} onChange={this.props.onChange}/></div>
+			);
+		} else {
+			return <div>{this.props.name}: -</div>;
+		}
+	}
+});
+
 var CharacterProfile = React.createClass({
 	render: function(){
 		return (
@@ -61,10 +73,10 @@ var CharacterProfile = React.createClass({
 				<div>Mana: {this.props.mp} / {this.props.maxMp}</div>
 				<div>Armor Class: {this.props.armorClass}</div>
 				<div>Experience: {this.props.exp}</div>
-				<div>Strength: <input type="number" min="0" max="100" value={this.props.str} onChange={this.props.handleChangeStr}/></div>
-				<div>Intelligence: <input type="number" min="0" max="100" value={this.props.int} onChange={this.props.handleChangeInt}/></div>
-				<div>Constitution: <input type="number" min="0" max="100" value={this.props.con} onChange={this.props.handleChangeCon}/></div>
-				<div>Dextery: <input type="number" min="0" max="100" value={this.props.dex} onChange={this.props.handleChangeDex}/></div>
+				<CharacterAttribute name="Strength" value={this.props.str} onChange={this.props.handleChangeStr}/>
+				<CharacterAttribute name="Intelligence" value={this.props.int} onChange={this.props.handleChangeInt}/>
+				<CharacterAttribute name="Constitution" value={this.props.con} onChange={this.props.handleChangeCon}/>
+				<CharacterAttribute name="Dextery" value={this.props.dex} onChange={this.props.handleChangeDex}/>
 				<div>Bulk: {this.props.bulk} / {this.props.maxBulk}</div>
 				<div>Weight: {this.props.weight} / {this.props.maxWeight}</div>
 			</div>
