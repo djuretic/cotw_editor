@@ -45,29 +45,36 @@ const SPELL_SLOTS = [0x38E, 0x390, 0x392, 0x394, 0x396, 0x398, 0x39A, 0x39C, 0x3
 
 var FileInput = React.createClass({
 	propTypes: {
-		onChange: React.PropTypes.func.isRequired
+		onChange: React.PropTypes.func.isRequired,
+		loaded: React.PropTypes.bool.isRequired,
 	},
-	render: function(){
-		return <input type='file' id='file' onChange={this.props.onChange} />;
+	render() {
+		return (
+			<fieldset>
+				<legend>File</legend>
+				<input type='file' id='file' onChange={this.props.onChange} />
+				<input type='button' value="Download savegame" disabled={!this.props.loaded} />
+			</fieldset>
+		);
 	}
 });
 
 var CharacterAttribute = React.createClass({
-	render: function() {
-		if(this.props.value){
-			return (
-				<div>{this.props.name}: <input type="number" min="0" max="100" value={this.props.value} onChange={(e) => this.props.onChange(this.props.var, e)}/></div>
-			);
-		} else {
-			return <div>{this.props.name}: -</div>;
-		}
+	render() {
+		return (
+			<div>
+				{this.props.name}:
+				<input type="number" min="0" max="100" value={this.props.value} onChange={(e) => this.props.onChange(this.props.var, e)}/>
+			</div>
+		);
 	}
 });
 
 var CharacterProfile = React.createClass({
-	render: function(){
+	render() {
 		return (
-			<div>
+			<fieldset>
+				<legend>Character</legend>
 				<img src='assets/hero_male.png' />
 				<div>HP: {this.props.hp} / {this.props.maxHp}</div>
 				<div>Mana: {this.props.mp} / {this.props.maxMp}</div>
@@ -79,19 +86,18 @@ var CharacterProfile = React.createClass({
 				<CharacterAttribute name="Dextery" var="dex" value={this.props.dex} onChange={this.props.handleChange}/>
 				<div>Bulk: {this.props.bulk} / {this.props.maxBulk}</div>
 				<div>Weight: {this.props.weight} / {this.props.maxWeight}</div>
-			</div>
+			</fieldset>
 		);
 	}
 });
 
 var MainEditor = React.createClass({
-	getInitialState: function(){
+	getInitialState() {
 		return {};
 	},
-	savefileSelected: function(e) {
+	savefileSelected(e) {
 		var reader = new FileReader();
-		var self = this;
-		reader.onload = (function() {
+		reader.onload = (() => {
 			// console.log(reader.result.byteLength + ' bytes');
 			var dataView = new DataView(reader.result);
 			var state = {spellBook: {}};
@@ -119,17 +125,20 @@ var MainEditor = React.createClass({
 			}
 
 			state.spellSlots = SPELL_SLOTS.map((offset) => readInt(dataView, offset, 2));
-			self.setState(state);
+			this.setState(state);
 		});
 		reader.readAsArrayBuffer(e.target.files[0]);
 	},
-	handleChange: function(attribute, event) {
+	handleChange(attribute, event) {
 		this.setState({[attribute]: +event.target.value});
 	},
-	render: function(){
+	isLoaded() {
+		return !!this.state.level;
+	},
+	render() {
 		return (
 			<div>
-				<FileInput onChange={this.savefileSelected} />
+				<FileInput loaded={this.isLoaded()} onChange={this.savefileSelected}/>
 				<CharacterProfile
 					str={this.state.str} int={this.state.int} con={this.state.con} dex={this.state.dex}
 					hp={this.state.hp} maxHp={this.state.maxHp}
