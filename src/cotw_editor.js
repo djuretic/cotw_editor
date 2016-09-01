@@ -53,7 +53,7 @@ var FileInput = React.createClass({
 			<fieldset>
 				<legend>File</legend>
 				<input type='file' id='file' onChange={this.props.onChange} />
-				<input type='button' value="Download savegame" disabled={!this.props.loaded} />
+				<input type='button' value="Download savegame" disabled={!this.props.loaded} onClick={this.props.onDownloadFile}/>
 			</fieldset>
 		);
 	}
@@ -100,8 +100,9 @@ var MainEditor = React.createClass({
 		reader.onload = (() => {
 			// console.log(reader.result.byteLength + ' bytes');
 			var dataView = new DataView(reader.result);
-			var state = {spellBook: {}};
+			var state = {spellBook: {}, rawFile: reader.result};
 			var readInt = function(_dataView, _offset, _numBytes){
+				// TODO signed or unsigned?
 				if (_numBytes === 1){
 					return _dataView.getInt8(_offset);
 				} else if (_numBytes === 2){
@@ -129,6 +130,10 @@ var MainEditor = React.createClass({
 		});
 		reader.readAsArrayBuffer(e.target.files[0]);
 	},
+	downloadSavefile() {
+		var blob = new Blob([this.state.rawFile]);
+		saveAs(blob, 'savegame.cwg');
+	},
 	handleChange(attribute, event) {
 		this.setState({[attribute]: +event.target.value});
 	},
@@ -138,7 +143,7 @@ var MainEditor = React.createClass({
 	render() {
 		return (
 			<div>
-				<FileInput loaded={this.isLoaded()} onChange={this.savefileSelected}/>
+				<FileInput loaded={this.isLoaded()} onChange={this.savefileSelected} onDownloadFile={this.downloadSavefile} />
 				<CharacterProfile
 					str={this.state.str} int={this.state.int} con={this.state.con} dex={this.state.dex}
 					hp={this.state.hp} maxHp={this.state.maxHp}
