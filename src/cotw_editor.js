@@ -131,7 +131,25 @@ var MainEditor = React.createClass({
 		reader.readAsArrayBuffer(e.target.files[0]);
 	},
 	downloadSavefile() {
-		var blob = new Blob([this.state.rawFile]);
+		let dataView = new DataView(this.state.rawFile);
+		let writeInt = function(_dataView, _offset, _value, _numBytes){
+			// TODO signed or unsigned?
+			if (_numBytes === 1){
+				return _dataView.setInt8(_offset, _value);
+			} else if (_numBytes === 2){
+				return _dataView.setInt16(_offset, _value, true);
+			} else if (_numBytes === 4){
+				return _dataView.setInt32(_offset, _value, true);
+			}
+		};
+		for(let property in FIELDS){
+			if(FIELDS.hasOwnProperty(property)){
+				let [offset, numBytes] = FIELDS[property];
+				writeInt(dataView, offset, this.state[property], numBytes);
+			}
+		}
+		// TODO spells, spellsSlots
+		let blob = new Blob([dataView]);
 		saveAs(blob, 'savegame.cwg');
 	},
 	handleChange(attribute, event) {
