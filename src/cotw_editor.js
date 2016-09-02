@@ -1,3 +1,6 @@
+
+var {Button, Grid, Row, Col} = ReactBootstrap;
+
 // source: https://www.gamefaqs.com/pc/574556-castle-of-the-winds-1-a-question-of-vengeance/faqs/2405
 // fieldName: [offset, numberOfBytes (littleEndian)]
 const FIELDS = {
@@ -64,9 +67,9 @@ var FileInput = React.createClass({
 	render() {
 		return (
 			<fieldset>
-				<legend>File</legend>
+				<legend>Savegame file</legend>
 				<input type='file' id='file' onChange={this.props.onChange} />
-				<input type='button' value="Download savegame" disabled={!this.props.loaded} onClick={this.props.onDownloadFile}/>
+				<Button bsStyle="primary" disabled={!this.props.loaded} onClick={this.props.onDownloadFile}>Download savegame</Button>
 			</fieldset>
 		);
 	}
@@ -75,10 +78,10 @@ var FileInput = React.createClass({
 var CharacterAttribute = React.createClass({
 	render() {
 		return (
-			<div>
-				{this.props.name}:
-				<input type="number" min="0" max={this.props.max} value={this.props.value} onChange={(e) => this.props.onChange(this.props.var, e)}/>
-			</div>
+			<Row>
+				<Col md={1}>{this.props.name}:</Col>
+				<Col md={1}><input type="number" min="0" max={this.props.max} value={this.props.value} onChange={(e) => this.props.onChange(this.props.var, e)}/></Col>
+			</Row>
 		);
 	}
 });
@@ -111,7 +114,6 @@ var MainEditor = React.createClass({
 	savefileSelected(e) {
 		var reader = new FileReader();
 		reader.onload = (() => {
-			// console.log(reader.result.byteLength + ' bytes');
 			var dataView = new DataView(reader.result);
 			var state = {spellBook: {}, rawFile: reader.result};
 			var readInt = function(_dataView, _offset, _numBytes){
@@ -173,7 +175,8 @@ var MainEditor = React.createClass({
 	},
 	render() {
 		return (
-			<div>
+			<Grid>
+				<h1><img src="assets/icon.png" height="32" width="32" />Castle of the Winds Editor</h1>
 				<FileInput loaded={this.isLoaded()} onChange={this.savefileSelected} onDownloadFile={this.downloadSavefile} />
 				<CharacterProfile
 					str={this.state.str} int={this.state.int} con={this.state.con} dex={this.state.dex}
@@ -184,7 +187,7 @@ var MainEditor = React.createClass({
 					weight={this.state.weight} maxWeight={this.state.maxWeight} gender={this.state.gender}
 					handleChange={this.handleChange}
 					/>
-			</div>
+			</Grid>
 		);
 	}
 });
