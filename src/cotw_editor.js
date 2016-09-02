@@ -1,14 +1,25 @@
 // source: https://www.gamefaqs.com/pc/574556-castle-of-the-winds-1-a-question-of-vengeance/faqs/2405
 // fieldName: [offset, numberOfBytes (littleEndian)]
 const FIELDS = {
-	str: [0x80, 1],
-	int: [0x81, 1],
-	con: [0x82, 1],
-	dex: [0x83, 1],
-	strBase: [0x84, 1],
-	intBase: [0x85, 1],
-	conBase: [0x86, 1],
-	dexBase: [0x87, 1],
+	// green bars, base value
+	strBase: [0x80, 1],
+	intBase: [0x81, 1],
+	conBase: [0x82, 1],
+	dexBase: [0x83, 1],
+	// blue bars, affected by items
+	str: [0x84, 1],
+	int: [0x85, 1],
+	con: [0x86, 1],
+	dex: [0x87, 1],
+
+	strPenalty: [0x88, 1],
+	intPenalty: [0x89, 1],
+	conPenalty: [0x8A, 1],
+	dexPenalty: [0x8B, 1],
+	strBonus: [0x90, 1],
+	intBonus: [0x91, 1],
+	conBonus: [0x92, 1],
+	dexBonus: [0x93, 1],
 
 	hp: [0x94, 2],
 	maxHp: [0x96, 2],
@@ -22,6 +33,8 @@ const FIELDS = {
 
 	bonusHit: [0xA8, 2],
 	bonusDamage: [0xAA, 2],
+
+	gender: [0xBA, 1],
 
 	resistFire: [0x150, 2],
 	resistCold: [0x152, 2],
@@ -64,7 +77,7 @@ var CharacterAttribute = React.createClass({
 		return (
 			<div>
 				{this.props.name}:
-				<input type="number" min="0" max="100" value={this.props.value} onChange={(e) => this.props.onChange(this.props.var, e)}/>
+				<input type="number" min="0" max={this.props.max} value={this.props.value} onChange={(e) => this.props.onChange(this.props.var, e)}/>
 			</div>
 		);
 	}
@@ -75,15 +88,15 @@ var CharacterProfile = React.createClass({
 		return (
 			<fieldset>
 				<legend>Character</legend>
-				<img src='assets/hero_male.png' />
+				<img src={this.props.gender === 1 ? 'assets/hero_female.png': 'assets/hero_male.png'} />
 				<div>HP: {this.props.hp} / {this.props.maxHp}</div>
 				<div>Mana: {this.props.mp} / {this.props.maxMp}</div>
 				<div>Armor Class: {this.props.armorClass}</div>
-				<div>Experience: {this.props.exp}</div>
-				<CharacterAttribute name="Strength" var="str" value={this.props.str} onChange={this.props.handleChange}/>
-				<CharacterAttribute name="Intelligence" var="int" value={this.props.int} onChange={this.props.handleChange}/>
-				<CharacterAttribute name="Constitution" var="con" value={this.props.con} onChange={this.props.handleChange}/>
-				<CharacterAttribute name="Dextery" var="dex" value={this.props.dex} onChange={this.props.handleChange}/>
+				<CharacterAttribute name="Experience" var="exp" value={this.props.exp} max="99999" onChange={this.props.handleChange}/>
+				<CharacterAttribute name="Strength" var="str" value={this.props.str} max="100" onChange={this.props.handleChange}/>
+				<CharacterAttribute name="Intelligence" var="int" value={this.props.int} max="100" onChange={this.props.handleChange}/>
+				<CharacterAttribute name="Constitution" var="con" value={this.props.con} max="100" onChange={this.props.handleChange}/>
+				<CharacterAttribute name="Dextery" var="dex" value={this.props.dex} max="100" onChange={this.props.handleChange}/>
 				<div>Bulk: {this.props.bulk} / {this.props.maxBulk}</div>
 				<div>Weight: {this.props.weight} / {this.props.maxWeight}</div>
 			</fieldset>
@@ -168,7 +181,7 @@ var MainEditor = React.createClass({
 					mp={this.state.mp} maxMp={this.state.maxMp}
 					exp={this.state.exp} armorClass={this.state.armorClass}
 					bulk={this.state.bulk} maxBulk={this.state.maxBulk}
-					weight={this.state.weight} maxWeight={this.state.maxWeight}
+					weight={this.state.weight} maxWeight={this.state.maxWeight} gender={this.state.gender}
 					handleChange={this.handleChange}
 					/>
 			</div>
