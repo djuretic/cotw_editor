@@ -54,7 +54,41 @@ const FIELDS = {
 
 const SPELLS = {
 	healMinorWounds: 0x1B2,
-	fireBall: 0x31A
+	detectObjects: 0x1BE,
+	light: 0x1CA,
+	magicArrow: 0x1D6,
+	phaseDoor: 0x1E2,
+	shield: 0x1EE,
+	clairvoyance: 0x1FA,
+	coldBolt: 0x206,
+	detectMonsters: 0x212,
+	detectTraps: 0x21E,
+	identify: 0x22A,
+	levitation: 0x236,
+	neutralizePoison: 0x242,
+	coldBall: 0x24E,
+	healMediumWounds: 0x25A,
+	fireBolt: 0x266,
+	lightningBolt: 0x272,
+	removeCurse: 0x27E,
+	resistFire: 0x28A,
+	resistCold: 0x296,
+	resistLightning: 0x2A2,
+	resistAcid: 0x2AE,
+	resistFear: 0x2BA,
+	sleepMonster: 0x2C6,
+	slowMonster: 0x2D2,
+	teleport: 0x2DE,
+	runeOfReturn: 0x2EA,
+	healMajorWounds: 0x2F6,
+	fireball: 0x302,
+	ballLightning: 0x30E,
+	healing: 0x31A,
+	transmogrifyMonster: 0x326,
+	createTraps: 0x332,
+	hasteMonster: 0x33E,
+	teleportAway: 0x34A,
+	cloneMonster: 0x356
 };
 
 const SPELL_SLOTS = [0x38E, 0x390, 0x392, 0x394, 0x396, 0x398, 0x39A, 0x39C, 0x39E, 0x3A0];
@@ -107,9 +141,29 @@ var CharacterProfile = React.createClass({
 	}
 });
 
+var Spellbook = React.createClass({
+	getInitialState() {
+		return {spells: {}};
+	},
+	render() {
+		const spells = Object.keys(this.props.spells).map((spellName) => {
+			let value = this.props.spells[spellName];
+			return <li style={value === -1 ? {color: 'gray'} : {} }>{spellName}: {value}</li>;
+		});
+		return (
+			<fieldset>
+				<legend>Spellbook</legend>
+				<ul>
+					{spells}
+				</ul>
+			</fieldset>
+		);
+	}
+});
+
 var MainEditor = React.createClass({
 	getInitialState() {
-		return {};
+		return {spellBook: {}};
 	},
 	savefileSelected(e) {
 		var reader = new FileReader();
@@ -187,6 +241,7 @@ var MainEditor = React.createClass({
 					weight={this.state.weight} maxWeight={this.state.maxWeight} gender={this.state.gender}
 					handleChange={this.handleChange}
 					/>
+				<Spellbook spells={this.state.spellBook}/>
 			</Grid>
 		);
 	}
