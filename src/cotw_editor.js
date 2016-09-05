@@ -173,7 +173,6 @@ var MainEditor = React.createClass({
 			var dataView = new DataView(reader.result);
 			var state = {spellBook: {}, rawFile: reader.result};
 			var readInt = function(_dataView, _offset, _numBytes){
-				// TODO signed or unsigned?
 				if (_numBytes === 1){
 					return _dataView.getInt8(_offset);
 				} else if (_numBytes === 2){
@@ -204,7 +203,6 @@ var MainEditor = React.createClass({
 	downloadSavefile() {
 		let dataView = new DataView(this.state.rawFile);
 		let writeInt = function(_dataView, _offset, _value, _numBytes){
-			// TODO signed or unsigned?
 			if (_numBytes === 1){
 				return _dataView.setInt8(_offset, _value);
 			} else if (_numBytes === 2){
@@ -219,7 +217,13 @@ var MainEditor = React.createClass({
 				writeInt(dataView, offset, this.state[property], numBytes);
 			}
 		}
-		// TODO spells, spellsSlots
+		// TODO spellsSlots
+		for(let property in SPELLS){
+			if(SPELLS.hasOwnProperty(property)){
+				let offset = SPELLS[property];
+				writeInt(dataView, offset, this.state.spellBook[property], 1);
+			}
+		}
 		let blob = new Blob([dataView]);
 		saveAs(blob, 'savegame.cwg');
 	},
