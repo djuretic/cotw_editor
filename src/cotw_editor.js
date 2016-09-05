@@ -148,7 +148,9 @@ var Spellbook = React.createClass({
 	render() {
 		const spells = Object.keys(this.props.spells).map((spellName) => {
 			let value = this.props.spells[spellName];
-			return <li style={value === -1 ? {color: 'gray'} : {} }>{spellName}: {value}</li>;
+			const learned = value !== -1 && value !== -2;
+			const handleChange = (event) => this.props.handleChange(spellName, event);
+			return <li style={learned ? {} : {color: 'gray'} }>{spellName}: <input type="number" value={value} onChange={handleChange}/></li>;
 		});
 		return (
 			<fieldset>
@@ -224,6 +226,10 @@ var MainEditor = React.createClass({
 	handleChange(attribute, event) {
 		this.setState({[attribute]: +event.target.value});
 	},
+	handleSpellChange(spell, event) {
+		//source: 2nd comment of http://stackoverflow.com/a/18934259
+		this.setState({spellBook: { ...this.state.spellBook, [spell]: +event.target.value}});
+	},
 	isLoaded() {
 		return !!this.state.level;
 	},
@@ -241,7 +247,7 @@ var MainEditor = React.createClass({
 					weight={this.state.weight} maxWeight={this.state.maxWeight} gender={this.state.gender}
 					handleChange={this.handleChange}
 					/>
-				<Spellbook spells={this.state.spellBook}/>
+				<Spellbook spells={this.state.spellBook} handleChange={this.handleSpellChange}/>
 			</Grid>
 		);
 	}
