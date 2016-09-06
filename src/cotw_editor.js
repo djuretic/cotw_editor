@@ -150,14 +150,14 @@ var Spellbook = React.createClass({
 			let value = this.props.spells[spellName];
 			const learned = value !== -1 && value !== -2;
 			const handleChange = (event) => this.props.handleChange(spellName, event);
-			return <li style={learned ? {} : {color: 'gray'} }>{spellName}: <input type="number" value={value} onChange={handleChange}/></li>;
+			return <Col md={2} style={learned ? {} : {color: 'gray'} }>{spellName} <input type="number" value={value} onChange={handleChange}/></Col>;
 		});
 		return (
 			<fieldset>
 				<legend>Spellbook</legend>
-				<ul>
+				<Row>
 					{spells}
-				</ul>
+				</Row>
 			</fieldset>
 		);
 	}
