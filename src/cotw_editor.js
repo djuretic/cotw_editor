@@ -1,5 +1,5 @@
 
-var {Button, Grid, Row, Col} = ReactBootstrap;
+var {Button, Grid, Row, Col, FormControl} = ReactBootstrap;
 
 // source: https://www.gamefaqs.com/pc/574556-castle-of-the-winds-1-a-question-of-vengeance/faqs/2405
 // fieldName: [offset, numberOfBytes (littleEndian)]
@@ -141,20 +141,43 @@ var CharacterProfile = React.createClass({
 	}
 });
 
-var Spellbook = React.createClass({
-	getInitialState() {
-		return {spells: {}};
+var SpellFilter = React.createClass({
+	propTypes: {
+		onChange: React.PropTypes.func.isRequired,
 	},
 	render() {
-		const spells = Object.keys(this.props.spells).map((spellName) => {
+		return (
+			<Col md={2}>
+				Filter by name:
+				<FormControl type="text" placeholder="Enter spell name here" onChange={this.props.onChange} />
+			</Col>
+		);
+	}
+});
+
+var Spellbook = React.createClass({
+	getInitialState() {
+		return {spells: {}, filterText: ''};
+	},
+	handleFilterChange(event) {
+		this.setState({filterText: event.target.value.replace(/\s+/g, '')});
+	},
+	render() {
+		const spells = Object.keys(this.props.spells).filter(str => str.toUpperCase().includes(this.state.filterText.toUpperCase())).map((spellName) => {
 			let value = this.props.spells[spellName];
 			const learned = value !== -1 && value !== -2;
 			const handleChange = (event) => this.props.handleChange(spellName, event);
-			return <Col md={2} style={learned ? {} : {color: 'gray'} }>{spellName} <input type="number" value={value} onChange={handleChange}/></Col>;
+			// source: http://stackoverflow.com/a/1026087
+			let longSpellName = spellName.charAt(0).toUpperCase() + spellName.slice(1);
+			longSpellName = longSpellName.replace(/([a-z])([A-Z])/g, '$1 $2');
+			return <Col md={2} style={learned ? {} : {color: 'gray'} }>{longSpellName} <input type="number" value={value} onChange={handleChange}/></Col>;
 		});
 		return (
 			<fieldset>
 				<legend>Spellbook</legend>
+				<Row>
+					<SpellFilter onChange={this.handleFilterChange}/>
+				</Row>
 				<Row>
 					{spells}
 				</Row>
