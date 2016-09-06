@@ -114,7 +114,7 @@ var CharacterAttribute = React.createClass({
 		return (
 			<Row>
 				<Col md={1}>{this.props.name}:</Col>
-				<Col md={1}><input type="number" min="0" max={this.props.max} value={this.props.value} onChange={(e) => this.props.onChange(this.props.var, e)}/></Col>
+				<Col md={1}><FormControl type="number" min="0" max={this.props.max} value={this.props.value} onChange={(e) => this.props.onChange(this.props.var, e)}/></Col>
 			</Row>
 		);
 	}
@@ -170,7 +170,7 @@ var Spellbook = React.createClass({
 			// source: http://stackoverflow.com/a/1026087
 			let longSpellName = spellName.charAt(0).toUpperCase() + spellName.slice(1);
 			longSpellName = longSpellName.replace(/([a-z])([A-Z])/g, '$1 $2');
-			return <Col md={2} style={learned ? {} : {color: 'gray'} }>{longSpellName} <input type="number" value={value} onChange={handleChange}/></Col>;
+			return <Col md={2} style={learned ? {} : {color: 'gray'} }>{longSpellName} <FormControl type="number" value={value} onChange={handleChange}/></Col>;
 		});
 		return (
 			<fieldset>
