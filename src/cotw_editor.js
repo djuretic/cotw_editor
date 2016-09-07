@@ -163,14 +163,17 @@ var Spellbook = React.createClass({
 		this.setState({filterText: event.target.value.replace(/\s+/g, '')});
 	},
 	render() {
-		const spells = Object.keys(this.props.spells).filter(str => str.toUpperCase().includes(this.state.filterText.toUpperCase())).map((spellName, n) => {
+		const allSpellNames = Object.keys(this.props.spells);
+		const spells = allSpellNames.filter(str => str.toUpperCase().includes(this.state.filterText.toUpperCase())).map((spellName) => {
 			let value = this.props.spells[spellName];
 			const learned = value !== -1 && value !== -2;
 			const handleChange = (event) => this.props.handleChange(spellName, event);
 			// source: http://stackoverflow.com/a/1026087
 			let longSpellName = spellName.charAt(0).toUpperCase() + spellName.slice(1);
 			longSpellName = longSpellName.replace(/([a-z])([A-Z])/g, '$1 $2');
-			const spriteStyles = {'background-position': `-${24*n}px -${22*Math.floor(n/8)}px`};
+			const n = allSpellNames.indexOf(spellName);
+			// the last 4 spells don't have icons
+			const spriteStyles = n >= 32 ? {background: 'none'} : {'background-position': `-${24*n}px -${22*Math.floor(n/8)}px`};
 			return (
 				<Col md={2} style={learned ? {} : {color: 'gray'} }>
 					<span className="spell-icon" style={spriteStyles}/>
