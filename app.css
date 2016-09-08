@@ -7,9 +7,14 @@ input::-webkit-inner-spin-button {
     -webkit-appearance: none;
 }
 
+label {
+	font-weight: normal;
+}
+
 .spell-icon {
 	display: inline-block;
 	background-image: url(assets/spells.png);
 	height: 21px;
 	width: 21px;
+	margin-right: 5px;
 }
