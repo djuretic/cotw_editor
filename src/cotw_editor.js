@@ -113,8 +113,8 @@ var CharacterAttribute = React.createClass({
 	render() {
 		return (
 			<Row>
-				<Col md={1}>{this.props.name}:</Col>
-				<Col md={1}><FormControl type="number" min="0" max={this.props.max} value={this.props.value} onChange={(e) => this.props.onChange(this.props.var, e)}/></Col>
+				<Col md={6}>{this.props.name}:</Col>
+				<Col md={4}><FormControl type="number" min="0" max={this.props.max} value={this.props.value} onChange={(e) => this.props.onChange(this.props.var, e)}/></Col>
 			</Row>
 		);
 	}
@@ -147,7 +147,7 @@ var SpellFilter = React.createClass({
 	},
 	render() {
 		return (
-			<Col md={2}>
+			<Col md={3}>
 				Filter by name:
 				<FormControl type="text" placeholder="Enter spell name here" onChange={this.props.onChange} />
 			</Col>
@@ -176,7 +176,7 @@ var Spellbook = React.createClass({
 			const spriteStyles = n >= 32 ? {background: 'none'} : {'background-position': `-${24*n}px -${22*Math.floor(n/8)}px`};
 			return (
 				<div>
-					<Col md={2} className="text-right" style={learned ? {} : {color: 'gray'} }>
+					<Col md={3} className="text-right" style={learned ? {} : {color: 'gray'} }>
 						<span className="spell-icon" style={spriteStyles}/>
 						<ControlLabel>{longSpellName}</ControlLabel>
 					</Col>
@@ -279,16 +279,22 @@ var MainEditor = React.createClass({
 			<Grid>
 				<h1><img src="assets/icon.png" height="32" width="32" />Castle of the Winds Editor</h1>
 				<FileInput loaded={this.isLoaded()} onChange={this.savefileSelected} onDownloadFile={this.downloadSavefile} />
-				<CharacterProfile
-					str={this.state.str} int={this.state.int} con={this.state.con} dex={this.state.dex}
-					hp={this.state.hp} maxHp={this.state.maxHp}
-					mp={this.state.mp} maxMp={this.state.maxMp}
-					exp={this.state.exp} armorClass={this.state.armorClass}
-					bulk={this.state.bulk} maxBulk={this.state.maxBulk}
-					weight={this.state.weight} maxWeight={this.state.maxWeight} gender={this.state.gender}
-					handleChange={this.handleChange}
-					/>
-				<Spellbook spells={this.state.spellBook} handleChange={this.handleSpellChange}/>
+				<Row>
+					<Col md={4}>
+						<CharacterProfile
+							str={this.state.str} int={this.state.int} con={this.state.con} dex={this.state.dex}
+							hp={this.state.hp} maxHp={this.state.maxHp}
+							mp={this.state.mp} maxMp={this.state.maxMp}
+							exp={this.state.exp} armorClass={this.state.armorClass}
+							bulk={this.state.bulk} maxBulk={this.state.maxBulk}
+							weight={this.state.weight} maxWeight={this.state.maxWeight} gender={this.state.gender}
+							handleChange={this.handleChange}
+							/>
+					</Col>
+					<Col md={8}>
+						<Spellbook spells={this.state.spellBook} handleChange={this.handleSpellChange}/>
+					</Col>
+				</Row>
 			</Grid>
 		);
 	}
