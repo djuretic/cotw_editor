@@ -1,5 +1,5 @@
 
-var {Button, Grid, Row, Col, FormControl} = ReactBootstrap;
+var {Button, Grid, Row, Col, FormControl, ControlLabel} = ReactBootstrap;
 
 // source: https://www.gamefaqs.com/pc/574556-castle-of-the-winds-1-a-question-of-vengeance/faqs/2405
 // fieldName: [offset, numberOfBytes (littleEndian)]
@@ -175,11 +175,16 @@ var Spellbook = React.createClass({
 			// the last 4 spells don't have icons
 			const spriteStyles = n >= 32 ? {background: 'none'} : {'background-position': `-${24*n}px -${22*Math.floor(n/8)}px`};
 			return (
-				<Col md={2} style={learned ? {} : {color: 'gray'} }>
-					<span className="spell-icon" style={spriteStyles}/>
-					{longSpellName}
-					<FormControl type="number" value={value} onChange={handleChange}/>
-				</Col>);
+				<div>
+					<Col md={3} className="text-right" style={learned ? {} : {color: 'gray'} }>
+						<span className="spell-icon" style={spriteStyles}/>
+						<ControlLabel>{longSpellName}</ControlLabel>
+					</Col>
+					<Col md={1}>
+						<FormControl type="number" value={value} onChange={handleChange}/>
+					</Col>
+				</div>
+				);
 		});
 		return (
 			<fieldset>
