@@ -52,44 +52,46 @@ const FIELDS = {
 	maxBulk: [0x40A, 4],
 };
 
+/* The number at those offsets is the MP used to cast the spell. A value of -1 or -2 means that
+the spell is not learned. When you level up, those values will go back to normal. */
 const SPELLS = {
-	healMinorWounds: 0x1B2,
-	detectObjects: 0x1BE,
-	light: 0x1CA,
-	magicArrow: 0x1D6,
-	phaseDoor: 0x1E2,
-	shield: 0x1EE,
-	clairvoyance: 0x1FA,
-	coldBolt: 0x206,
-	detectMonsters: 0x212,
-	detectTraps: 0x21E,
-	identify: 0x22A,
-	levitation: 0x236,
-	neutralizePoison: 0x242,
-	coldBall: 0x24E,
-	'healMed.Wounds': 0x25A,
-	fireBolt: 0x266,
-	lightningBolt: 0x272,
-	removeCurse: 0x27E,
-	resistFire: 0x28A,
-	resistCold: 0x296,
-	resistLightning: 0x2A2,
-	resistAcid: 0x2AE,
-	resistFear: 0x2BA,
-	sleepMonster: 0x2C6,
-	slowMonster: 0x2D2,
-	teleport: 0x2DE,
-	runeOfReturn: 0x2EA,
-	healMajorWounds: 0x2F6,
-	fireball: 0x302,
-	ballLightning: 0x30E,
-	healing: 0x31A,
-	'trans.Monster': 0x326,
-	createTraps: 0x332,
-	hasteMonster: 0x33E,
-	teleportAway: 0x34A,
-	cloneMonster: 0x356
-};
+	healMinorWounds: {offset: 0x1B2, mp: 1},
+	detectObjects: {offset: 0x1BE, mp: 1},
+	light: {offset: 0x1CA, mp: 1},
+	magicArrow: {offset: 0x1D6, mp: 1},
+	phaseDoor: {offset: 0x1E2, mp: 1},
+	shield: {offset: 0x1EE, mp: 1},
+	clairvoyance: {offset: 0x1FA, mp: 4},
+	coldBolt: {offset: 0x206, mp: 3},
+	detectMonsters: {offset: 0x212, mp: 3},
+	detectTraps: {offset: 0x21E, mp: 3},
+	identify: {offset: 0x22A, mp: 3},
+	levitation: {offset: 0x236, mp: 3},
+	neutralizePoison: {offset: 0x242, mp: 4},
+	coldBall: {offset: 0x24E, mp: 6},
+	'healMed.Wounds': {offset: 0x25A, mp: 4},
+	fireBolt: {offset: 0x266, mp: 4},
+	lightningBolt: {offset: 0x272, mp: 4},
+	removeCurse: {offset: 0x27E, mp: 4},
+	resistFire: {offset: 0x28A, mp: 4},
+	resistCold: {offset: 0x296, mp: 4},
+	resistLightning: {offset: 0x2A2, mp: 4},
+	resistAcid: {offset: 0x2AE, mp: 4},
+	resistFear: {offset: 0x2BA, mp: 4},
+	sleepMonster: {offset: 0x2C6, mp: 6},
+	slowMonster: {offset: 0x2D2, mp: 6},
+	teleport: {offset: 0x2DE, mp: 4},
+	runeOfReturn: {offset: 0x2EA, mp: 4},
+	healMajorWounds: {offset: 0x2F6, mp: 7},
+	fireball: {offset: 0x302, mp: 7},
+	ballLightning: {offset: 0x30E, mp: 6},
+	healing: {offset: 0x31A, mp: 9},
+	'trans.Monster': {offset: 0x326, mp: 9}
+	/*createTraps: {offset: 0x332, mp: 0},
+	hasteMonster: {offset: 0x33E, mp: 0},
+	teleportAway: {offset: 0x34A, mp: 0},
+	cloneMonster: {offset: 0x356, mp: 0}*/
+,};
 
 var FileInput = React.createClass({
 	propTypes: {
@@ -238,7 +240,7 @@ var MainEditor = React.createClass({
 
 			for(let property in SPELLS){
 				if(SPELLS.hasOwnProperty(property)){
-					let offset = SPELLS[property];
+					let {offset} = SPELLS[property];
 					state.spellBook[property] = readInt(dataView, offset, 1);
 				}
 			}
@@ -266,7 +268,7 @@ var MainEditor = React.createClass({
 		}
 		for(let property in SPELLS){
 			if(SPELLS.hasOwnProperty(property)){
-				let offset = SPELLS[property];
+				let {offset} = SPELLS[property];
 				writeInt(dataView, offset, this.state.spellBook[property], 1);
 			}
 		}
