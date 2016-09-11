@@ -95,15 +95,13 @@ const SPELL_SLOTS = [0x38E, 0x390, 0x392, 0x394, 0x396, 0x398, 0x39A, 0x39C, 0x3
 
 var FileInput = React.createClass({
 	propTypes: {
-		onChange: React.PropTypes.func.isRequired,
-		loaded: React.PropTypes.bool.isRequired,
+		onChange: React.PropTypes.func.isRequired
 	},
 	render() {
 		return (
 			<fieldset>
-				<legend>Savegame file</legend>
+				<legend>Select a savegame file</legend>
 				<input type='file' id='file' onChange={this.props.onChange} />
-				<Button bsStyle="primary" disabled={!this.props.loaded} onClick={this.props.onDownloadFile}>Download savegame</Button>
 			</fieldset>
 		);
 	}
@@ -113,8 +111,8 @@ var CharacterAttribute = React.createClass({
 	render() {
 		return (
 			<Row>
-				<Col md={6}>{this.props.name}:</Col>
-				<Col md={4}><FormControl type="number" min="0" max={this.props.max} value={this.props.value} onChange={(e) => this.props.onChange(this.props.var, e)}/></Col>
+				<Col md={6} className="text-right">{this.props.name}</Col>
+				<Col md={6}><FormControl type="number" min="0" max={this.props.max} value={this.props.value} onChange={(e) => this.props.onChange(this.props.var, e)}/></Col>
 			</Row>
 		);
 	}
@@ -125,17 +123,32 @@ var CharacterProfile = React.createClass({
 		return (
 			<fieldset>
 				<legend>Character</legend>
-				<img src={this.props.gender === 1 ? 'assets/hero_female.png': 'assets/hero_male.png'} />
-				<div>HP: {this.props.hp} / {this.props.maxHp}</div>
-				<div>Mana: {this.props.mp} / {this.props.maxMp}</div>
-				<div>Armor Class: {this.props.armorClass}</div>
+				<img src={this.props.gender === 1 ? 'assets/hero_female.png': 'assets/hero_male.png'} className="center-block"/>
+				<Row>
+					<Col md={6} className="text-right">HP</Col>
+					<Col md={6}>{this.props.hp} / {this.props.maxHp}</Col>
+				</Row>
+				<Row>
+					<Col md={6} className="text-right">Mana</Col>
+					<Col md={6}>{this.props.mp} / {this.props.maxMp}</Col>
+				</Row>
+				<Row>
+					<Col md={6} className="text-right">Armor Class</Col>
+					<Col md={6}>{this.props.armorClass}</Col>
+				</Row>
 				<CharacterAttribute name="Experience" var="exp" value={this.props.exp} max="99999" onChange={this.props.handleChange}/>
 				<CharacterAttribute name="Strength" var="str" value={this.props.str} max="100" onChange={this.props.handleChange}/>
 				<CharacterAttribute name="Intelligence" var="int" value={this.props.int} max="100" onChange={this.props.handleChange}/>
 				<CharacterAttribute name="Constitution" var="con" value={this.props.con} max="100" onChange={this.props.handleChange}/>
 				<CharacterAttribute name="Dextery" var="dex" value={this.props.dex} max="100" onChange={this.props.handleChange}/>
-				<div>Bulk: {this.props.bulk} / {this.props.maxBulk}</div>
-				<div>Weight: {this.props.weight} / {this.props.maxWeight}</div>
+				<Row>
+					<Col md={6} className="text-right">Bulk</Col>
+					<Col md={6}>{this.props.bulk} / {this.props.maxBulk}</Col>
+				</Row>
+				<Row>
+					<Col md={6} className="text-right">Weight</Col>
+					<Col md={6}>{this.props.weight} / {this.props.maxWeight}</Col>
+				</Row>
 			</fieldset>
 		);
 	}
@@ -278,7 +291,7 @@ var MainEditor = React.createClass({
 		return (
 			<Grid>
 				<h1><img src="assets/icon.png" height="32" width="32" />Castle of the Winds Editor</h1>
-				<FileInput loaded={this.isLoaded()} onChange={this.savefileSelected} onDownloadFile={this.downloadSavefile} />
+				<FileInput onChange={this.savefileSelected} />
 				<Row>
 					<Col md={4}>
 						<CharacterProfile
@@ -295,6 +308,10 @@ var MainEditor = React.createClass({
 						<Spellbook spells={this.state.spellBook} handleChange={this.handleSpellChange}/>
 					</Col>
 				</Row>
+				<fieldset>
+					<legend>Download savegame file</legend>
+					<Button bsStyle="primary" disabled={!this.isLoaded()} onClick={this.downloadSavefile}>Download savegame</Button>
+				</fieldset>
 			</Grid>
 		);
 	}
