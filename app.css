@@ -23,3 +23,11 @@ label {
 	width: 21px;
 	margin-right: 5px;
 }
+
+.spell-not-learned {
+	color: gray;
+}
+
+.spell-not-learned .spell-icon {
+	display: none;
+}

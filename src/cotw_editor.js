@@ -186,8 +186,8 @@ var Spellbook = React.createClass({
 			// the last 4 spells don't have icons
 			const spriteStyles = n >= 32 ? {background: 'none'} : {'background-position': `-${24*n}px -${22*Math.floor(n/8)}px`};
 			return (
-				<div className="spell">
-					<Col md={3} className="text-right" style={learned ? {} : {color: 'gray'} }>
+				<div className={'spell '+(learned ? 'spell-learned' : 'spell-not-learned')}>
+					<Col md={3} className="text-right">
 						<span className="spell-icon" style={spriteStyles}/>
 						<ControlLabel htmlFor={`spell-${spellName}`}>{longSpellName}</ControlLabel>
 					</Col>
