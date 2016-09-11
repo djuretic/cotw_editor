@@ -4,7 +4,7 @@
   "description": "Castle of the Winds online savegame editor",
   "main": "index.js",
   "scripts": {
-    "babel": "babel --watch -d lib src"
+    "watch": "babel --watch -d lib src"
   },
   "devDependencies": {
     "babel-cli": "^6.11.4",
