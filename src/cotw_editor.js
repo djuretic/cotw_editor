@@ -102,6 +102,7 @@ var FileInput = React.createClass({
 			<fieldset>
 				<legend>Select a savegame file</legend>
 				<input type='file' id='file' onChange={this.props.onChange} />
+				<p className="text-danger">Remember to backup your original savegame file.</p>
 			</fieldset>
 		);
 	}
@@ -202,6 +203,9 @@ var Spellbook = React.createClass({
 		return (
 			<fieldset>
 				<legend>Spellbook</legend>
+				<p>The number next to the spell is the MP cost, setting a spell to 0 makes it free. Setting it to a value other
+				than -1 or -2 will make the spell casteable.</p>
+				<p>Note: leveling up will update the MP cost for all the casteable spells to the real cost. </p>
 				<Row>
 					<SpellFilter onChange={this.handleFilterChange}/>
 				</Row>
