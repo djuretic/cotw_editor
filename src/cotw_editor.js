@@ -195,7 +195,7 @@ var Spellbook = React.createClass({
 						<ControlLabel htmlFor={`spell-${spellName}`}>{longSpellName}</ControlLabel>
 					</Col>
 					<Col md={1}>
-						<FormControl id={`spell-${spellName}`} type="number" value={value} onChange={handleChange}/>
+						<FormControl id={`spell-${spellName}`} type="number" value={value} min="-9" max="9" onChange={handleChange}/>
 					</Col>
 				</div>
 				);
