@@ -91,8 +91,6 @@ const SPELLS = {
 	cloneMonster: 0x356
 };
 
-const SPELL_SLOTS = [0x38E, 0x390, 0x392, 0x394, 0x396, 0x398, 0x39A, 0x39C, 0x39E, 0x3A0];
-
 var FileInput = React.createClass({
 	propTypes: {
 		onChange: React.PropTypes.func.isRequired
@@ -245,7 +243,6 @@ var MainEditor = React.createClass({
 				}
 			}
 
-			state.spellSlots = SPELL_SLOTS.map((offset) => readInt(dataView, offset, 2));
 			this.setState(state);
 		});
 		reader.readAsArrayBuffer(e.target.files[0]);
@@ -267,7 +264,6 @@ var MainEditor = React.createClass({
 				writeInt(dataView, offset, this.state[property], numBytes);
 			}
 		}
-		// TODO spellsSlots
 		for(let property in SPELLS){
 			if(SPELLS.hasOwnProperty(property)){
 				let offset = SPELLS[property];
