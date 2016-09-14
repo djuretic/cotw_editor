@@ -1,5 +1,6 @@
 var webpack = require('webpack');
 var production = process.env.NODE_ENV === 'production';
+var path = require('path');
 
 var plugins = [];
 
@@ -18,10 +19,11 @@ if(production) {
 module.exports = {
 	debug: !production,
 	devtool: production ? false : 'eval',
-	entry: './src',
+	entry: './src/index.js',
 	output: {
-		path: 'build',
-		filename: 'bundle.js'
+		path: path.resolve(__dirname, 'build'),
+		filename: 'bundle.js',
+		publicPath: '/build/'
 	},
 	module: {
 		loaders: [
@@ -42,9 +44,6 @@ module.exports = {
 				loader: 'url?limit=10000',
 			}
 		]
-	},
-	devServer: {
-		hot: true
 	},
 	plugins: plugins,
 }
