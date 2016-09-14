@@ -3,6 +3,7 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import {Button, Grid, Row, Col, FormControl, ControlLabel} from 'react-bootstrap';
 import saveAs from 'file-saver';
+import '../app.css';
 
 // source: https://www.gamefaqs.com/pc/574556-castle-of-the-winds-1-a-question-of-vengeance/faqs/2405
 // fieldName: [offset, numberOfBytes (littleEndian)]
@@ -127,7 +128,7 @@ var CharacterProfile = React.createClass({
 		return (
 			<fieldset>
 				<legend>Character</legend>
-				<img src={this.props.gender === 1 ? 'assets/hero_female.png': 'assets/hero_male.png'} className="center-block"/>
+				<img src={this.props.gender === 1 ? require('../assets/hero_female.png'): require('../assets/hero_male.png')} className="center-block"/>
 				<Row>
 					<Col md={6} className="text-right">HP</Col>
 					<Col md={6}>{this.props.hp} / {this.props.maxHp}</Col>
@@ -295,7 +296,7 @@ var MainEditor = React.createClass({
 	render() {
 		return (
 			<Grid>
-				<h1><img src="assets/icon.png" height="32" width="32" />Castle of the Winds Editor</h1>
+				<h1><img src={require("../assets/icon.png")} height="32" width="32" />Castle of the Winds Editor</h1>
 				<FileInput onChange={this.savefileSelected} />
 				<Row>
 					<Col md={4}>
