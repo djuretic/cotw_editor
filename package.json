@@ -5,7 +5,7 @@
   "main": "index.js",
   "scripts": {
     "build": "webpack",
-    "watch": "babel --watch -d lib src"
+    "watch": "webpack --watch"
   },
   "devDependencies": {
     "babel-cli": "^6.11.4",
