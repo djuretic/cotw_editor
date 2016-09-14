@@ -1,4 +1,23 @@
+var webpack = require('webpack');
+var production = process.env.NODE_ENV === 'production';
+
+var plugins = [];
+
+if(production) {
+	plugins = plugins.concat([
+		// This plugin minifies all the Javascript code of the final bundle
+		new webpack.optimize.UglifyJsPlugin({
+			mangle:   true,
+			compress: {
+				warnings: false, // Suppress uglification warnings
+			},
+		}),
+	]);
+}
+
 module.exports = {
+	debug: !production,
+	devtool: production ? false : 'eval',
 	entry: './src',
 	output: {
 		path: 'build',
@@ -15,5 +34,6 @@ module.exports = {
 				}
 			}
 		]
-	}
+	},
+	plugins: plugins,
 }
