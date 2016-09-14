@@ -1,5 +1,8 @@
 
-var {Button, Grid, Row, Col, FormControl, ControlLabel} = ReactBootstrap;
+import React from 'react';
+import ReactDOM from 'react-dom';
+import {Button, Grid, Row, Col, FormControl, ControlLabel} from 'react-bootstrap';
+import saveAs from 'file-saver';
 
 // source: https://www.gamefaqs.com/pc/574556-castle-of-the-winds-1-a-question-of-vengeance/faqs/2405
 // fieldName: [offset, numberOfBytes (littleEndian)]
