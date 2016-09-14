@@ -191,9 +191,9 @@ var Spellbook = React.createClass({
 			longSpellName = longSpellName.replace(/([a-z.])([A-Z])/g, '$1 $2');
 			const n = allSpellNames.indexOf(spellName);
 			// the last 4 spells don't have icons
-			const spriteStyles = n >= 32 ? {background: 'none'} : {'background-position': `-${24*n}px -${22*Math.floor(n/8)}px`};
+			const spriteStyles = n >= 32 ? {background: 'none'} : {backgroundPosition: `-${24*n}px -${22*Math.floor(n/8)}px`};
 			return (
-				<div className={'spell '+(learned ? 'spell-learned' : 'spell-not-learned')}>
+				<div key={spellName} className={'spell '+(learned ? 'spell-learned' : 'spell-not-learned')}>
 					<Col md={3} className="text-right">
 						<span className="spell-icon" style={spriteStyles}/>
 						<ControlLabel htmlFor={`spell-${spellName}`}>{longSpellName}</ControlLabel>
