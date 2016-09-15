@@ -4,7 +4,8 @@ import {saveAs} from 'file-saver';
 export default {
 	parse(filename, callback) {
 		var reader = new FileReader();
-		reader.onload = (() => {
+		// we are not using reader.onload because it's harder to test
+		reader.addEventListener('load', () => {
 			var dataView = new DataView(reader.result);
 			var state = {spellBook: {}, rawFile: reader.result};
 			var readInt = function(_dataView, _offset, _numBytes){
