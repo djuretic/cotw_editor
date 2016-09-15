@@ -1,7 +1,7 @@
 
 import React from 'react';
 import ReactDOM from 'react-dom';
-import {Button, Grid, Row, Col, FormControl, ControlLabel} from 'react-bootstrap';
+import {Button, Grid, Row, Col, FormControl, ControlLabel, Modal} from 'react-bootstrap';
 import '../app.css';
 import SavegameParser from './savegame_parser';
 
@@ -132,10 +132,20 @@ var Spellbook = React.createClass({
 
 var MainEditor = React.createClass({
 	getInitialState() {
-		return {spellBook: {}};
+		return {spellBook: {}, showModal: false, modalText: ''};
+	},
+	informError(error) {
+		let text = error.message;
+		if(error instanceof RangeError){
+			text = 'The file is not a valid Castle of the Winds savegame.';
+		}
+		this.setState({showModal: true, modalText: text});
+	},
+	closeModal() {
+		this.setState({showModal: false});
 	},
 	savefileSelected(e) {
-		SavegameParser.parse(e.target.files[0], (state) => this.setState(state));
+		SavegameParser.parse(e.target.files[0], (state) => this.setState(state), this.informError);
 	},
 	downloadSavefile() {
 		SavegameParser.write(this.state);
@@ -153,7 +163,7 @@ var MainEditor = React.createClass({
 	render() {
 		return (
 			<Grid>
-				<h1><img src={require("../assets/icon.png")} height="32" width="32" />Castle of the Winds Editor</h1>
+				<h1><img src={require('../assets/icon.png')} height="32" width="32" />Castle of the Winds Editor</h1>
 				<FileInput onChange={this.savefileSelected} />
 				<Row>
 					<Col md={4}>
@@ -175,6 +185,18 @@ var MainEditor = React.createClass({
 					<legend>Download savegame file</legend>
 					<Button bsStyle="primary" disabled={!this.isLoaded()} onClick={this.downloadSavefile}>Download savegame</Button>
 				</fieldset>
+
+				<Modal show={this.state.showModal} onHide={this.closeModal}>
+					<Modal.Header closeButton>
+						<Modal.Title>Error</Modal.Title>
+					</Modal.Header>
+					<Modal.Body>
+						<p>Error reading file: {this.state.modalText}</p>
+					</Modal.Body>
+					<Modal.Footer>
+						<Button onClick={this.closeModal}>Close</Button>
+					</Modal.Footer>
+				</Modal>
 			</Grid>
 		);
 	}

@@ -2,7 +2,7 @@ import {FIELDS, SPELLS} from './constants';
 import {saveAs} from 'file-saver';
 
 export default {
-	parse(filename, callback) {
+	parse(filename, success_callback, error_callback) {
 		var reader = new FileReader();
 		// we are not using reader.onload because it's harder to test
 		reader.addEventListener('load', () => {
@@ -17,21 +17,26 @@ export default {
 					return _dataView.getInt32(_offset, true);
 				}
 			};
-			for(let property in FIELDS){
-				if(FIELDS.hasOwnProperty(property)){
-					let [offset, numBytes] = FIELDS[property];
-					state[property] = readInt(dataView, offset, numBytes);
+
+			try {
+				for(let property in FIELDS){
+					if(FIELDS.hasOwnProperty(property)){
+						let [offset, numBytes] = FIELDS[property];
+						state[property] = readInt(dataView, offset, numBytes);
+					}
 				}
+
+				for(let property in SPELLS){
+					if(SPELLS.hasOwnProperty(property)){
+						let {offset} = SPELLS[property];
+						state.spellBook[property] = readInt(dataView, offset, 1);
+					}
+				}
+			} catch(e) {
+				error_callback(e);
 			}
 
-			for(let property in SPELLS){
-				if(SPELLS.hasOwnProperty(property)){
-					let {offset} = SPELLS[property];
-					state.spellBook[property] = readInt(dataView, offset, 1);
-				}
-			}
-
-			callback(state);
+			success_callback(state);
 		});
 		reader.readAsArrayBuffer(filename);
 	},
