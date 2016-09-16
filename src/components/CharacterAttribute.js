@@ -1,5 +1,5 @@
 import React from 'react';
-import {Row, Col} from 'react-bootstrap';
+import {Row, Col, InputGroup} from 'react-bootstrap';
 import GameNumberInput from './GameNumberInput';
 
 var CharacterAttribute = React.createClass({
@@ -15,11 +15,11 @@ var CharacterAttribute = React.createClass({
 		var inputs;
 		if(this.props.vars) {
 			inputs = (
-				<Row>
-					<Col md={5}><GameNumberInput var={this.props.vars[0]} value={this.props.values[0]} onChange={this.props.onChange}/></Col>
-					<Col md={1}>/</Col>
-					<Col md={5}><GameNumberInput var={this.props.vars[1]} value={this.props.values[1]} onChange={this.props.onChange}/></Col>
-				</Row>
+				<InputGroup>
+					<GameNumberInput var={this.props.vars[0]} value={this.props.values[0]} onChange={this.props.onChange}/>
+					<InputGroup.Addon>/</InputGroup.Addon>
+					<GameNumberInput var={this.props.vars[1]} value={this.props.values[1]} onChange={this.props.onChange}/>
+				</InputGroup>
 			);
 		} else {
 			inputs = <GameNumberInput var={this.props.var} value={this.props.value} onChange={this.props.onChange}/>;
