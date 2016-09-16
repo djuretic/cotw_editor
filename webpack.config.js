@@ -19,7 +19,7 @@ if(production) {
 module.exports = {
 	debug: !production,
 	devtool: production ? false : 'eval',
-	entry: './src/index.js',
+	entry: './src/main.js',
 	output: {
 		path: path.resolve(__dirname, 'build'),
 		filename: 'bundle.js',

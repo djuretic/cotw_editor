@@ -171,7 +171,7 @@ var MainEditor = React.createClass({
 			<Grid>
 				<h1><img src={require('../assets/icon.png')} height="32" width="32" />Castle of the Winds Editor</h1>
 				<FileInput ref="fileinput" onChange={this.savefileSelected} />
-				<Row>
+				<Row className={this.isLoaded() ? '' : 'hidden'}>
 					<Col md={4}>
 						<CharacterProfile
 							str={this.state.str} int={this.state.int} con={this.state.con} dex={this.state.dex}
@@ -187,7 +187,7 @@ var MainEditor = React.createClass({
 						<Spellbook spells={this.state.spellBook} handleChange={this.handleSpellChange}/>
 					</Col>
 				</Row>
-				<fieldset>
+				<fieldset className={this.isLoaded() ? '' : 'hidden'}>
 					<legend>Download savegame file</legend>
 					<Button bsStyle="primary" disabled={!this.isLoaded()} onClick={this.downloadSavefile}>Download savegame</Button>
 				</fieldset>

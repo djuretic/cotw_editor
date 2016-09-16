@@ -21,7 +21,7 @@ export default {
 			try {
 				for(let property in FIELDS){
 					if(FIELDS.hasOwnProperty(property)){
-						let [offset, numBytes] = FIELDS[property];
+						let {offset, numBytes} = FIELDS[property];
 						state[property] = readInt(dataView, offset, numBytes);
 					}
 				}
@@ -53,7 +53,7 @@ export default {
 		};
 		for(let property in FIELDS){
 			if(FIELDS.hasOwnProperty(property)){
-				let [offset, numBytes] = FIELDS[property];
+				let {offset, numBytes} = FIELDS[property];
 				writeInt(dataView, offset, state[property], numBytes);
 			}
 		}
