@@ -1,15 +1,15 @@
 // source: https://www.gamefaqs.com/pc/574556-castle-of-the-winds-1-a-question-of-vengeance/faqs/2405
 export const FIELDS = {
 	// green bars, base value
-	strBase: {offset: 0x80, numBytes: 1},
-	intBase: {offset: 0x81, numBytes: 1},
-	conBase: {offset: 0x82, numBytes: 1},
-	dexBase: {offset: 0x83, numBytes: 1},
+	strBase: {offset: 0x80, numBytes: 1, min: 0, max: 100},
+	intBase: {offset: 0x81, numBytes: 1, min: 0, max: 100},
+	conBase: {offset: 0x82, numBytes: 1, min: 0, max: 100},
+	dexBase: {offset: 0x83, numBytes: 1, min: 0, max: 100},
 	// blue bars, affected by items
-	str: {offset: 0x84, numBytes: 1},
-	int: {offset: 0x85, numBytes: 1},
-	con: {offset: 0x86, numBytes: 1},
-	dex: {offset: 0x87, numBytes: 1},
+	str: {offset: 0x84, numBytes: 1, min: 0, max: 100},
+	int: {offset: 0x85, numBytes: 1, min: 0, max: 100},
+	con: {offset: 0x86, numBytes: 1, min: 0, max: 100},
+	dex: {offset: 0x87, numBytes: 1, min: 0, max: 100},
 
 	strPenalty: {offset: 0x88, numBytes: 1},
 	intPenalty: {offset: 0x89, numBytes: 1},
