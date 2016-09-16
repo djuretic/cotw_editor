@@ -2,7 +2,7 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import {Button, Grid, Row, Col, Modal} from 'react-bootstrap';
-import '../app.css';
+import '../assets/css/main.css';
 import SavegameParser from './savegame_parser';
 
 import Spellbook from './components/Spellbook';
