@@ -25,6 +25,7 @@ export const FIELDS = {
 	mp: {offset: 0x98, numBytes: 2},
 	maxMp: {offset: 0x9A, numBytes: 2},
 	level: {offset: 0x9C, numBytes: 2},
+	name: {offset: 0x100, numBytes: 20, type: 'string'},
 	armorClass: {offset: 0xA6, numBytes: 2},
 
 	exp: {offset: 0x9E, numBytes: 4},

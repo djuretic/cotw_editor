@@ -8,6 +8,7 @@ var CharacterProfile = React.createClass({
 			<fieldset>
 				<legend>Character</legend>
 				<img src={this.props.gender === 1 ? require('../../assets/hero_female.png'): require('../../assets/hero_male.png')} className="center-block"/>
+				<div className="center-block text-center">{this.props.name} (level {this.props.level})</div>
 				<CharacterAttribute name="HP" vars={['hp', 'maxHp']} values={[this.props.hp, this.props.maxHp]} onChange={this.props.handleChange}/>
 				<CharacterAttribute name="Mana" vars={['mp', 'maxMp']} values={[this.props.mp, this.props.maxMp]} onChange={this.props.handleChange}/>
 				<CharacterAttribute name="Armor Class" var="armorClass" value={this.props.armorClass} onChange={this.props.handleChange}/>

@@ -70,8 +70,8 @@ var MainEditor = React.createClass({
 							str={this.state.str} int={this.state.int} con={this.state.con} dex={this.state.dex}
 							hp={this.state.hp} maxHp={this.state.maxHp}
 							mp={this.state.mp} maxMp={this.state.maxMp}
-							exp={this.state.exp} armorClass={this.state.armorClass}
-							bulk={this.state.bulk} maxBulk={this.state.maxBulk}
+							exp={this.state.exp} armorClass={this.state.armorClass} level={this.state.level}
+							bulk={this.state.bulk} maxBulk={this.state.maxBulk} name={this.state.name}
 							weight={this.state.weight} maxWeight={this.state.maxWeight} gender={this.state.gender}
 							handleChange={this.handleChange}
 							/>

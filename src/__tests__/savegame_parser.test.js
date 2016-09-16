@@ -85,6 +85,7 @@ describe('SavegameParser', () => {
 		SavegameParser.parse(new Blob(), fn);
 		var state = fn.mock.calls[0][0];
 		var expected = {
+			name: 'Maria',
 			strBase: 59,
 			intBase: 59,
 			conBase: 58,
