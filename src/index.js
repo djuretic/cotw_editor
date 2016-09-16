@@ -9,11 +9,16 @@ var FileInput = React.createClass({
 	propTypes: {
 		onChange: React.PropTypes.func.isRequired
 	},
+	clear() {
+		if(this.fileInput !== null){
+			this.fileInput.value = null;
+		}
+	},
 	render() {
 		return (
 			<fieldset>
 				<legend>Select a savegame file</legend>
-				<input type='file' id='file' onChange={this.props.onChange} />
+				<input ref={(ref) => this.fileInput = ref} type='file' id='file' onChange={this.props.onChange} />
 				<p className="text-danger">Remember to backup your original savegame file.</p>
 			</fieldset>
 		);
@@ -139,6 +144,7 @@ var MainEditor = React.createClass({
 		if(error instanceof RangeError){
 			text = 'The file is not a valid Castle of the Winds savegame.';
 		}
+		this.refs.fileinput.clear();
 		this.setState({showModal: true, modalText: text});
 	},
 	closeModal() {
@@ -164,7 +170,7 @@ var MainEditor = React.createClass({
 		return (
 			<Grid>
 				<h1><img src={require('../assets/icon.png')} height="32" width="32" />Castle of the Winds Editor</h1>
-				<FileInput onChange={this.savefileSelected} />
+				<FileInput ref="fileinput" onChange={this.savefileSelected} />
 				<Row>
 					<Col md={4}>
 						<CharacterProfile
