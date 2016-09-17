@@ -11,7 +11,7 @@ var Spellbook = React.createClass({
 	},
 	render() {
 		const allSpellNames = Object.keys(this.props.spells);
-		const spells = allSpellNames.filter(str => str.toUpperCase().includes(this.state.filterText.toUpperCase())).map((spellName) => {
+		const spells = allSpellNames.filter(str => str.toUpperCase().indexOf(this.state.filterText.toUpperCase()) >= 0).map((spellName) => {
 			let value = this.props.spells[spellName];
 			const learned = value !== -1 && value !== -2;
 			const handleChange = (event) => this.props.handleChange(spellName, event);
