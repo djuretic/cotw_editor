@@ -23,8 +23,8 @@ describe('SavegameParser', () => {
 				this.listeners.push(listener);
 			};
 			this.readAsArrayBuffer = function() {
-				this.result = toArrayBuffer(fs.readFileSync(__dirname + '/example.cwg'));
-				this.listeners.forEach((listener) => listener());
+				let result = toArrayBuffer(fs.readFileSync(__dirname + '/example.cwg'));
+				this.listeners.forEach((listener) => listener({target: {result: result}}));
 			};
 		};
 	});

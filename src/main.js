@@ -10,7 +10,8 @@ import CharacterProfile from './components/CharacterProfile';
 
 var FileInput = React.createClass({
 	propTypes: {
-		onChange: React.PropTypes.func.isRequired
+		onChange: React.PropTypes.func.isRequired,
+		onLoadExample: React.PropTypes.func.isRequired,
 	},
 	clear() {
 		if(this.fileInput !== null){
@@ -21,7 +22,11 @@ var FileInput = React.createClass({
 		return (
 			<fieldset>
 				<legend>Select a savegame file</legend>
-				<input ref={(ref) => this.fileInput = ref} type='file' id='file' onChange={this.props.onChange} />
+				<Row>
+					<Col md={5}><input ref={(ref) => this.fileInput = ref} type='file' id='file' onChange={this.props.onChange} /></Col>
+					<Col md={1}>or</Col>
+					<Col md={5}><Button bsStyle="primary" onClick={this.props.onLoadExample}>Use example savegame</Button></Col>
+				</Row>
 				<p className="text-danger">Remember to backup your original savegame file.</p>
 			</fieldset>
 		);
@@ -59,11 +64,26 @@ var MainEditor = React.createClass({
 	isLoaded() {
 		return !!this.state.level;
 	},
+	loadExample(){
+		var xhr = new XMLHttpRequest();
+		xhr.open('GET', 'build/example.cwg');
+		xhr.setRequestHeader('Content-Type', 'application/octet-stream');
+		xhr.responseType = 'arraybuffer';
+		xhr.onload = () => {
+			if (xhr.status === 200) {
+				SavegameParser.parse(xhr.response, (state) => this.setState(state), this.informError);
+			}else {
+				alert('Error loading the example file. Returned status of ' + xhr.status);
+			}
+		};
+		xhr.send();
+
+	},
 	render() {
 		return (
 			<Grid>
 				<h1><img src={require('../assets/icon.png')} height="32" width="32" />Castle of the Winds Editor</h1>
-				<FileInput ref="fileinput" onChange={this.savefileSelected} />
+				<FileInput ref="fileinput" onChange={this.savefileSelected} onLoadExample={this.loadExample}/>
 				<Row className={this.isLoaded() ? '' : 'hidden'}>
 					<Col md={4}>
 						<CharacterProfile

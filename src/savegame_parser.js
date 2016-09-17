@@ -34,12 +34,10 @@ const writeInt = function(_dataView, _offset, _value, _numBytes){
 };
 
 export default {
-	parse(filename, success_callback, error_callback) {
-		var reader = new FileReader();
-		// we are not using reader.onload because it's harder to test
-		reader.addEventListener('load', () => {
-			var dataView = new DataView(reader.result);
-			var state = {spellBook: {}, rawFile: reader.result};
+	parse(file_or_arraybuffer, success_callback, error_callback) {
+		const parseData = (event) => {
+			var dataView = new DataView(event.target.result);
+			var state = {spellBook: {}, rawFile: event.target.result};
 
 			try {
 				for(let property in FIELDS){
@@ -64,8 +62,15 @@ export default {
 			}
 
 			success_callback(state);
-		});
-		reader.readAsArrayBuffer(filename);
+		};
+		if(file_or_arraybuffer instanceof ArrayBuffer) { // only when using the example savegame
+			parseData({target: {result: file_or_arraybuffer}}, success_callback, error_callback);
+		} else {
+			var reader = new FileReader();
+			// we are not using reader.onload because it's harder to test
+			reader.addEventListener('load', parseData);
+			reader.readAsArrayBuffer(file_or_arraybuffer);
+		}
 	},
 	write(state) {
 		let dataView = new DataView(state.rawFile);

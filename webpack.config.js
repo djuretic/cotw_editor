@@ -1,8 +1,13 @@
 var webpack = require('webpack');
+var CopyWebpackPlugin = require('copy-webpack-plugin');
 var production = process.env.NODE_ENV === 'production';
 var path = require('path');
 
-var plugins = [];
+var plugins = [
+	new CopyWebpackPlugin([
+			{ from: 'src/__tests__/example.cwg' }
+	]),
+];
 
 if(production) {
 	plugins = plugins.concat([
