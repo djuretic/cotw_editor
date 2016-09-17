@@ -71,6 +71,7 @@ var MainEditor = React.createClass({
 		xhr.responseType = 'arraybuffer';
 		xhr.onload = () => {
 			if (xhr.status === 200) {
+				this.refs.fileinput.clear();
 				SavegameParser.parse(xhr.response, (state) => this.setState(state), this.informError);
 			}else {
 				alert('Error loading the example file. Returned status of ' + xhr.status);
