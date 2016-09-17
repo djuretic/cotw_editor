@@ -18,6 +18,12 @@ if(production) {
 				warnings: false, // Suppress uglification warnings
 			},
 		}),
+		// this allows React to use the production build
+		new webpack.DefinePlugin({
+			'process.env': {
+				NODE_ENV: JSON.stringify('production')
+			}
+		}),
 	]);
 }
 
