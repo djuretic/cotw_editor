@@ -88,7 +88,7 @@ export default {
 				writeInt(dataView, offset, state.spellBook[property], 1);
 			}
 		}
-		let blob = new Blob([dataView]);
+		let blob = new Blob([new Uint8Array(dataView.buffer)]);
 		saveAs(blob, 'savegame.cwg');
 	}
 };
