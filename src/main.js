@@ -9,6 +9,8 @@ import Spellbook from './components/Spellbook';
 import CharacterProfile from './components/CharacterProfile';
 import OutdatedBrowserWarning from './components/OutdatedBrowserWarning';
 
+import './google_analytics';
+
 const browserSupported = Modernizr.typedarrays && Modernizr.xhrresponsetypearraybuffer;
 
 var FileInput = React.createClass({
