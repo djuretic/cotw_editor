@@ -13,7 +13,7 @@ var Spellbook = React.createClass({
 		const allSpellNames = Object.keys(this.props.spells);
 		const spells = allSpellNames.filter(str => str.toUpperCase().indexOf(this.state.filterText.toUpperCase()) >= 0).map((spellName) => {
 			let value = this.props.spells[spellName];
-			const learned = value !== -1 && value !== -2;
+			const learned = value !== '' && value !== -1 && value !== -2;
 			const handleChange = (event) => this.props.handleChange(spellName, event);
 			// source: http://stackoverflow.com/a/1026087
 			let longSpellName = spellName.charAt(0).toUpperCase() + spellName.slice(1);
@@ -28,7 +28,7 @@ var Spellbook = React.createClass({
 						<ControlLabel htmlFor={`spell-${spellName}`}>{longSpellName}</ControlLabel>
 					</Col>
 					<Col md={1}>
-						<FormControl id={`spell-${spellName}`} type="number" value={value} min="-9" max="9" onChange={handleChange}/>
+						<FormControl id={`spell-${spellName}`} type="number" value={value} min="-9" max="9" onChange={handleChange} required/>
 					</Col>
 				</div>
 				);

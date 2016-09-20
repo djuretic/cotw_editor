@@ -13,7 +13,7 @@ var GameNumberInput = React.createClass({
 		const min = field.min ? field.min : 0;
 		const max = field.max ? field.max : Math.pow(2, 8*field.numBytes-1)-1;
 		const callback = (e) => this.props.onChange(this.props.var, e);
-		return <FormControl type="number" min={min} max={max} value={this.props.value} onChange={callback}/>;
+		return <FormControl type="number" min={min} max={max} value={this.props.value} onChange={callback} required/>;
 	}
 });
 
