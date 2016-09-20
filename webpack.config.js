@@ -39,6 +39,14 @@ module.exports = {
 	module: {
 		loaders: [
 			{
+				test: /\.modernizrrc$/,
+				loader: 'modernizr'
+			},
+			{
+				test: /\.json$/,
+				loader: 'json'
+			},
+			{
 				test: /\.js$/,
 				loader: 'babel',
 				include: path.join(__dirname, '/src'),
@@ -57,4 +65,9 @@ module.exports = {
 		]
 	},
 	plugins: plugins,
-}
+	resolve: {
+		alias: {
+			modernizr$: path.resolve(__dirname, '.modernizrrc')
+		}
+	}
+};

@@ -1,4 +1,4 @@
-
+import Modernizr from 'modernizr';
 import React from 'react';
 import ReactDOM from 'react-dom';
 import {Button, Grid, Row, Col, Modal} from 'react-bootstrap';
@@ -7,6 +7,9 @@ import SavegameParser from './savegame_parser';
 
 import Spellbook from './components/Spellbook';
 import CharacterProfile from './components/CharacterProfile';
+import OutdatedBrowserWarning from './components/OutdatedBrowserWarning';
+
+const browserSupported = Modernizr.typedarrays && Modernizr.xhrresponsetypearraybuffer;
 
 var FileInput = React.createClass({
 	propTypes: {
@@ -83,6 +86,7 @@ var MainEditor = React.createClass({
 	render() {
 		return (
 			<Grid>
+				<OutdatedBrowserWarning initialShow={!browserSupported}/>
 				<h1><img src={require('../assets/icon.png')} height="32" width="32" />Castle of the Winds Editor</h1>
 				<FileInput ref="fileinput" onChange={this.savefileSelected} onLoadExample={this.loadExample}/>
 				<Row className={this.isLoaded() ? '' : 'hidden'}>
