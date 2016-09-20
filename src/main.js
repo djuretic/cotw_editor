@@ -1,7 +1,7 @@
 import Modernizr from 'modernizr';
 import React from 'react';
 import ReactDOM from 'react-dom';
-import {Button, Grid, Row, Col, Modal} from 'react-bootstrap';
+import {Button, Grid, Row, Col, Modal, Alert} from 'react-bootstrap';
 import '../assets/css/main.css';
 import SavegameParser from './savegame_parser';
 
@@ -38,7 +38,7 @@ var FileInput = React.createClass({
 
 var MainEditor = React.createClass({
 	getInitialState() {
-		return {spellBook: {}, showModal: false, modalText: ''};
+		return {spellBook: {}, showModal: false, modalText: '', validationMsg: ''};
 	},
 	informError(error) {
 		let text = error.message;
@@ -58,7 +58,10 @@ var MainEditor = React.createClass({
 		e.preventDefault();
 		var form = document.getElementsByTagName('form')[0];
 		if(form.checkValidity()){
+			this.setState({validationMsg: ''});
 			SavegameParser.write(this.state);
+		} else {
+			this.setState({validationMsg: 'All input fields should contain numbers'});
 		}
 	},
 	handleChange(attribute, event) {
@@ -112,6 +115,7 @@ var MainEditor = React.createClass({
 					</Row>
 					<fieldset className={this.isLoaded() ? '' : 'hidden'}>
 						<legend>Download savegame file</legend>
+						{ this.state.validationMsg !== '' ? <Alert bsStyle="danger">{this.state.validationMsg}</Alert> : '' }
 						<Button type="submit" bsStyle="primary" disabled={!this.isLoaded()} onClick={this.downloadSavefile}>Download savegame</Button>
 					</fieldset>
 				</form>
