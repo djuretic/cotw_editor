@@ -38,7 +38,7 @@ var Spellbook = React.createClass({
 				<legend>Spellbook</legend>
 				<p>The number next to the spell is the MP cost, setting a spell to 0 makes it free. Setting it to a value other
 				than -1 or -2 will make the spell casteable.</p>
-				<p>Note: leveling up will update the MP cost for all the casteable spells to the real cost. </p>
+				<p>Note: leveling up will update the MP cost for all the castable spells to the real cost. </p>
 				<Row>
 					<SpellFilter onChange={this.handleFilterChange}/>
 				</Row>
