@@ -37,3 +37,11 @@ label {
 .spell-not-learned .spell-icon {
 	display: none;
 }
+
+.header h1 {
+	display: inline-block;
+}
+
+.header a {
+	margin-left: 10px;
+}

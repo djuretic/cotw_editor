@@ -96,7 +96,10 @@ var MainEditor = React.createClass({
 		return (
 			<Grid>
 				<OutdatedBrowserWarning initialShow={!browserSupported}/>
-				<h1><img src={require('../assets/icon.png')} height="32" width="32" />Castle of the Winds Editor</h1>
+				<div className="header">
+					<h1><img src={require('../assets/icon.png')} height="32" width="32" />Castle of the Winds Editor</h1>
+					<a href="https://github.com/djuretic/cotw_editor" target="_blank">View on Github</a>
+				</div>
 				<FileInput ref="fileinput" onChange={this.savefileSelected} onLoadExample={this.loadExample}/>
 				<form>
 					<Row className={this.isLoaded() ? '' : 'hidden'}>
