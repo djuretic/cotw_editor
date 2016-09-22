@@ -28,7 +28,7 @@ var FileInput = React.createClass({
 			<fieldset>
 				<legend>Select a savegame file</legend>
 				<Row>
-					<Col md={5}><input ref={(ref) => this.fileInput = ref} type='file' id='file' onChange={this.props.onChange} /></Col>
+					<Col md={5}><input ref={(ref) => this.fileInput = ref} type='file' id='file' accept=".cwg" onChange={this.props.onChange} /></Col>
 					<Col md={1}>or</Col>
 					<Col md={5}><Button bsStyle="primary" onClick={this.props.onLoadExample}>Use example savegame</Button></Col>
 				</Row>
