@@ -1,15 +1,15 @@
-import React from 'react';
+import React, { PropTypes } from 'react';
 import {Row, Col, InputGroup} from 'react-bootstrap';
 import GameNumberInput from './GameNumberInput';
 
 var CharacterAttribute = React.createClass({
 	propTypes: {
-		name: React.PropTypes.string.isRequired,
-		var: React.PropTypes.string,
-		vars: React.PropTypes.arrayOf(React.PropTypes.string),
-		value: React.PropTypes.number,
-		values: React.PropTypes.arrayOf(React.PropTypes.number),
-		onChange: React.PropTypes.func.isRequired,
+		name: PropTypes.string.isRequired,
+		var: PropTypes.string,
+		vars: PropTypes.arrayOf(PropTypes.string),
+		value: PropTypes.number,
+		values: PropTypes.arrayOf(PropTypes.number),
+		onChange: PropTypes.func.isRequired,
 	},
 	render() {
 		var inputs;

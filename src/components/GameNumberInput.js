@@ -1,12 +1,12 @@
-import React from 'react';
+import React, { PropTypes } from 'react';
 import {FormControl} from 'react-bootstrap';
 import {FIELDS} from '../constants';
 
 var GameNumberInput = React.createClass({
 	propTypes: {
-		var: React.PropTypes.string.isRequired,
-		value: React.PropTypes.number,
-		onChange: React.PropTypes.func.isRequired,
+		var: PropTypes.string.isRequired,
+		value: PropTypes.number,
+		onChange: PropTypes.func.isRequired,
 	},
 	render() {
 		const field = FIELDS[this.props.var];

@@ -1,9 +1,9 @@
-import React from 'react';
+import React, { PropTypes } from 'react';
 import {Col, FormControl} from 'react-bootstrap';
 
 var SpellFilter = React.createClass({
 	propTypes: {
-		onChange: React.PropTypes.func.isRequired,
+		onChange: PropTypes.func.isRequired,
 	},
 	render() {
 		return (
