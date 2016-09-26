@@ -40,6 +40,14 @@ export default {
 			var state = {spellBook: {}, rawFile: event.target.result};
 
 			try {
+				// validate header
+				const firstByte = readInt(dataView, 0x0, 1);
+				const secondByte = readInt(dataView, 0x1, 1);
+				if((firstByte !== 0x76 && firstByte !== 0x77 && secondByte !== 0x77) ||
+					dataView.byteLength < 0x40A){ // see constants.js for 0x40A
+					throw new Error('Invalid format');
+				}
+
 				for(let property in FIELDS){
 					if(FIELDS.hasOwnProperty(property)){
 						let {offset, numBytes, type} = FIELDS[property];
