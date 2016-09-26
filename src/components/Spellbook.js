@@ -1,8 +1,13 @@
-import React from 'react';
-import {Row, Col, FormControl, ControlLabel} from 'react-bootstrap';
-import SpellFilter from './SpellFilter.js';
+import React, { PropTypes } from 'react';
+import { Row } from 'react-bootstrap';
+import SpellFilter from './SpellFilter';
+import SpellRow from './SpellRow';
 
 var Spellbook = React.createClass({
+	propTypes: {
+		spells: PropTypes.arrayOf(PropTypes.object),
+		handleChange: PropTypes.func,
+	},
 	getInitialState() {
 		return {spells: {}, filterText: ''};
 	},
@@ -12,26 +17,9 @@ var Spellbook = React.createClass({
 	render() {
 		const allSpellNames = Object.keys(this.props.spells);
 		const spells = allSpellNames.filter(str => str.toUpperCase().indexOf(this.state.filterText.toUpperCase()) >= 0).map((spellName) => {
-			let value = this.props.spells[spellName];
-			const learned = value !== '' && value !== -1 && value !== -2;
-			const handleChange = (event) => this.props.handleChange(spellName, event);
-			// source: http://stackoverflow.com/a/1026087
-			let longSpellName = spellName.charAt(0).toUpperCase() + spellName.slice(1);
-			longSpellName = longSpellName.replace(/([a-z.])([A-Z])/g, '$1 $2');
 			const n = allSpellNames.indexOf(spellName);
-			// the last 4 spells don't have icons
-			const spriteStyles = n >= 32 ? {background: 'none'} : {backgroundPosition: `-${24*n}px -${22*Math.floor(n/8)}px`};
-			return (
-				<div key={spellName} className={'spell '+(learned ? 'spell-learned' : 'spell-not-learned')}>
-					<Col md={3} className="text-right">
-						<span className="spell-icon" style={spriteStyles}/>
-						<ControlLabel htmlFor={`spell-${spellName}`}>{longSpellName}</ControlLabel>
-					</Col>
-					<Col md={1}>
-						<FormControl id={`spell-${spellName}`} type="number" value={value} min="-9" max="9" onChange={handleChange} required/>
-					</Col>
-				</div>
-				);
+			let value = this.props.spells[spellName];
+			return <SpellRow key={spellName} spellName={spellName} index={n} value={value} handleChange={this.props.handleChange} />;
 		});
 		return (
 			<fieldset>

@@ -101,7 +101,7 @@ var MainEditor = React.createClass({
 					<a href="https://github.com/djuretic/cotw_editor" target="_blank">View on Github</a>
 				</div>
 				<FileInput ref="fileinput" onChange={this.savefileSelected} onLoadExample={this.loadExample}/>
-				<form>
+				<form className="form-horizontal">
 					<Row className={this.isLoaded() ? '' : 'hidden'}>
 						<Col md={4}>
 							<CharacterProfile
