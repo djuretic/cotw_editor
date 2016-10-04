@@ -7,8 +7,7 @@ input::-webkit-inner-spin-button {
     -webkit-appearance: none;
 }
 
-input:invalid,
-input:out-of-range {
+input.has-error {
     border-color:hsl(0, 50%, 50%);
     background:hsl(0, 50%, 90%);
 }

@@ -1,20 +1,20 @@
 import React, { PropTypes } from 'react';
 import {FormControl} from 'react-bootstrap';
-import {FIELDS} from '../constants';
 
 var GameNumberInput = React.createClass({
 	propTypes: {
-		var: PropTypes.string.isRequired,
+		min: PropTypes.number.isRequired,
+		max: PropTypes.number.isRequired,
 		value: PropTypes.number,
+		valid: PropTypes.boolean,
 		onChange: PropTypes.func.isRequired,
 		id: PropTypes.string,
 	},
 	render() {
-		const field = FIELDS[this.props.var];
-		const min = field.min ? field.min : 0;
-		const max = field.max ? field.max : Math.pow(2, 8*field.numBytes-1)-1;
-		const callback = (e) => this.props.onChange(this.props.var, e);
-		return <FormControl type="number" min={min} max={max} value={this.props.value} onChange={callback} id={this.props.id} required/>;
+		return (
+			<FormControl className={this.props.valid ? '' : 'has-error'} type="number" min={this.props.min} max={this.props.max} value={this.props.value}
+				onChange={this.props.onChange} id={this.props.id} required/>
+		);
 	}
 });
 

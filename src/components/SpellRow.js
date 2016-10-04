@@ -1,5 +1,6 @@
 import React, { PropTypes } from 'react';
 import { Col, FormControl, ControlLabel } from 'react-bootstrap';
+import { isInt } from '../utils';
 
 var SpellRow = React.createClass({
 	propTypes: {
@@ -10,8 +11,8 @@ var SpellRow = React.createClass({
 	},
 
 	render() {
-		let value = +this.props.value; // cast to int
-		const learned = value !== -1 && value !== -2;
+		const isValid = isInt(this.props.value);
+		const learned = isValid && this.props.value !== -1 && this.props.value !== -2;
 		const handleChange = (event) => this.props.handleChange(this.props.spellName, event);
 		// source: http://stackoverflow.com/a/1026087
 		let longSpellName = this.props.spellName.charAt(0).toUpperCase() + this.props.spellName.slice(1);
@@ -20,7 +21,7 @@ var SpellRow = React.createClass({
 		// the last 4 spells don't have icons
 		const spriteStyles = n >= 32 ? {background: 'none'} : {backgroundPosition: `-${24*n}px -${22*Math.floor(n/8)}px`};
 		return (
-			<div className={'spell '+(learned ? 'spell-learned' : 'spell-not-learned')}>
+			<div className={'spell '+(learned ? 'spell-learned ' : 'spell-not-learned ') + (isValid ? '' : 'has-error')}>
 				<Col md={3} className="text-right">
 					<span className="spell-icon" style={spriteStyles}/>
 					<ControlLabel htmlFor={`spell-${this.props.spellName}`}>{longSpellName}</ControlLabel>
