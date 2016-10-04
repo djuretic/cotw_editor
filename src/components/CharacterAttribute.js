@@ -41,10 +41,10 @@ var CharacterAttribute = React.createClass({
 		}
 		return (
 			<Row className={isValid ? '' : 'has-error'}>
-				<Col md={6} className="text-right">
+				<Col xs={4} md={6} className="text-right">
 					<ControlLabel htmlFor={inputId}>{this.props.name}</ControlLabel>
 				</Col>
-				<Col md={6}>{inputs}</Col>
+				<Col xs={8} md={6}>{inputs}</Col>
 			</Row>
 		);
 	}

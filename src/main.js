@@ -28,9 +28,9 @@ var FileInput = React.createClass({
 			<fieldset>
 				<legend>Select a savegame file</legend>
 				<Row>
-					<Col md={5}><input ref={(ref) => this.fileInput = ref} type='file' id='file' accept=".cwg" onChange={this.props.onChange} /></Col>
-					<Col md={1}>or</Col>
-					<Col md={5}><Button bsStyle="primary" onClick={this.props.onLoadExample}>Use example savegame</Button></Col>
+					<Col xs={12} md={5}><input ref={(ref) => this.fileInput = ref} type='file' id='file' accept=".cwg" onChange={this.props.onChange} /></Col>
+					<Col xs={12} md={1}>or</Col>
+					<Col xs={12} md={5}><Button bsStyle="primary" onClick={this.props.onLoadExample}>Use example savegame</Button></Col>
 				</Row>
 				<p className="text-danger">Remember to backup your original savegame file.</p>
 			</fieldset>
@@ -103,7 +103,7 @@ var MainEditor = React.createClass({
 				<FileInput ref="fileinput" onChange={this.savefileSelected} onLoadExample={this.loadExample}/>
 				<form className="form-horizontal">
 					<Row className={this.isLoaded() ? '' : 'hidden'}>
-						<Col md={4}>
+						<Col xs={12} md={4}>
 							<CharacterProfile
 								str={this.state.str} int={this.state.int} con={this.state.con} dex={this.state.dex}
 								hp={this.state.hp} maxHp={this.state.maxHp}
@@ -114,7 +114,7 @@ var MainEditor = React.createClass({
 								handleChange={this.handleChange}
 								/>
 						</Col>
-						<Col md={8}>
+						<Col xs={12} md={8}>
 							<Spellbook spells={this.state.spellBook} handleChange={this.handleSpellChange}/>
 						</Col>
 					</Row>

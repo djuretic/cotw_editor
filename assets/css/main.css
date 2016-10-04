@@ -44,3 +44,9 @@ label {
 .header a {
 	margin-left: 10px;
 }
+
+.hide-overflow {
+	overflow: hidden;
+	white-space: nowrap;
+	text-overflow: ellipsis;
+}

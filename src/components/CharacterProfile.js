@@ -18,12 +18,12 @@ var CharacterProfile = React.createClass({
 				<CharacterAttribute name="Constitution" var="con" value={this.props.con} onChange={this.props.handleChange}/>
 				<CharacterAttribute name="Dextery" var="dex" value={this.props.dex} onChange={this.props.handleChange}/>
 				<Row>
-					<Col md={6} className="text-right">Bulk</Col>
-					<Col md={6}>{this.props.bulk} / {this.props.maxBulk}</Col>
+					<Col xs={4} md={6} className="text-right">Bulk</Col>
+					<Col xs={8} md={6}>{this.props.bulk} / {this.props.maxBulk}</Col>
 				</Row>
 				<Row>
-					<Col md={6} className="text-right">Weight</Col>
-					<Col md={6}>{this.props.weight} / {this.props.maxWeight}</Col>
+					<Col xs={4} md={6} className="text-right">Weight</Col>
+					<Col xs={8} md={6}>{this.props.weight} / {this.props.maxWeight}</Col>
 				</Row>
 			</fieldset>
 		);

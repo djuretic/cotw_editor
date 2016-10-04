@@ -22,11 +22,11 @@ var SpellRow = React.createClass({
 		const spriteStyles = n >= 32 ? {background: 'none'} : {backgroundPosition: `-${24*n}px -${22*Math.floor(n/8)}px`};
 		return (
 			<div className={'spell '+(learned ? 'spell-learned ' : 'spell-not-learned ') + (isValid ? '' : 'has-error')}>
-				<Col md={3} className="text-right">
+				<Col xs={4} md={3} className="text-right">
 					<span className="spell-icon" style={spriteStyles}/>
-					<ControlLabel htmlFor={`spell-${this.props.spellName}`}>{longSpellName}</ControlLabel>
+					<ControlLabel className="hide-overflow" htmlFor={`spell-${this.props.spellName}`}>{longSpellName}</ControlLabel>
 				</Col>
-				<Col md={1}>
+				<Col xs={2} md={1}>
 					<FormControl id={`spell-${this.props.spellName}`} type="number" value={this.props.value} min="-9" max="9" onChange={handleChange} required/>
 				</Col>
 			</div>
