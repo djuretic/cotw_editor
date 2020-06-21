@@ -2,11 +2,11 @@ import React from 'react'
 import { Row } from 'react-bootstrap'
 import SpellFilter from './SpellFilter'
 import SpellRow from './SpellRow'
-import {SpellId, spellIds} from '../constants'
+import {SpellId, spellIds, emptySpellbook} from '../constants'
 
 interface SpellbookProps {
   spells: Record<SpellId, number>,
-  handleChange: (spellName: SpellId, event: React.ChangeEvent) => void
+  handleChange: (spellName: SpellId, event: React.ChangeEvent<HTMLInputElement>) => void
 }
 
 interface SpellbookState {
@@ -15,19 +15,21 @@ interface SpellbookState {
 }
 
 class Spellbook extends React.Component<SpellbookProps, SpellbookState> {
-  getInitialState() {
-    return {spells: {}, filterText: ''};
-  }
+  state: SpellbookState = {spells: emptySpellbook(), filterText: ''}
+
   handleFilterChange(event: React.ChangeEvent<HTMLInputElement>) {
     this.setState({filterText: event.target.value.replace(/\s+/g, '')});
   }
   render() {
-    const allSpellNames = Object.keys(this.props.spells);
-    const spells = allSpellNames.filter(str => str.toUpperCase().indexOf(this.state.filterText.toUpperCase()) >= 0).map((spellName) => {
-      const n = allSpellNames.indexOf(spellName);
-      let value = this.props.spells[spellName];
-      return <SpellRow key={spellName} spellName={spellName} index={n} value={value} handleChange={this.props.handleChange} />;
-    });
+    let spells = []
+    for (let spellId of spellIds) {
+      let filtered = spellId.toUpperCase().indexOf(this.state.filterText.toUpperCase()) >= 0
+      if (filtered) {
+        let value = this.props.spells[spellId]
+        const n = spellIds.indexOf(spellId)
+        spells.push(<SpellRow key={spellId} spellName={spellId} index={n} value={value} handleChange={this.props.handleChange} />)
+      }
+    }
     return (
       <fieldset>
         <legend>Spellbook</legend>

@@ -4,7 +4,7 @@ import ReactDOM from 'react-dom'
 import {Button, Container, Row, Col, Modal, Alert} from 'react-bootstrap'
 import '../assets/css/main.css'
 import SavegameParser from './savegame_parser'
-import {emptySavegame, SavegameDefinition, SpellId} from './constants'
+import {emptySavegame, SavegameDefinition, SpellId, FieldId} from './constants'
 
 import Spellbook from './components/Spellbook'
 import CharacterProfile from './components/CharacterProfile'
@@ -61,6 +61,7 @@ class MainEditor extends React.Component<{}, MainEditorState> {
     if(error instanceof RangeError){
       text = 'The file is not a valid Castle of the Winds savegame.';
     }
+    // @ts-ignore
     this.refs.fileinput.clear();
     this.setState({showModal: true, modalText: text});
   }
@@ -82,8 +83,11 @@ class MainEditor extends React.Component<{}, MainEditorState> {
       this.setState({validationMsg: 'All input fields should contain numbers'});
     }
   }
-  handleChange(attribute: string, event: React.ChangeEvent<HTMLInputElement>) {
-    this.setState({[attribute]: event.target.value});
+  handleChange(attribute: FieldId | undefined, event: React.ChangeEvent<HTMLInputElement>) {
+    if (attribute) {
+      // @ts-ignore
+      this.setState({[attribute]: event.target.value})
+    }
   }
   handleSpellChange(spell: SpellId, event: React.ChangeEvent<HTMLInputElement>) {
     //source: 2nd comment of http://stackoverflow.com/a/18934259
@@ -99,8 +103,9 @@ class MainEditor extends React.Component<{}, MainEditorState> {
     xhr.responseType = 'arraybuffer';
     xhr.onload = () => {
       if (xhr.status === 200) {
+        // @ts-ignore
         this.refs.fileinput.clear();
-        SavegameParser.parse(xhr.response, (state: SavegameState) => this.setState(state), this.informError);
+        SavegameParser.parse(xhr.response, (state: SavegameDefinition) => this.setState(state), this.informError);
       }else {
         alert('Error loading the example file. Returned status of ' + xhr.status);
       }

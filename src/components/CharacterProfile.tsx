@@ -1,9 +1,11 @@
 import React from 'react'
 import {Row, Col} from 'react-bootstrap'
 import CharacterAttribute from './CharacterAttribute'
+import {FieldId} from '../constants'
+
 
 interface CharacterProfileProps {
-  handleChange: (value: string | undefined, event: React.ChangeEvent<HTMLInputElement>) => void,
+  handleChange: (value: FieldId | undefined, event: React.ChangeEvent<HTMLInputElement>) => void,
   str: number,
   int: number,
   con: number,

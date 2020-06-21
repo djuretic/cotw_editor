@@ -14,6 +14,6 @@ class SpellFilter extends React.Component<SpellFilterProps> {
 			</Col>
 		)
 	}
-})
+}
 
 export default SpellFilter
