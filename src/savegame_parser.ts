@@ -1,6 +1,6 @@
 import {
-  FIELDS, SPELLS, SpellId, spellIds, StringFieldId, NumberFieldId,
-  fieldIds, emptySpellbook, emptySavegame
+  FIELDS, SPELLS, spellIds, stringFieldIds, numberFieldIds,
+  fieldIds, emptySavegame, SavegameDefinition
 } from './constants'
 import {saveAs} from 'file-saver'
 
@@ -37,23 +37,16 @@ const writeInt = function(_dataView: DataView, _offset: number, _value: number, 
   }
 }
 
-
-export type SavegameState = {
-  spellBook: Record<SpellId, number>,
-  rawFile: ArrayBuffer,
-} & Record<StringFieldId, string> & Record<NumberFieldId, number>
-
-
 export default {
-  parse(file_or_arraybuffer: ArrayBuffer | Blob, success_callback: (state: SavegameState) => void, error_callback: (error: Error) => void) {
-    const parseData = (event: ProgressEvent<FileReader>) => {
-      let buffer = event.target?.result
+  parse(file_or_arraybuffer: ArrayBuffer | Blob, success_callback: (state: SavegameDefinition) => void, error_callback: (error: Error) => void) {
+    const parseData = (event: ProgressEvent<FileReader> | ArrayBuffer) => {
+      let buffer = event instanceof ArrayBuffer ? event : event.target?.result
       if (!buffer || typeof buffer === 'string') {
         error_callback(new Error('Expected ArrayBuffer'))
         return
       }
       let dataView = new DataView(buffer)
-      let state: SavegameState = {...emptySavegame(), spellBook: emptySpellbook(), rawFile: buffer}
+      let state: SavegameDefinition = emptySavegame()
 
       try {
         // validate header
@@ -64,13 +57,13 @@ export default {
           throw new Error('Invalid format')
         }
 
-        for(const property of fieldIds){
-          let {offset, numBytes, type} = FIELDS[property]
-          if(type === 'string'){
-            state[property] = readString(dataView, offset, numBytes)
-          } else {
-            state[property] = readInt(dataView, offset, numBytes)
-          }
+        for(const property of numberFieldIds){
+          let {offset, numBytes} = FIELDS[property]
+          state[property] = readInt(dataView, offset, numBytes)
+        }
+        for(const property of stringFieldIds){
+          let {offset, numBytes} = FIELDS[property]
+          state[property] = readString(dataView, offset, numBytes)
         }
 
         for(const property of spellIds){
@@ -84,7 +77,7 @@ export default {
       success_callback(state)
     }
     if(file_or_arraybuffer instanceof ArrayBuffer) { // only when using the example savegame
-      parseData({target: {result: file_or_arraybuffer}})
+      parseData(file_or_arraybuffer)
     } else {
       var reader = new FileReader();
       // we are not using reader.onload because it's harder to test
@@ -92,7 +85,7 @@ export default {
       reader.readAsArrayBuffer(file_or_arraybuffer);
     }
   },
-  write(state: SavegameState) {
+  write(state: SavegameDefinition) {
     let dataView = new DataView(state.rawFile);
     for(const property of fieldIds){
       let {offset, numBytes, type} = FIELDS[property]

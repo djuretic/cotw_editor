@@ -3,7 +3,7 @@ import {Row, Col} from 'react-bootstrap'
 import CharacterAttribute from './CharacterAttribute'
 
 interface CharacterProfileProps {
-  handleChange: (value: string | undefined, event: React.ChangeEvent) => void,
+  handleChange: (value: string | undefined, event: React.ChangeEvent<HTMLInputElement>) => void,
   str: number,
   int: number,
   con: number,

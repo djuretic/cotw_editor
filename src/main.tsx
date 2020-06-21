@@ -3,7 +3,8 @@ import React from 'react'
 import ReactDOM from 'react-dom'
 import {Button, Container, Row, Col, Modal, Alert} from 'react-bootstrap'
 import '../assets/css/main.css'
-import SavegameParser, {SavegameState} from './savegame_parser'
+import SavegameParser from './savegame_parser'
+import {emptySavegame, SavegameDefinition, SpellId} from './constants'
 
 import Spellbook from './components/Spellbook'
 import CharacterProfile from './components/CharacterProfile'
@@ -43,18 +44,16 @@ class FileInput extends React.Component<FileInputProps> {
   }
 }
 
-interface MainEditorState extends SavegameState{
+type MainEditorState = {
   showModal: boolean,
   modalText: string,
   validationMsg: string,
-}
+} & SavegameDefinition
 
 class MainEditor extends React.Component<{}, MainEditorState> {
   state: MainEditorState = {
-    spellBook: {}, showModal: false, modalText: '', validationMsg: '',
-    str: 0, int: 0, con: 0, dex: 0, hp: 0, maxHp: 0, mp: 0, maxMp: 0, exp: 0,
-    armorClass: 0, level: 0, bulk: 0, maxBulk: 0, weight: 0, maxWeight: 0,
-    name: '', gender: 0
+    showModal: false, modalText: '', validationMsg: '',
+    ...emptySavegame()
   }
 
   informError(error: Error) {
@@ -86,7 +85,7 @@ class MainEditor extends React.Component<{}, MainEditorState> {
   handleChange(attribute: string, event: React.ChangeEvent<HTMLInputElement>) {
     this.setState({[attribute]: event.target.value});
   }
-  handleSpellChange(spell: string, event: React.ChangeEvent<HTMLInputElement>) {
+  handleSpellChange(spell: SpellId, event: React.ChangeEvent<HTMLInputElement>) {
     //source: 2nd comment of http://stackoverflow.com/a/18934259
     this.setState({spellBook: { ...this.state.spellBook, [spell]: event.target.value}});
   }
