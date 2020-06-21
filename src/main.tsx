@@ -12,6 +12,8 @@ import OutdatedBrowserWarning from './components/OutdatedBrowserWarning'
 
 import './google_analytics'
 
+import iconImage from '../assets/icon.png'
+
 const browserSupported = Modernizr.typedarrays && Modernizr.xhrresponsetypearraybuffer
 
 
@@ -118,7 +120,7 @@ class MainEditor extends React.Component<{}, MainEditorState> {
       <Container>
         <OutdatedBrowserWarning initialShow={!browserSupported}/>
         <div className="header">
-          <h1><img src={require('../assets/icon.png')} height="32" width="32" />Castle of the Winds Editor</h1>
+          <h1><img src={iconImage} height="32" width="32" />Castle of the Winds Editor</h1>
           <a href="https://github.com/djuretic/cotw_editor" target="_blank">View on Github</a>
         </div>
         <FileInput ref="fileinput" onChange={this.savefileSelected} onLoadExample={this.loadExample}/>

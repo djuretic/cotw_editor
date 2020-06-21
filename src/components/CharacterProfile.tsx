@@ -3,6 +3,8 @@ import {Row, Col} from 'react-bootstrap'
 import CharacterAttribute from './CharacterAttribute'
 import {FieldId} from '../constants'
 
+import HeroFemale from '../../assets/hero_female.png'
+import HeroMale from '../../assets/hero_male.png'
 
 interface CharacterProfileProps {
   handleChange: (value: FieldId | undefined, event: React.ChangeEvent<HTMLInputElement>) => void,
@@ -31,7 +33,7 @@ class CharacterProfile extends React.Component<CharacterProfileProps> {
 		return (
 			<fieldset>
 				<legend>Character</legend>
-				<img src={this.props.gender === 1 ? require('../../assets/hero_female.png'): require('../../assets/hero_male.png')} className="center-block"/>
+				<img src={this.props.gender === 1 ? HeroFemale : HeroMale} className="center-block"/>
 				<div className="center-block text-center">{this.props.name} (level {this.props.level})</div>
 				<CharacterAttribute name="HP" vars={['hp', 'maxHp']} values={[this.props.hp, this.props.maxHp]} onChange={this.props.handleChange}/>
 				<CharacterAttribute name="Mana" vars={['mp', 'maxMp']} values={[this.props.mp, this.props.maxMp]} onChange={this.props.handleChange}/>
