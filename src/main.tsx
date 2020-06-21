@@ -124,29 +124,34 @@ class MainEditor extends React.Component<{}, MainEditorState> {
           <a href="https://github.com/djuretic/cotw_editor" target="_blank">View on Github</a>
         </div>
         <FileInput ref={this.fileInput} onChange={this.savefileSelected} onLoadExample={this.loadExample}/>
-        <form className="form-horizontal">
-          <Row className={this.isLoaded() ? '' : 'hidden'}>
-            <Col xs={12} md={4}>
-              <CharacterProfile
-                str={this.state.str} int={this.state.int} con={this.state.con} dex={this.state.dex}
-                hp={this.state.hp} maxHp={this.state.maxHp}
-                mp={this.state.mp} maxMp={this.state.maxMp}
-                exp={this.state.exp} armorClass={this.state.armorClass} level={this.state.level}
-                bulk={this.state.bulk} maxBulk={this.state.maxBulk} name={this.state.name}
-                weight={this.state.weight} maxWeight={this.state.maxWeight} gender={this.state.gender}
-                handleChange={this.handleChange}
-                />
-            </Col>
-            <Col xs={12} md={8}>
-              <Spellbook spells={this.state.spellBook} handleChange={this.handleSpellChange}/>
-            </Col>
-          </Row>
-          <fieldset className={this.isLoaded() ? '' : 'hidden'}>
-            <legend>Download savegame file</legend>
-            { this.state.validationMsg !== '' ? <Alert variant="danger">{this.state.validationMsg}</Alert> : '' }
-            <Button type="submit" variant="primary" disabled={!this.isLoaded()} onClick={this.downloadSavefile}>Download savegame</Button>
-          </fieldset>
-        </form>
+        {
+          this.isLoaded()
+          ? (
+            <form className="form-horizontal">
+              <Row>
+                <Col xs={12} md={4}>
+                  <CharacterProfile
+                    str={this.state.str} int={this.state.int} con={this.state.con} dex={this.state.dex}
+                    hp={this.state.hp} maxHp={this.state.maxHp}
+                    mp={this.state.mp} maxMp={this.state.maxMp}
+                    exp={this.state.exp} armorClass={this.state.armorClass} level={this.state.level}
+                    bulk={this.state.bulk} maxBulk={this.state.maxBulk} name={this.state.name}
+                    weight={this.state.weight} maxWeight={this.state.maxWeight} gender={this.state.gender}
+                    handleChange={this.handleChange}
+                    />
+                </Col>
+                <Col xs={12} md={8}>
+                  <Spellbook spells={this.state.spellBook} handleChange={this.handleSpellChange}/>
+                </Col>
+              </Row>
+              <fieldset>
+                <legend>Download savegame file</legend>
+                { this.state.validationMsg !== '' ? <Alert variant="danger">{this.state.validationMsg}</Alert> : '' }
+                <Button type="submit" variant="primary" disabled={!this.isLoaded()} onClick={this.downloadSavefile}>Download savegame</Button>
+              </fieldset>
+              </form>
+          ) : null
+        }
 
         <Modal show={this.state.showModal} onHide={this.closeModal}>
           <Modal.Header closeButton>
