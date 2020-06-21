@@ -14,7 +14,12 @@ interface SpellRowProps {
 class SpellRow extends React.Component<SpellRowProps> {
   render() {
     const isValid = isInt(this.props.value)
-    const learned = isValid && this.props.value !== -1 && this.props.value !== -2
+    let learned = false
+    if (isValid) {
+      // @ts-ignore
+      const intValue = parseInt(this.props.value) // TODO value can be string
+      learned = isValid && intValue !== -1 && intValue !== -2
+    }
     // source: http://stackoverflow.com/a/1026087
     let longSpellName = this.props.spellName.charAt(0).toUpperCase() + this.props.spellName.slice(1);
     longSpellName = longSpellName.replace(/([a-z.])([A-Z])/g, '$1 $2')
