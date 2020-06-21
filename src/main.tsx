@@ -71,11 +71,13 @@ class MainEditor extends React.Component<{}, MainEditorState> {
   closeModal() {
     this.setState({showModal: false})
   }
+
   savefileSelected = (e: React.ChangeEvent<HTMLInputElement>) => {
     if (e.target.files) {
       SavegameParser.parse(e.target.files[0], (state) => this.setState(state), this.informError)
     }
   }
+
   downloadSavefile = (e: React.MouseEvent) => {
     e.preventDefault();
     var form = document.getElementsByTagName('form')[0]
@@ -86,19 +88,23 @@ class MainEditor extends React.Component<{}, MainEditorState> {
       this.setState({validationMsg: 'All input fields should contain numbers'})
     }
   }
-  handleChange(attribute: FieldId | undefined, event: React.ChangeEvent<HTMLInputElement>) {
+
+  handleChange = (attribute: FieldId | undefined, event: React.ChangeEvent<HTMLInputElement>) => {
     if (attribute) {
       // @ts-ignore
       this.setState({[attribute]: event.target.value})
     }
   }
-  handleSpellChange(spell: SpellId, event: React.ChangeEvent<HTMLInputElement>) {
+
+  handleSpellChange = (spell: SpellId, event: React.ChangeEvent<HTMLInputElement>) => {
     //source: 2nd comment of http://stackoverflow.com/a/18934259
     this.setState({spellBook: { ...this.state.spellBook, [spell]: event.target.value}})
   }
+
   isLoaded() {
     return !!this.state.level
   }
+
   loadExample = () => {
     var xhr = new XMLHttpRequest()
     xhr.open('GET', 'build/example.cwg')
@@ -113,8 +119,8 @@ class MainEditor extends React.Component<{}, MainEditorState> {
       }
     }
     xhr.send()
-
   }
+
   render() {
     return (
       <Container>
@@ -165,7 +171,7 @@ class MainEditor extends React.Component<{}, MainEditorState> {
           </Modal.Footer>
         </Modal>
       </Container>
-    );
+    )
   }
 }
 

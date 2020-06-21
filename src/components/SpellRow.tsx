@@ -21,13 +21,14 @@ class SpellRow extends React.Component<SpellRowProps> {
     const n = this.props.index || 0
     // the last 4 spells don't have icons
     const spriteStyles = n >= 32 ? {background: 'none'} : {backgroundPosition: `-${24*n}px -${22*Math.floor(n/8)}px`}
+    const cssClases = 'spell '+(learned ? 'spell-learned ' : 'spell-not-learned ') + (isValid ? '' : 'has-error')
     return (
-      <div className={'spell '+(learned ? 'spell-learned ' : 'spell-not-learned ') + (isValid ? '' : 'has-error')}>
-        <Col xs={4} md={3} className="text-right">
+      <React.Fragment>
+        <Col xs={4} md={3} className={"text-right " + cssClases}>
           <span className="spell-icon" style={spriteStyles}/>
           <Form.Label className="hide-overflow" htmlFor={`spell-${this.props.spellName}`}>{longSpellName}</Form.Label>
         </Col>
-        <Col xs={2} md={1}>
+        <Col xs={2} md={1} className={cssClases}>
           <Form.Control
             id={`spell-${this.props.spellName}`}
             type="number"
@@ -38,7 +39,7 @@ class SpellRow extends React.Component<SpellRowProps> {
             required
           />
         </Col>
-      </div>
+      </React.Fragment>
     )
   }
 }
