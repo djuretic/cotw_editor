@@ -1,0 +1,50 @@
+import React from 'react'
+import { Col, FormControl, ControlLabel } from 'react-bootstrap'
+import { isInt } from '../utils'
+
+interface SpellRowProps {
+  spellName: string,
+	index?: number,
+	value?: number,
+	handleChange?: (spellName: string, event: React.ChangeEvent) => void
+}
+
+
+class SpellRow extends React.Component<SpellRowProps> {
+  handleChange(event: React.ChangeEvent) {
+
+  }
+
+
+	render() {
+		const isValid = isInt(this.props.value)
+		const learned = isValid && this.props.value !== -1 && this.props.value !== -2
+		// source: http://stackoverflow.com/a/1026087
+		let longSpellName = this.props.spellName.charAt(0).toUpperCase() + this.props.spellName.slice(1);
+		longSpellName = longSpellName.replace(/([a-z.])([A-Z])/g, '$1 $2')
+		const n = this.props.index || 0
+		// the last 4 spells don't have icons
+		const spriteStyles = n >= 32 ? {background: 'none'} : {backgroundPosition: `-${24*n}px -${22*Math.floor(n/8)}px`}
+		return (
+			<div className={'spell '+(learned ? 'spell-learned ' : 'spell-not-learned ') + (isValid ? '' : 'has-error')}>
+				<Col xs={4} md={3} className="text-right">
+					<span className="spell-icon" style={spriteStyles}/>
+					<ControlLabel className="hide-overflow" htmlFor={`spell-${this.props.spellName}`}>{longSpellName}</ControlLabel>
+				</Col>
+				<Col xs={2} md={1}>
+					<FormControl
+            id={`spell-${this.props.spellName}`}
+            type="number"
+            value={this.props.value}
+            min="-9"
+            max="9"
+            onChange={(event) => {if(this.props.handleChange) this.props.handleChange(this.props.spellName, event)}}
+            required
+          />
+				</Col>
+			</div>
+		)
+	}
+}
+
+export default SpellRow

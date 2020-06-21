@@ -1,19 +1,25 @@
-import React, { PropTypes } from 'react';
-import { Row } from 'react-bootstrap';
-import SpellFilter from './SpellFilter';
-import SpellRow from './SpellRow';
+import React from 'react'
+import { Row, FormControl } from 'react-bootstrap'
+import SpellFilter from './SpellFilter'
+import SpellRow from './SpellRow'
 
-var Spellbook = React.createClass({
-	propTypes: {
-		spells: PropTypes.arrayOf(PropTypes.object),
-		handleChange: PropTypes.func,
-	},
+interface SpellbookProps {
+  spells: object[],
+  handleChange: (spellName: string, event: React.ChangeEvent) => void
+}
+
+interface SpellbookState {
+  spells: {[key: string]: number},
+  filterText: string
+}
+
+class Spellbook extends React.Component<SpellbookProps, SpellbookState> {
 	getInitialState() {
 		return {spells: {}, filterText: ''};
-	},
-	handleFilterChange(event) {
+	}
+	handleFilterChange(event: React.ChangeEvent<HTMLInputElement>) {
 		this.setState({filterText: event.target.value.replace(/\s+/g, '')});
-	},
+	}
 	render() {
 		const allSpellNames = Object.keys(this.props.spells);
 		const spells = allSpellNames.filter(str => str.toUpperCase().indexOf(this.state.filterText.toUpperCase()) >= 0).map((spellName) => {
@@ -34,8 +40,8 @@ var Spellbook = React.createClass({
 					{spells}
 				</Row>
 			</fieldset>
-		);
+		)
 	}
-});
+}
 
-export default Spellbook;
+export default Spellbook

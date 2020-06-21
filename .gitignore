@@ -2,3 +2,5 @@ node_modules
 *.sublime-*
 .eslintrc.js
 .nvmrc
+.cache
+CASTLE1*

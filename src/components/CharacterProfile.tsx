@@ -1,8 +1,30 @@
-import React from 'react';
-import {Row, Col} from 'react-bootstrap';
-import CharacterAttribute from './CharacterAttribute';
+import React from 'react'
+import {Row, Col} from 'react-bootstrap'
+import CharacterAttribute from './CharacterAttribute'
 
-var CharacterProfile = React.createClass({
+interface CharacterProfileProps {
+  handleChange: (value: string | undefined, event: React.ChangeEvent) => void,
+  str: number,
+  int: number,
+  con: number,
+  dex: number,
+  hp: number,
+  maxHp: number,
+  mp: number,
+  maxMp: number,
+  exp: number,
+  armorClass: number,
+  level: number,
+  bulk: number,
+  maxBulk: number,
+  weight: number,
+  maxWeight: number,
+  name: string,
+  gender: number
+}
+
+
+class CharacterProfile extends React.Component<CharacterProfileProps> {
 	render() {
 		return (
 			<fieldset>
@@ -26,8 +48,8 @@ var CharacterProfile = React.createClass({
 					<Col xs={8} md={6}>{this.props.weight} / {this.props.maxWeight}</Col>
 				</Row>
 			</fieldset>
-		);
+		)
 	}
-});
+}
 
-export default CharacterProfile;
+export default CharacterProfile
