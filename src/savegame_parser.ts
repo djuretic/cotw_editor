@@ -47,6 +47,7 @@ export default {
       }
       let dataView = new DataView(buffer)
       let state: SavegameDefinition = emptySavegame()
+      state.rawFile = buffer
 
       try {
         // validate header
@@ -73,7 +74,6 @@ export default {
       } catch(e) {
         error_callback(e)
       }
-
       success_callback(state)
     }
     if(file_or_arraybuffer instanceof ArrayBuffer) { // only when using the example savegame
