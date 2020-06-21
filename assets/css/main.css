@@ -12,6 +12,10 @@ input.has-error {
     background:hsl(0, 50%, 90%);
 }
 
+legend {
+	border-bottom: 1px solid #e5e5e5;
+}
+
 label {
 	font-weight: normal;
 }

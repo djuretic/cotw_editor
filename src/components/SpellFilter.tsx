@@ -1,5 +1,5 @@
 import React from 'react'
-import {Col, FormControl} from 'react-bootstrap'
+import {Col, Form} from 'react-bootstrap'
 
 interface SpellFilterProps {
   onChange: (event: React.ChangeEvent<HTMLInputElement>) => void
@@ -10,7 +10,7 @@ class SpellFilter extends React.Component<SpellFilterProps> {
 		return (
 			<Col md={3}>
 				Filter by name:
-				<FormControl type="text" placeholder="Enter spell name here" onChange={this.props.onChange} />
+				<Form.Control type="text" placeholder="Enter spell name here" onChange={this.props.onChange} />
 			</Col>
 		)
 	}

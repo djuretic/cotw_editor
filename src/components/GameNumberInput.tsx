@@ -1,5 +1,5 @@
 import React from 'react'
-import {FormControl} from 'react-bootstrap'
+import {Form} from 'react-bootstrap'
 
 interface GameNumberInputProps {
   min: number,
@@ -13,7 +13,7 @@ interface GameNumberInputProps {
 class GameNumberInput extends React.Component<GameNumberInputProps> {
   render() {
     return (
-      <FormControl className={this.props.valid ? '' : 'has-error'} type="number" min={this.props.min} max={this.props.max} value={this.props.value}
+      <Form.Control className={this.props.valid ? '' : 'has-error'} type="number" min={this.props.min} max={this.props.max} value={this.props.value}
         onChange={this.props.onChange} id={this.props.id} required/>
     )
   }

@@ -57,32 +57,33 @@ class MainEditor extends React.Component<{}, MainEditorState> {
     showModal: false, modalText: '', validationMsg: '',
     ...emptySavegame()
   }
+  fileInput = React.createRef<FileInput>()
 
   informError(error: Error) {
-    let text = error.message;
+    let text = error.message
     if(error instanceof RangeError){
-      text = 'The file is not a valid Castle of the Winds savegame.';
+      text = 'The file is not a valid Castle of the Winds savegame.'
     }
-    // @ts-ignore
-    this.refs.fileinput.clear();
-    this.setState({showModal: true, modalText: text});
+    this.fileInput.current!.clear()
+    this.setState({showModal: true, modalText: text})
   }
+
   closeModal() {
-    this.setState({showModal: false});
+    this.setState({showModal: false})
   }
-  savefileSelected(e: React.ChangeEvent<HTMLInputElement>) {
+  savefileSelected = (e: React.ChangeEvent<HTMLInputElement>) => {
     if (e.target.files) {
-      SavegameParser.parse(e.target.files[0], (state) => this.setState(state), this.informError);
+      SavegameParser.parse(e.target.files[0], (state) => this.setState(state), this.informError)
     }
   }
-  downloadSavefile(e: React.MouseEvent) {
+  downloadSavefile = (e: React.MouseEvent) => {
     e.preventDefault();
-    var form = document.getElementsByTagName('form')[0];
+    var form = document.getElementsByTagName('form')[0]
     if(form.checkValidity()){
-      this.setState({validationMsg: ''});
-      SavegameParser.write(this.state);
+      this.setState({validationMsg: ''})
+      SavegameParser.write(this.state)
     } else {
-      this.setState({validationMsg: 'All input fields should contain numbers'});
+      this.setState({validationMsg: 'All input fields should contain numbers'})
     }
   }
   handleChange(attribute: FieldId | undefined, event: React.ChangeEvent<HTMLInputElement>) {
@@ -93,26 +94,25 @@ class MainEditor extends React.Component<{}, MainEditorState> {
   }
   handleSpellChange(spell: SpellId, event: React.ChangeEvent<HTMLInputElement>) {
     //source: 2nd comment of http://stackoverflow.com/a/18934259
-    this.setState({spellBook: { ...this.state.spellBook, [spell]: event.target.value}});
+    this.setState({spellBook: { ...this.state.spellBook, [spell]: event.target.value}})
   }
   isLoaded() {
-    return !!this.state.level;
+    return !!this.state.level
   }
-  loadExample(){
-    var xhr = new XMLHttpRequest();
-    xhr.open('GET', 'build/example.cwg');
-    xhr.setRequestHeader('Content-Type', 'application/octet-stream');
-    xhr.responseType = 'arraybuffer';
+  loadExample = () => {
+    var xhr = new XMLHttpRequest()
+    xhr.open('GET', 'build/example.cwg')
+    xhr.setRequestHeader('Content-Type', 'application/octet-stream')
+    xhr.responseType = 'arraybuffer'
     xhr.onload = () => {
       if (xhr.status === 200) {
-        // @ts-ignore
-        this.refs.fileinput.clear();
-        SavegameParser.parse(xhr.response, (state: SavegameDefinition) => this.setState(state), this.informError);
+        this.fileInput.current!.clear()
+        SavegameParser.parse(xhr.response, (state: SavegameDefinition) => this.setState(state), this.informError)
       }else {
-        alert('Error loading the example file. Returned status of ' + xhr.status);
+        alert('Error loading the example file. Returned status of ' + xhr.status)
       }
-    };
-    xhr.send();
+    }
+    xhr.send()
 
   }
   render() {
@@ -123,7 +123,7 @@ class MainEditor extends React.Component<{}, MainEditorState> {
           <h1><img src={iconImage} height="32" width="32" />Castle of the Winds Editor</h1>
           <a href="https://github.com/djuretic/cotw_editor" target="_blank">View on Github</a>
         </div>
-        <FileInput ref="fileinput" onChange={this.savefileSelected} onLoadExample={this.loadExample}/>
+        <FileInput ref={this.fileInput} onChange={this.savefileSelected} onLoadExample={this.loadExample}/>
         <form className="form-horizontal">
           <Row className={this.isLoaded() ? '' : 'hidden'}>
             <Col xs={12} md={4}>
@@ -164,4 +164,4 @@ class MainEditor extends React.Component<{}, MainEditorState> {
   }
 }
 
-ReactDOM.render(<MainEditor />, document.getElementById('react-app'));
+ReactDOM.render(<MainEditor />, document.getElementById('react-app'))

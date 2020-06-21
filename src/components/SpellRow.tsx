@@ -1,5 +1,5 @@
 import React from 'react'
-import { Col, FormControl, Form } from 'react-bootstrap'
+import { Col, Form } from 'react-bootstrap'
 import { isInt } from '../utils'
 import { SpellId } from '../constants'
 
@@ -28,7 +28,7 @@ class SpellRow extends React.Component<SpellRowProps> {
           <Form.Label className="hide-overflow" htmlFor={`spell-${this.props.spellName}`}>{longSpellName}</Form.Label>
         </Col>
         <Col xs={2} md={1}>
-          <FormControl
+          <Form.Control
             id={`spell-${this.props.spellName}`}
             type="number"
             value={this.props.value}
