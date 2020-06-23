@@ -27,6 +27,11 @@ label {
 	padding-right: 20px;
 }
 
+.spell .form-label {
+	padding-top: 7px;
+	margin-bottom: 0;
+}
+
 .spell-icon {
 	display: inline-block;
 	background-image: url(../spells.png);
