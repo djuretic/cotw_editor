@@ -41,11 +41,12 @@ label {
 }
 
 .spell-not-learned {
-	color: gray;
+	color: #a0a0a0;
 }
 
 .spell-not-learned .spell-icon {
-	display: none;
+	opacity: 0.15;
+	filter: alpha(opacity=15); /* msie */
 }
 
 .header h1 {
