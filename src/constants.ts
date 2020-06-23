@@ -10,7 +10,31 @@ export const spellIds = [
   'teleport', 'runeOfReturn', 'healMajorWounds', 'fireball', 'ballLightning',
   'healing', 'trans.Monster'] as const
 
+export const spellTypes = [
+  'attack', 'defense', 'healing', 'movement', 'divination', 'misc'
+] as const
+
+export type SpellType = typeof spellTypes[number]
 export type SpellId = typeof spellIds[number]
+export const SPELL_TYPES: Record<SpellType, SpellId[]> = {
+  attack: [
+    'magicArrow', 'coldBolt', 'coldBall', 'fireBolt', 'lightningBolt',
+    'sleepMonster', 'slowMonster', 'fireball', 'ballLightning', 'trans.Monster'
+  ],
+  defense: [
+    'shield', 'resistFire', 'resistCold', 'resistLightning', 'resistAcid', 'resistFear'
+  ],
+  healing: [
+    'healMinorWounds', 'neutralizePoison', 'healMed.Wounds', 'healMajorWounds'
+  ],
+  movement: [
+    'phaseDoor', 'levitation', 'teleport', 'runeOfReturn'
+  ],
+  divination: [
+    'detectObjects', 'clairvoyance', 'detectMonsters', 'detectTraps', 'identify'
+  ],
+  misc: ['light', 'removeCurse']
+}
 
 export const SPELLS: Record<SpellId, {offset: number, mp: number}> = {
   healMinorWounds: {offset: 0x1B2, mp: 1},

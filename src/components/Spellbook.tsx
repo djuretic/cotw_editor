@@ -1,8 +1,8 @@
 import React from 'react'
-import { Row, Container } from 'react-bootstrap'
+import { Row, Col, Container, ToggleButton, ToggleButtonGroup } from 'react-bootstrap'
 import SpellFilter from './SpellFilter'
 import SpellRow from './SpellRow'
-import {SpellId, spellIds, emptySpellbook} from '../constants'
+import {SpellId, spellIds, emptySpellbook, spellTypes, SpellType, SPELL_TYPES} from '../constants'
 
 interface SpellbookProps {
   spells: Record<SpellId, number>,
@@ -11,19 +11,28 @@ interface SpellbookProps {
 
 interface SpellbookState {
   spells: Record<SpellId, number>,
-  filterText: string
+  filterText: string,
+  spellType: SpellType | ""
 }
 
 class Spellbook extends React.Component<SpellbookProps, SpellbookState> {
-  state: SpellbookState = {spells: emptySpellbook(), filterText: ''}
+  state: SpellbookState = {spells: emptySpellbook(), filterText: '', spellType: ""}
 
   handleFilterChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     this.setState({filterText: event.target.value.replace(/\s+/g, '')});
   }
 
+  handleTypeChange = (spellType: SpellType | "") => {
+    this.setState({spellType: spellType})
+  }
+
   render() {
     let spells = []
+    const spellType = this.state.spellType
     for (let spellId of spellIds) {
+      if (spellType && !SPELL_TYPES[spellType].includes(spellId)) {
+        continue
+      }
       let filtered = spellId.toUpperCase().indexOf(this.state.filterText.toUpperCase()) >= 0
       if (filtered) {
         let value = this.props.spells[spellId]
@@ -31,6 +40,9 @@ class Spellbook extends React.Component<SpellbookProps, SpellbookState> {
         spells.push(<SpellRow key={spellId} spellName={spellId} index={n} value={value} handleChange={this.props.handleChange} />)
       }
     }
+    let spellTypButtons = spellTypes.map(spellType => {
+      return <ToggleButton key={spellType} variant="secondary" value={spellType}>{spellType}</ToggleButton>
+    })
     return (
       <fieldset>
         <legend>Spellbook</legend>
@@ -40,6 +52,12 @@ class Spellbook extends React.Component<SpellbookProps, SpellbookState> {
         <Container>
           <Row>
             <SpellFilter onChange={this.handleFilterChange}/>
+            <Col xs={6}>
+              <ToggleButtonGroup onChange={this.handleTypeChange} type="radio" name="spellType" defaultValue="">
+                <ToggleButton variant="secondary" value="">all</ToggleButton>
+                {spellTypButtons}
+              </ToggleButtonGroup>
+            </Col>
           </Row>
           <Row>
             {spells}

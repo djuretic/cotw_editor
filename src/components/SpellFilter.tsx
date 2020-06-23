@@ -8,7 +8,7 @@ interface SpellFilterProps {
 class SpellFilter extends React.Component<SpellFilterProps> {
 	render() {
 		return (
-			<Col md={3}>
+			<Col md={4}>
 				Filter by name:
 				<Form.Control type="text" placeholder="Enter spell name here" onChange={this.props.onChange} />
 			</Col>
