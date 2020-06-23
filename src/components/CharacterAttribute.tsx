@@ -45,11 +45,13 @@ class CharacterAttribute extends React.Component<CharacterAttributeProps> {
       inputs = (
         <InputGroup>
           <GameNumberInput id={inputId} value={this.props.values[0]} onChange={e => this.props.onChange(var1, e)} {...rules[0]}/>
-          {/* <InputGroup.Addon>/</InputGroup.Addon> */}
+          <InputGroup.Prepend>
+            <InputGroup.Text>/</InputGroup.Text>
+          </InputGroup.Prepend>
           <GameNumberInput value={this.props.values[1]} onChange={e => this.props.onChange(var2, e)} {...rules[1]}/>
         </InputGroup>
       );
-    } else if (this.props.var && this.props.value) {
+    } else if (this.props.var && this.props.value !== undefined) {
       const rules = this.attributeRules(this.props.var, this.props.value);
       isValid = rules.valid;
       inputs = <GameNumberInput id={inputId} value={this.props.value} onChange={e => this.props.onChange(this.props.var, e)} {...rules} />;

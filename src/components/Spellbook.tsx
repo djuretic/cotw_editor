@@ -17,9 +17,10 @@ interface SpellbookState {
 class Spellbook extends React.Component<SpellbookProps, SpellbookState> {
   state: SpellbookState = {spells: emptySpellbook(), filterText: ''}
 
-  handleFilterChange(event: React.ChangeEvent<HTMLInputElement>) {
+  handleFilterChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     this.setState({filterText: event.target.value.replace(/\s+/g, '')});
   }
+
   render() {
     let spells = []
     for (let spellId of spellIds) {

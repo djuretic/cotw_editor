@@ -33,8 +33,8 @@ class CharacterProfile extends React.Component<CharacterProfileProps> {
 		return (
 			<fieldset>
 				<legend>Character</legend>
-				<img src={this.props.gender === 1 ? HeroFemale : HeroMale} className="center-block"/>
-				<div className="center-block text-center">{this.props.name} (level {this.props.level})</div>
+				<img src={this.props.gender === 1 ? HeroFemale : HeroMale} className="d-block mx-auto"/>
+				<div className="mx-auto text-center">{this.props.name} (level {this.props.level})</div>
 				<CharacterAttribute name="HP" vars={['hp', 'maxHp']} values={[this.props.hp, this.props.maxHp]} onChange={this.props.handleChange}/>
 				<CharacterAttribute name="Mana" vars={['mp', 'maxMp']} values={[this.props.mp, this.props.maxMp]} onChange={this.props.handleChange}/>
 				<CharacterAttribute name="Armor Class" var="armorClass" value={this.props.armorClass} onChange={this.props.handleChange}/>
