@@ -90,8 +90,8 @@ export default {
     for(const property of fieldIds){
       let {offset, numBytes, type} = FIELDS[property]
       let value = state[property]
-      if(type !== 'string' && typeof value === "number"){
-        writeInt(dataView, offset, value, numBytes)
+      if(type !== 'string'){
+        writeInt(dataView, offset, value as number, numBytes)
       }
     }
     for(const property of spellIds){
