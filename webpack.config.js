@@ -13,13 +13,6 @@ var plugins = [
 
 if(production) {
 	plugins = plugins.concat([
-		// This plugin minifies all the Javascript code of the final bundle
-		new webpack.optimize.UglifyJsPlugin({
-			mangle:   true,
-			compress: {
-				warnings: false, // Suppress uglification warnings
-			},
-		}),
 		// this allows React to use the production build
 		new webpack.DefinePlugin({
 			'process.env': {
