@@ -40,6 +40,13 @@ label {
 	margin-right: 5px;
 }
 
+.spell-icon-none {
+	display: inline-block;
+	height: 21px;
+	width: 21px;
+	margin-right: 5px;
+}
+
 .spell-not-learned {
 	color: #a0a0a0;
 }

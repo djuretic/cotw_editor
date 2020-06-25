@@ -7,6 +7,7 @@ import SavegameParser from './savegame_parser'
 import {emptySavegame, SavegameDefinition, SpellId, FieldId} from './constants'
 
 import Spellbook from './components/Spellbook'
+import SpellBar from './components/SpellBar'
 import CharacterProfile from './components/CharacterProfile'
 import OutdatedBrowserWarning from './components/OutdatedBrowserWarning'
 
@@ -148,6 +149,7 @@ class MainEditor extends React.Component<{}, MainEditorState> {
                 </Col>
                 <Col xs={12} md={8}>
                   <Spellbook spells={this.state.spellBook} handleChange={this.handleSpellChange}/>
+                  <SpellBar bar={this.state.spellBar} />
                 </Col>
               </Row>
               <fieldset>

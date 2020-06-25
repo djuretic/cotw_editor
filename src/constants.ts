@@ -36,6 +36,8 @@ export const SPELL_TYPES: Record<SpellType, SpellId[]> = {
   misc: ['light', 'removeCurse']
 }
 
+export const spellBarInitOffset = 0x38E
+
 export const SPELLS: Record<SpellId, {offset: number, mp: number}> = {
   healMinorWounds: {offset: 0x1B2, mp: 1},
   detectObjects: {offset: 0x1BE, mp: 1},
@@ -190,14 +192,17 @@ export const FIELDS: Record<FieldId, FieldInfo> = {
   maxBulk: {offset: 0x40A, numBytes: 4},
 }
 
+export type SpellNumber = number
 export type SavegameDefinition = {
   spellBook: Record<SpellId, number>,
+  spellBar: SpellNumber[],
   rawFile: ArrayBuffer,
 } & Record<StringFieldId, string> & Record<NumberFieldId, number>
 
 export function emptySavegame(): SavegameDefinition {
   return {
     spellBook: emptySpellbook(),
+    spellBar: [0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
     rawFile: new ArrayBuffer(0),
     strBase: 0,
     intBase: 0,

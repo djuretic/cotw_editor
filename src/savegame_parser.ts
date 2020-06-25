@@ -1,6 +1,6 @@
 import {
   FIELDS, SPELLS, spellIds, stringFieldIds, numberFieldIds,
-  fieldIds, emptySavegame, SavegameDefinition
+  fieldIds, emptySavegame, SavegameDefinition, spellBarInitOffset
 } from './constants'
 import {saveAs} from 'file-saver'
 
@@ -71,6 +71,9 @@ export default {
           let {offset} = SPELLS[property]
           state.spellBook[property] = readInt(dataView, offset, 1)
         }
+        for (let i=0; i < 10; i++) {
+          state.spellBar[i] = readInt(dataView, spellBarInitOffset + 2*i, 2)
+        }
       } catch(e) {
         error_callback(e)
       }
@@ -97,6 +100,9 @@ export default {
     for(const property of spellIds){
       let {offset} = SPELLS[property]
       writeInt(dataView, offset, state.spellBook[property], 1)
+    }
+    for (let i=0; i < 10; i++) {
+      writeInt(dataView, spellBarInitOffset + 2*i, state.spellBar[i], 2)
     }
     let blob = new Blob([new Uint8Array(dataView.buffer)])
     saveAs(blob, 'savegame.cwg')

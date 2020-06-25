@@ -40,7 +40,7 @@ class Spellbook extends React.Component<SpellbookProps, SpellbookState> {
         spells.push(<SpellRow key={spellId} spellName={spellId} index={n} value={value} handleChange={this.props.handleChange} />)
       }
     }
-    let spellTypButtons = spellTypes.map(spellType => {
+    let spellTypeButtons = spellTypes.map(spellType => {
       return <ToggleButton key={spellType} variant="secondary" value={spellType}>{spellType}</ToggleButton>
     })
     return (
@@ -55,7 +55,7 @@ class Spellbook extends React.Component<SpellbookProps, SpellbookState> {
             <Col xs={6}>
               <ToggleButtonGroup onChange={this.handleTypeChange} type="radio" name="spellType" defaultValue="">
                 <ToggleButton variant="secondary" value="">all</ToggleButton>
-                {spellTypButtons}
+                {spellTypeButtons}
               </ToggleButtonGroup>
             </Col>
           </Row>

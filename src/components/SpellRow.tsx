@@ -2,6 +2,7 @@ import React from 'react'
 import { Col, Form } from 'react-bootstrap'
 import { isInt } from '../utils'
 import { SpellId } from '../constants'
+import SpellIcon from './SpellIcon'
 
 interface SpellRowProps {
   spellName: SpellId,
@@ -24,13 +25,11 @@ class SpellRow extends React.Component<SpellRowProps> {
     let longSpellName = this.props.spellName.charAt(0).toUpperCase() + this.props.spellName.slice(1);
     longSpellName = longSpellName.replace(/([a-z.])([A-Z])/g, '$1 $2')
     const n = this.props.index || 0
-    // the last 4 spells don't have icons
-    const spriteStyles = n >= 32 ? {background: 'none'} : {backgroundPosition: `-${24*n}px -${22*Math.floor(n/8)}px`}
     const cssClases = 'spell '+(learned ? 'spell-learned ' : 'spell-not-learned ') + (isValid ? '' : 'has-error')
     return (
       <React.Fragment>
         <Col xs={4} md={3} className={"text-right " + cssClases}>
-          <span className="spell-icon" style={spriteStyles}/>
+          <SpellIcon spellNumber={n} />
           <Form.Label className="hide-overflow" htmlFor={`spell-${this.props.spellName}`}>{longSpellName}</Form.Label>
         </Col>
         <Col xs={2} md={1} className={cssClases}>
