@@ -148,8 +148,8 @@ class MainEditor extends React.Component<{}, MainEditorState> {
                     />
                 </Col>
                 <Col xs={12} md={8}>
-                  <Spellbook spells={this.state.spellBook} handleChange={this.handleSpellChange}/>
                   <SpellBar bar={this.state.spellBar} />
+                  <Spellbook spells={this.state.spellBook} handleChange={this.handleSpellChange}/>
                 </Col>
               </Row>
               <fieldset>

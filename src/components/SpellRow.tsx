@@ -1,6 +1,6 @@
 import React from 'react'
 import { Col, Form } from 'react-bootstrap'
-import { isInt } from '../utils'
+import { isInt, formatSpellName } from '../utils'
 import { SpellId } from '../constants'
 import SpellIcon from './SpellIcon'
 
@@ -21,16 +21,13 @@ class SpellRow extends React.Component<SpellRowProps> {
       const intValue = parseInt(this.props.value) // TODO value can be string
       learned = isValid && intValue !== -1 && intValue !== -2
     }
-    // source: http://stackoverflow.com/a/1026087
-    let longSpellName = this.props.spellName.charAt(0).toUpperCase() + this.props.spellName.slice(1);
-    longSpellName = longSpellName.replace(/([a-z.])([A-Z])/g, '$1 $2')
     const n = this.props.index || 0
     const cssClases = 'spell '+(learned ? 'spell-learned ' : 'spell-not-learned ') + (isValid ? '' : 'has-error')
     return (
       <React.Fragment>
         <Col xs={4} md={3} className={"text-right " + cssClases}>
           <SpellIcon spellNumber={n} />
-          <Form.Label className="hide-overflow" htmlFor={`spell-${this.props.spellName}`}>{longSpellName}</Form.Label>
+          <Form.Label className="hide-overflow" htmlFor={`spell-${this.props.spellName}`}>{formatSpellName(this.props.spellName)}</Form.Label>
         </Col>
         <Col xs={2} md={1} className={cssClases}>
           <Form.Control
