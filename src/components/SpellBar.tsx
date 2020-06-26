@@ -16,6 +16,8 @@ class SpellBar extends React.Component<SpellBarProps> {
     let spells = []
     let n = 0
     for (let spell of this.props.bar) {
+      // needed for closure
+      let current = n
       spells.push(
         <OverlayTrigger
           key={`menu-bar-${n}`}
@@ -26,7 +28,7 @@ class SpellBar extends React.Component<SpellBarProps> {
           <Button
             className="spell-menu-button"
             variant="outline-secondary"
-            onClick={() => this.props.onClick(n)}>
+            onClick={() => {this.props.onClick(current)}}>
               <SpellIcon spellNumber={spell} />
           </Button>
         </OverlayTrigger>

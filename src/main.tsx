@@ -189,6 +189,7 @@ class MainEditor extends React.Component<{}, MainEditorState> {
         </Modal>
         <SelectSpellModal
           show={this.state.showSpellModal}
+          slot={this.state.currentSpellMenuSlot}
           value={this.state.currentSpellMenuSlot ? this.state.spellBar[this.state.currentSpellMenuSlot] : null}
           onHide={this.closeSpellModal} />
       </Container>

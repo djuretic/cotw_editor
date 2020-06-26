@@ -6,12 +6,16 @@ import SpellIcon from './SpellIcon'
 
 interface SelectSpellModalProps {
   show: boolean,
+  slot: number | null,
   value: SpellNumber | null,
   onHide: () => void
 }
 
 class SelectSpellModal extends React.Component<SelectSpellModalProps> {
   render() {
+    if (this.props.slot === null) {
+      return null
+    }
     let spells = []
     for (let spellId of spellIds) {
       const n = spellIds.indexOf(spellId)
@@ -27,7 +31,7 @@ class SelectSpellModal extends React.Component<SelectSpellModalProps> {
     return (
       <Modal size="lg" show={this.props.show} onHide={this.props.onHide}>
         <Modal.Header closeButton>
-          <Modal.Title>Select spell</Modal.Title>
+        <Modal.Title>Select spell for slot {this.props.slot + 1}</Modal.Title>
         </Modal.Header>
         <Modal.Body>
           <Row>{spells}</Row>
