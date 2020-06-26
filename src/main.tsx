@@ -10,6 +10,7 @@ import Spellbook from './components/Spellbook'
 import SpellBar from './components/SpellBar'
 import CharacterProfile from './components/CharacterProfile'
 import OutdatedBrowserWarning from './components/OutdatedBrowserWarning'
+import SelectSpellModal from './components/SelectSpellModal'
 
 import './google_analytics'
 
@@ -48,14 +49,20 @@ class FileInput extends React.Component<FileInputProps> {
 }
 
 type MainEditorState = {
-  showModal: boolean,
+  showErrorModal: boolean,
+  showSpellModal: boolean,
+  currentSpellMenuSlot: number | null,
   modalText: string,
   validationMsg: string,
 } & SavegameDefinition
 
 class MainEditor extends React.Component<{}, MainEditorState> {
   state: MainEditorState = {
-    showModal: false, modalText: '', validationMsg: '',
+    showErrorModal: false,
+    currentSpellMenuSlot: null,
+    showSpellModal: false,
+    modalText: '',
+    validationMsg: '',
     ...emptySavegame()
   }
   fileInput = React.createRef<FileInput>()
@@ -66,11 +73,19 @@ class MainEditor extends React.Component<{}, MainEditorState> {
       text = 'The file is not a valid Castle of the Winds savegame.'
     }
     this.fileInput.current!.clear()
-    this.setState({showModal: true, modalText: text})
+    this.setState({showErrorModal: true, modalText: text})
   }
 
-  closeModal() {
-    this.setState({showModal: false})
+  closeErrorModal() {
+    this.setState({showErrorModal: false})
+  }
+
+  openSpellModal = (slot: number) => {
+    this.setState({showSpellModal: true, currentSpellMenuSlot: slot})
+  }
+
+  closeSpellModal = () => {
+    this.setState({showSpellModal: false, currentSpellMenuSlot: null})
   }
 
   savefileSelected = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -148,7 +163,7 @@ class MainEditor extends React.Component<{}, MainEditorState> {
                     />
                 </Col>
                 <Col xs={12} md={8}>
-                  <SpellBar bar={this.state.spellBar} />
+                  <SpellBar bar={this.state.spellBar} onClick={this.openSpellModal}/>
                   <Spellbook spells={this.state.spellBook} handleChange={this.handleSpellChange}/>
                 </Col>
               </Row>
@@ -161,7 +176,7 @@ class MainEditor extends React.Component<{}, MainEditorState> {
           ) : null
         }
 
-        <Modal show={this.state.showModal} onHide={this.closeModal}>
+        <Modal show={this.state.showErrorModal} onHide={this.closeErrorModal}>
           <Modal.Header closeButton>
             <Modal.Title>Error</Modal.Title>
           </Modal.Header>
@@ -169,9 +184,13 @@ class MainEditor extends React.Component<{}, MainEditorState> {
             <p>Error reading file: {this.state.modalText}</p>
           </Modal.Body>
           <Modal.Footer>
-            <Button onClick={this.closeModal}>Close</Button>
+            <Button onClick={this.closeErrorModal}>Close</Button>
           </Modal.Footer>
         </Modal>
+        <SelectSpellModal
+          show={this.state.showSpellModal}
+          value={this.state.currentSpellMenuSlot ? this.state.spellBar[this.state.currentSpellMenuSlot] : null}
+          onHide={this.closeSpellModal} />
       </Container>
     )
   }

@@ -5,7 +5,8 @@ import SpellIcon from './SpellIcon'
 import { formatSpellName } from '../utils'
 
 interface SpellBarProps {
-  bar: SpellNumber[]
+  bar: SpellNumber[],
+  onClick: (slot: number) => void
 }
 
 
@@ -13,17 +14,24 @@ class SpellBar extends React.Component<SpellBarProps> {
 
   render() {
     let spells = []
+    let n = 0
     for (let spell of this.props.bar) {
       spells.push(
         <OverlayTrigger
-          key={spell}
+          key={`menu-bar-${n}`}
           placement="bottom"
           overlay={
             <Tooltip id={`tooltip-${spell}`}>{formatSpellName(spellIds[spell]) || "(None)"}</Tooltip>
           }>
-          <Button className="spell-menu-button" variant="outline-secondary"><SpellIcon spellNumber={spell} /></Button>
+          <Button
+            className="spell-menu-button"
+            variant="outline-secondary"
+            onClick={() => this.props.onClick(n)}>
+              <SpellIcon spellNumber={spell} />
+          </Button>
         </OverlayTrigger>
       )
+      n++
     }
     return (
       <fieldset>
