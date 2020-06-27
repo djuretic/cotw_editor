@@ -23,7 +23,7 @@ class SpellBar extends React.Component<SpellBarProps> {
           key={`menu-bar-${n}`}
           placement="bottom"
           overlay={
-            <Tooltip id={`tooltip-${spell}`}>{formatSpellName(spellIds[spell]) || "(None)"}</Tooltip>
+          <Tooltip id={`tooltip-${spell}`}>Slot {n+1}: {formatSpellName(spellIds[spell]) || "(None)"}</Tooltip>
           }>
           <Button
             className="spell-menu-button"
