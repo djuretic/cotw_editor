@@ -72,6 +72,7 @@ export default {
           state.spellBook[property] = readInt(dataView, offset, 1)
         }
         for (let i=0; i < 10; i++) {
+          // TODO clone?
           state.spellBar[i] = readInt(dataView, spellBarInitOffset + 2*i, 2)
         }
       } catch(e) {

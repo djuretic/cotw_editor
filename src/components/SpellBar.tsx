@@ -37,8 +37,8 @@ class SpellBar extends React.Component<SpellBarProps> {
     }
     return (
       <fieldset>
-        <legend>Spell Menu</legend>
-        <p>You can set spells that you haven't learned, and that includes Create Traps, Haste Monster, Teleport Away and Clone Monster.</p>
+        <legend>Spell menu</legend>
+        <p>You can even set spells that you haven't learned, and that includes Create Traps, Haste Monster, Teleport Away and Clone Monster.</p>
         <p>{spells}</p>
       </fieldset>
     )

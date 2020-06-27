@@ -1,4 +1,4 @@
-import SavegameParser from '../savegame_parser';
+import SavegameParser from '../savegameParser';
 import fs from 'fs';
 
 // source: http://stackoverflow.com/a/12101012

@@ -3,7 +3,7 @@ import React from 'react'
 import ReactDOM from 'react-dom'
 import {Button, Container, Row, Col, Modal, Alert} from 'react-bootstrap'
 import '../assets/css/main.css'
-import SavegameParser from './savegame_parser'
+import SavegameParser from './savegameParser'
 import {emptySavegame, SavegameDefinition, SpellId, SpellNumber, FieldId} from './constants'
 
 import Spellbook from './components/Spellbook'
@@ -12,7 +12,7 @@ import CharacterProfile from './components/CharacterProfile'
 import OutdatedBrowserWarning from './components/OutdatedBrowserWarning'
 import SelectSpellModal from './components/SelectSpellModal'
 
-import './google_analytics'
+import './googleAnalytics'
 
 import iconImage from '../assets/icon.png'
 
