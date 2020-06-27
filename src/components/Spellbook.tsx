@@ -2,7 +2,10 @@ import React from 'react'
 import { Row, Col, Container, ToggleButton, ToggleButtonGroup } from 'react-bootstrap'
 import SpellFilter from './SpellFilter'
 import SpellRow from './SpellRow'
-import {SpellId, spellIds, emptySpellbook, spellTypes, SpellType, SPELL_TYPES} from '../constants'
+import {
+  SpellId, spellIds, emptySpellbook, spellTypes,
+  SpellType, SPELL_TYPES, nonLearnableSpellIds
+} from '../constants'
 
 interface SpellbookProps {
   spells: Record<SpellId, number>,
@@ -31,6 +34,9 @@ class Spellbook extends React.Component<SpellbookProps, SpellbookState> {
     const spellType = this.state.spellType
     for (let spellId of spellIds) {
       if (spellType && !SPELL_TYPES[spellType].includes(spellId)) {
+        continue
+      }
+      if (nonLearnableSpellIds.includes(spellId)) {
         continue
       }
       let filtered = spellId.toUpperCase().indexOf(this.state.filterText.toUpperCase()) >= 0

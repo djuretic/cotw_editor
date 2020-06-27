@@ -8,14 +8,17 @@ export const spellIds = [
   'fireBolt','lightningBolt','removeCurse','resistFire', 'resistCold',
   'resistLightning', 'resistAcid', 'resistFear', 'sleepMonster', 'slowMonster',
   'teleport', 'runeOfReturn', 'healMajorWounds', 'fireball', 'ballLightning',
-  'healing', 'trans.Monster'] as const
-
+  'healing', 'trans.Monster', 'createTraps', 'hasteMonster', 'teleportAway',
+  'cloneMonster'
+] as const
 export const spellTypes = [
   'attack', 'defense', 'healing', 'movement', 'divination', 'misc'
 ] as const
 
 export type SpellType = typeof spellTypes[number]
 export type SpellId = typeof spellIds[number]
+export const nonLearnableSpellIds: SpellId[] = [
+  'createTraps', 'hasteMonster', 'teleportAway', 'cloneMonster']
 export const SPELL_TYPES: Record<SpellType, SpellId[]> = {
   attack: [
     'magicArrow', 'coldBolt', 'coldBall', 'fireBolt', 'lightningBolt',
@@ -70,11 +73,11 @@ export const SPELLS: Record<SpellId, {offset: number, mp: number}> = {
   fireball: {offset: 0x302, mp: 7},
   ballLightning: {offset: 0x30E, mp: 6},
   healing: {offset: 0x31A, mp: 9},
-  'trans.Monster': {offset: 0x326, mp: 9}
-  /*createTraps: {offset: 0x332, mp: 0},
+  'trans.Monster': {offset: 0x326, mp: 9},
+  createTraps: {offset: 0x332, mp: 0},
   hasteMonster: {offset: 0x33E, mp: 0},
   teleportAway: {offset: 0x34A, mp: 0},
-  cloneMonster: {offset: 0x356, mp: 0}*/
+  cloneMonster: {offset: 0x356, mp: 0}
 }
 
 export function emptySpellbook(): Record<SpellId, number> {
@@ -110,7 +113,11 @@ export function emptySpellbook(): Record<SpellId, number> {
     fireball: -1,
     ballLightning: -1,
     healing: -1,
-    'trans.Monster': -1
+    'trans.Monster': -1,
+    createTraps: -1,
+    hasteMonster: -1,
+    teleportAway: -1,
+    cloneMonster: -1
   }
 }
 
