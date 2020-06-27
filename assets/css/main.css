@@ -61,6 +61,16 @@ label {
 	filter: alpha(opacity=15); /* msie */
 }
 
+.spell-modal-row {
+	padding-left: 10px;
+	padding-right: 10px;
+}
+
+.select-spell:hover {
+	cursor: pointer;
+	background-color: gray;
+}
+
 .header h1 {
 	display: inline-block;
 }

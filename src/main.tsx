@@ -4,7 +4,7 @@ import ReactDOM from 'react-dom'
 import {Button, Container, Row, Col, Modal, Alert} from 'react-bootstrap'
 import '../assets/css/main.css'
 import SavegameParser from './savegame_parser'
-import {emptySavegame, SavegameDefinition, SpellId, FieldId} from './constants'
+import {emptySavegame, SavegameDefinition, SpellId, SpellNumber, FieldId} from './constants'
 
 import Spellbook from './components/Spellbook'
 import SpellBar from './components/SpellBar'
@@ -86,6 +86,13 @@ class MainEditor extends React.Component<{}, MainEditorState> {
 
   closeSpellModal = () => {
     this.setState({showSpellModal: false, currentSpellMenuSlot: null})
+  }
+
+  handleSpellSelected = (slot: number | null, spellNumber: SpellNumber) => {
+    if (slot === null) {
+      return
+    }
+    this.setState({spellBar: this.state.spellBar.map((spell, i) => i === slot ? spellNumber: spell)})
   }
 
   savefileSelected = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -191,6 +198,7 @@ class MainEditor extends React.Component<{}, MainEditorState> {
           show={this.state.showSpellModal}
           slot={this.state.currentSpellMenuSlot}
           value={this.state.currentSpellMenuSlot ? this.state.spellBar[this.state.currentSpellMenuSlot] : null}
+          onSelectSpell={this.handleSpellSelected}
           onHide={this.closeSpellModal} />
       </Container>
     )
