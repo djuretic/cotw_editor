@@ -4,11 +4,13 @@ A [Castle of the Winds](https://en.wikipedia.org/wiki/Castle_of_the_Winds) onlin
 
 <kbd>![Editor screenshot](editor_screenshot.png?raw=true)</kbd>
 
-I created this with the aim of learning React, so contributions are welcome.
+I created this with the aim of learning React and Typescript, so contributions are welcome.
 
 Demo: https://djuretic.github.io/cotw_editor/
 
 ## Instructions
+
+Node version I'm using: 10.21.0
 
 ```
 git clone https://github.com/djuretic/cotw_editor.git
