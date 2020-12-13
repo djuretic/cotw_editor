@@ -10,13 +10,11 @@ interface GameNumberInputProps {
   id?: string,
 }
 
-class GameNumberInput extends React.Component<GameNumberInputProps> {
-  render() {
-    return (
-      <Form.Control className={this.props.valid ? '' : 'has-error'} type="number" min={this.props.min} max={this.props.max} value={this.props.value}
-        onChange={this.props.onChange} id={this.props.id} required/>
-    )
-  }
+const GameNumberInput: React.FC<GameNumberInputProps> = ({min, max, value, valid, onChange, id}) => {
+  return (
+    <Form.Control className={valid ? '' : 'has-error'} type="number" min={min} max={max} value={value}
+      onChange={onChange} id={id} required/>
+  )
 }
 
 export default GameNumberInput

@@ -28,32 +28,30 @@ interface CharacterProfileProps {
 }
 
 
-class CharacterProfile extends React.Component<CharacterProfileProps> {
-	render() {
-		return (
-			<fieldset>
-				<legend>Character</legend>
-				<img src={this.props.gender === 1 ? HeroFemale : HeroMale} className="d-block mx-auto"/>
-				<div className="mx-auto text-center">{this.props.name} (level {this.props.level})</div>
-				<CharacterAttribute name="HP" vars={['hp', 'maxHp']} values={[this.props.hp, this.props.maxHp]} onChange={this.props.handleChange}/>
-				<CharacterAttribute name="Mana" vars={['mp', 'maxMp']} values={[this.props.mp, this.props.maxMp]} onChange={this.props.handleChange}/>
-				<CharacterAttribute name="Armor Class" var="armorClass" value={this.props.armorClass} onChange={this.props.handleChange}/>
-				<CharacterAttribute name="Experience" var="exp" value={this.props.exp} onChange={this.props.handleChange}/>
-				<CharacterAttribute name="Strength" var="str" value={this.props.str} onChange={this.props.handleChange}/>
-				<CharacterAttribute name="Intelligence" var="int" value={this.props.int} onChange={this.props.handleChange}/>
-				<CharacterAttribute name="Constitution" var="con" value={this.props.con} onChange={this.props.handleChange}/>
-				<CharacterAttribute name="Dextery" var="dex" value={this.props.dex} onChange={this.props.handleChange}/>
-				<Row>
-					<Col xs={4} md={6} className="text-right">Bulk</Col>
-					<Col xs={8} md={6}>{this.props.bulk} / {this.props.maxBulk}</Col>
-				</Row>
-				<Row>
-					<Col xs={4} md={6} className="text-right">Weight</Col>
-					<Col xs={8} md={6}>{this.props.weight} / {this.props.maxWeight}</Col>
-				</Row>
-			</fieldset>
-		)
-	}
+const CharacterProfile: React.FC<CharacterProfileProps> = (props) => {
+  return (
+    <fieldset>
+      <legend>Character</legend>
+      <img src={props.gender === 1 ? HeroFemale : HeroMale} className="d-block mx-auto"/>
+      <div className="mx-auto text-center">{props.name} (level {props.level})</div>
+      <CharacterAttribute name="HP" vars={['hp', 'maxHp']} values={[props.hp, props.maxHp]} onChange={props.handleChange}/>
+      <CharacterAttribute name="Mana" vars={['mp', 'maxMp']} values={[props.mp, props.maxMp]} onChange={props.handleChange}/>
+      <CharacterAttribute name="Armor Class" varr="armorClass" value={props.armorClass} onChange={props.handleChange}/>
+      <CharacterAttribute name="Experience" varr="exp" value={props.exp} onChange={props.handleChange}/>
+      <CharacterAttribute name="Strength" varr="str" value={props.str} onChange={props.handleChange}/>
+      <CharacterAttribute name="Intelligence" varr="int" value={props.int} onChange={props.handleChange}/>
+      <CharacterAttribute name="Constitution" varr="con" value={props.con} onChange={props.handleChange}/>
+      <CharacterAttribute name="Dextery" varr="dex" value={props.dex} onChange={props.handleChange}/>
+      <Row>
+        <Col xs={4} md={6} className="text-right">Bulk</Col>
+        <Col xs={8} md={6}>{props.bulk} / {props.maxBulk}</Col>
+      </Row>
+      <Row>
+        <Col xs={4} md={6} className="text-right">Weight</Col>
+        <Col xs={8} md={6}>{props.weight} / {props.maxWeight}</Col>
+      </Row>
+    </fieldset>
+  )
 }
 
 export default CharacterProfile

@@ -5,7 +5,7 @@ interface SpellIconProps {
   spellNumber: SpellNumber
 }
 
-const SpellIcon = ({ spellNumber }: SpellIconProps) => {
+const SpellIcon: React.FC<SpellIconProps> = ({ spellNumber }) => {
   if (spellNumber < 0) {
     return <span className="spell-icon-none" />
   } else if (spellNumber >= 32) {

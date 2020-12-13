@@ -5,15 +5,13 @@ interface SpellFilterProps {
   onChange: (event: React.ChangeEvent<HTMLInputElement>) => void
 }
 
-class SpellFilter extends React.Component<SpellFilterProps> {
-	render() {
-		return (
-			<Col md={4}>
-				Filter by name:
-				<Form.Control type="text" placeholder="Enter spell name here" onChange={this.props.onChange} />
-			</Col>
-		)
-	}
+const SpellFilter: React.FC<SpellFilterProps> = ({onChange}) => {
+  return (
+    <Col md={4}>
+      Filter by name:
+      <Form.Control type="text" placeholder="Enter spell name here" onChange={onChange} />
+    </Col>
+  )
 }
 
 export default SpellFilter

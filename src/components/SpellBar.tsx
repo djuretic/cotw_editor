@@ -10,39 +10,37 @@ interface SpellBarProps {
 }
 
 
-class SpellBar extends React.Component<SpellBarProps> {
-
-  render() {
-    let spells = []
-    let n = 0
-    for (let spell of this.props.bar) {
-      // needed for closure
-      let current = n
-      spells.push(
-        <OverlayTrigger
-          key={`menu-bar-${n}`}
-          placement="bottom"
-          overlay={
-          <Tooltip id={`tooltip-${spell}`}>Slot {n+1}: {formatSpellName(spellIds[spell]) || "(None)"}</Tooltip>
-          }>
-          <Button
-            className="spell-menu-button"
-            variant="outline-secondary"
-            onClick={() => {this.props.onClick(current)}}>
-              <SpellIcon spellNumber={spell} />
-          </Button>
-        </OverlayTrigger>
-      )
-      n++
-    }
-    return (
-      <fieldset>
-        <legend>Spell menu</legend>
-        <p>You can even set spells that you haven't learned, and that includes Create Traps, Haste Monster, Teleport Away and Clone Monster.</p>
-        <p>{spells}</p>
-      </fieldset>
+const SpellBar: React.FC<SpellBarProps> = ({bar, onClick}) => {
+  let spells = []
+  let n = 0
+  for (let spell of bar) {
+    // needed for closure
+    let current = n
+    spells.push(
+      <OverlayTrigger
+        key={`menu-bar-${n}`}
+        placement="bottom"
+        overlay={
+        <Tooltip id={`tooltip-${spell}`}>Slot {n+1}: {formatSpellName(spellIds[spell]) || "(None)"}</Tooltip>
+        }>
+        <Button
+          className="spell-menu-button"
+          variant="outline-secondary"
+          onClick={() => {onClick(current)}}>
+            <SpellIcon spellNumber={spell} />
+        </Button>
+      </OverlayTrigger>
     )
+    n++
   }
+  return (
+    <fieldset>
+      <legend>Spell menu</legend>
+      <p>You can even set spells that you haven't learned, and that includes Create Traps, Haste Monster, Teleport Away and Clone Monster.</p>
+      <p>{spells}</p>
+    </fieldset>
+  )
+
 }
 
 export default SpellBar

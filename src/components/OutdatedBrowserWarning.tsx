@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useState } from 'react'
 import {Alert} from 'react-bootstrap'
 
 type OutdatedBrowserWarningProps = {
@@ -9,24 +9,18 @@ type OutdatedBrowserWarningState = {
   alertVisible: boolean
 }
 
-class OutdatedBrowserWarning extends React.Component<OutdatedBrowserWarningProps, OutdatedBrowserWarningState> {
-  state: OutdatedBrowserWarningState = {alertVisible: this.props.initialShow}
+const OutdatedBrowserWarning: React.FC<OutdatedBrowserWarningProps> = ({initialShow}) => {
+  const [alertVisible, setAlertVisible] = useState(initialShow)
 
-  handleDismiss() {
-    this.setState({alertVisible: false});
-  }
-
-  render() {
-    if(this.state.alertVisible){
-      return (
-        <Alert variant="danger" onClose={this.handleDismiss}>
-          <h4>Sorry, your browser is not supported</h4>
-          <p>Try <a target="_blank" href="http://outdatedbrowser.com/"> updading your browser</a>.</p>
-        </Alert>
-      );
-    } else {
-      return null
-    }
+  if(alertVisible){
+    return (
+      <Alert variant="danger" onClose={() => setAlertVisible(false)}>
+        <h4>Sorry, your browser is not supported</h4>
+        <p>Try <a target="_blank" href="http://outdatedbrowser.com/"> updading your browser</a>.</p>
+      </Alert>
+    );
+  } else {
+    return null
   }
 }
 
