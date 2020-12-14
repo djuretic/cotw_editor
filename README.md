@@ -20,3 +20,9 @@ npm run build # or "npm run build:production" for minified build
 ```
 
 And then open index.html in your browser, or use `npm run serve` instead.
+
+## Tests
+
+```bash
+npm run test
+```
