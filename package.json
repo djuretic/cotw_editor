@@ -4,10 +4,10 @@
   "description": "Castle of the Winds online savegame editor",
   "main": "index.js",
   "scripts": {
-    "build": "webpack",
+    "build": "parcel build index.html",
     "build:production": "NODE_ENV=production webpack",
     "watch": "webpack --watch",
-    "serve": "webpack-dev-server --hot",
+    "serve": "parcel serve index.html",
     "test": "jest src/__tests__"
   },
   "devDependencies": {
@@ -20,25 +20,24 @@
     "@types/node": "^18.11.11",
     "@types/react": "^18.0.26",
     "@types/react-dom": "^18.0.9",
+    "assert": "^2.0.0",
     "babel-loader": "^9.1.0",
-    "copy-webpack-plugin": "^11.0.0",
+    "buffer": "^5.7.1",
     "css-loader": "^6.7.2",
-    "file-loader": "^6.2.0",
     "file-saver": "^2.0.5",
     "jest": "^29.3.1",
     "json-loader": "^0.5.7",
     "modernizr": "^3.12.0",
-    "modernizr-loader": "^1.0.1",
+    "parcel": "^2.8.0",
+    "parcel-reporter-static-files-copy": "^1.4.0",
+    "path-browserify": "^1.0.1",
+    "process": "^0.11.10",
+    "punycode": "^1.4.1",
     "react": "^18.2.0",
     "react-bootstrap": "^2.6.0",
     "react-dom": "^18.2.0",
     "style-loader": "^3.3.1",
     "ts-jest": "^29.0.3",
-    "ts-loader": "^9.4.2",
-    "typescript": "^4.9.3",
-    "url-loader": "^4.1.1",
-    "webpack": "^5.75.0",
-    "webpack-cli": "^5.0.1",
-    "webpack-dev-server": "^4.11.1"
+    "typescript": "^4.9.3"
   }
 }

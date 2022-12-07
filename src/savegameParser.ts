@@ -75,7 +75,7 @@ export default {
           // TODO clone?
           state.spellBar[i] = readInt(dataView, spellBarInitOffset + 2*i, 2)
         }
-      } catch(e) {
+      } catch(e: any) {
         error_callback(e)
       }
       success_callback(state)

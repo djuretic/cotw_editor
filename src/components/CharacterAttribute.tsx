@@ -45,9 +45,7 @@ const CharacterAttribute: React.FC<CharacterAttributeProps> = ({name, varr, vars
     inputs = (
       <InputGroup>
         <GameNumberInput id={inputId} value={values[0]} onChange={e => onChange(var1, e)} {...rules[0]}/>
-        <InputGroup.Prepend>
-          <InputGroup.Text>/</InputGroup.Text>
-        </InputGroup.Prepend>
+        <InputGroup.Text>/</InputGroup.Text>
         <GameNumberInput value={values[1]} onChange={e => onChange(var2, e)} {...rules[1]}/>
       </InputGroup>
     );

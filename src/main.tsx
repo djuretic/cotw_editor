@@ -1,6 +1,6 @@
-import Modernizr from 'modernizr'
+// import Modernizr from 'modernizr'
 import React, { useState, forwardRef, useImperativeHandle, useRef } from 'react'
-import ReactDOM from 'react-dom'
+import { createRoot } from 'react-dom/client'
 import {Button, Container, Row, Col, Modal, Alert} from 'react-bootstrap'
 import '../assets/css/main.css'
 import SavegameParser from './savegameParser'
@@ -16,7 +16,7 @@ import './googleAnalytics'
 
 import iconImage from '../assets/icon.png'
 
-const browserSupported = Modernizr.typedarrays && Modernizr.xhrresponsetypearraybuffer
+const browserSupported = true //TODO Modernizr.typedarrays && Modernizr.xhrresponsetypearraybuffer
 
 
 interface FileInputProps {
@@ -129,7 +129,7 @@ const MainEditor: React.FC<{}> = ({}) => {
 
   const loadExample = () => {
     var xhr = new XMLHttpRequest()
-    xhr.open('GET', 'build/example.cwg')
+    xhr.open('GET', './example.cwg')
     xhr.setRequestHeader('Content-Type', 'application/octet-stream')
     xhr.responseType = 'arraybuffer'
     xhr.onload = () => {
@@ -202,4 +202,6 @@ const MainEditor: React.FC<{}> = ({}) => {
   )
 }
 
-ReactDOM.render(<MainEditor />, document.getElementById('react-app'))
+const container = document.getElementById('react-app')
+const root = createRoot(container!)
+root.render(<MainEditor />)

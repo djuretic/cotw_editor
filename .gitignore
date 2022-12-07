@@ -4,3 +4,6 @@ node_modules
 .nvmrc
 .cache
 CASTLE1*
+/.parcel-cache
+/assets
+/dist
