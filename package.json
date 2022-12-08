@@ -3,7 +3,7 @@
   "version": "1.0.0",
   "description": "Castle of the Winds online savegame editor",
   "scripts": {
-    "build": "parcel build index.html",
+    "build": "parcel build index.html --no-source-maps",
     "build:modernizr": "modernizr -c modernizr.config.json -d static/modernizr.js",
     "serve": "parcel serve index.html",
     "test": "jest src/__tests__"
