@@ -10,16 +10,16 @@ Demo: https://djuretic.github.io/cotw_editor/
 
 ## Instructions
 
-Node version I'm using: 10.21.0
+Node version I'm using: 16.18.1
 
 ```
 git clone https://github.com/djuretic/cotw_editor.git
 cd cotw_editor
 npm install
-npm run build # or "npm run build:production" for minified build
+npm run build
 ```
 
-And then open index.html in your browser, or use `npm run serve` instead.
+And then open dist/index.html in your browser, or use `npm run serve` instead.
 
 ## Tests
 
