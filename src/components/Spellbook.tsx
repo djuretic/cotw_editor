@@ -35,7 +35,7 @@ const Spellbook: React.FC<SpellbookProps> = ({spells, handleChange}) =>{
     }
   }
   let spellTypeButtons = spellTypes.map(spellType => {
-    return <ToggleButton key={spellType} variant="secondary" value={spellType}>{spellType}</ToggleButton>
+    return <ToggleButton id={`spell-type-${spellType}`} key={spellType} variant="secondary" value={spellType}>{spellType}</ToggleButton>
   })
   return (
     <fieldset>
@@ -48,7 +48,7 @@ const Spellbook: React.FC<SpellbookProps> = ({spells, handleChange}) =>{
           <SpellFilter onChange={handleFilterChange}/>
           <Col xs={6}>
             <ToggleButtonGroup onChange={setSpellType} type="radio" name="spellType" defaultValue="">
-              <ToggleButton variant="secondary" value="">all</ToggleButton>
+              <ToggleButton id="spell-type-all" variant="secondary" value="">all</ToggleButton>
               {spellTypeButtons}
             </ToggleButtonGroup>
           </Col>
