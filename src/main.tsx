@@ -1,4 +1,3 @@
-// import Modernizr from 'modernizr'
 import React, { useState, forwardRef, useImperativeHandle, useRef } from 'react'
 import { createRoot } from 'react-dom/client'
 import {Button, Container, Row, Col, Modal, Alert} from 'react-bootstrap'
@@ -16,7 +15,8 @@ import './googleAnalytics'
 
 import iconImage from '../assets/icon.png'
 
-const browserSupported = true //TODO Modernizr.typedarrays && Modernizr.xhrresponsetypearraybuffer
+/* global Modernizr */
+const browserSupported = Modernizr.typedarrays && Modernizr.xhrresponsetypearraybuffer
 
 
 interface FileInputProps {
