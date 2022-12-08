@@ -13,7 +13,6 @@ import SelectSpellModal from './SelectSpellModal'
 
 import iconImage from '../../assets/icon.png'
 
-
 /* global Modernizr */
 const browserSupported = Modernizr.typedarrays && Modernizr.xhrresponsetypearraybuffer
 

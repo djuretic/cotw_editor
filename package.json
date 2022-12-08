@@ -4,8 +4,7 @@
   "description": "Castle of the Winds online savegame editor",
   "scripts": {
     "build": "parcel build index.html",
-    "build:modernizr": "modernizr -c modernizr.config.json  -d static/modernizr.js",
-    "build:production": "NODE_ENV=production webpack",
+    "build:modernizr": "modernizr -c modernizr.config.json -d static/modernizr.js",
     "serve": "parcel serve index.html",
     "test": "jest src/__tests__"
   },
