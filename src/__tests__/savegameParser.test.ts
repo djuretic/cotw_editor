@@ -1,31 +1,20 @@
+import { expect, describe, it, jest } from 'bun:test'
 import SavegameParser from '../savegameParser'
 import { SavegameDefinition } from '../constants'
-const fs = require('fs')
-
-// source: http://stackoverflow.com/a/12101012
-// Convert from Node buffer to ArrayBuffer
-function toArrayBuffer(buf: Buffer) {
-	var ab = new ArrayBuffer(buf.length);
-	var view = new Uint8Array(ab)
-	for (var i = 0; i < buf.length; ++i) {
-		view[i] = buf[i]
-	}
-	return ab
-}
 
 describe('SavegameParser', () => {
-	it('reads file', () => {
+	it('reads file', async () => {
 		const fn = jest.fn()
 		const failFn = jest.fn()
-		SavegameParser.parse(toArrayBuffer(fs.readFileSync(__dirname + '/example.cwg')), fn, failFn)
+		SavegameParser.parse(await Bun.file(__dirname + '/example.cwg').arrayBuffer(), fn, failFn)
 		expect(failFn).not.toBeCalled()
 		expect(fn).toBeCalled()
 	})
 
-	it('reads character information', () => {
-    const fn = jest.fn<void, [SavegameDefinition]>()
+	it('reads character information', async () => {
+    const fn = jest.fn<(arg0: SavegameDefinition) => void>()
     const errFn = jest.fn()
-		SavegameParser.parse(toArrayBuffer(fs.readFileSync(__dirname + '/example.cwg')), fn, errFn)
+		SavegameParser.parse(await Bun.file(__dirname + '/example.cwg').arrayBuffer(), fn, errFn)
     let state = fn.mock.calls[0][0]
 		let expected: SavegameDefinition = {
       rawFile: new ArrayBuffer(0),

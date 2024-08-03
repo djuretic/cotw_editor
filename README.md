@@ -24,5 +24,5 @@ And then open dist/index.html in your browser, or use `bun run serve` instead.
 ## Tests
 
 ```bash
-bun run test
+bun test
 ```
