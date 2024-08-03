@@ -10,19 +10,19 @@ Demo: https://djuretic.github.io/cotw_editor/
 
 ## Instructions
 
-Node version I'm using: 16.18.1
+Bun version: 1.1.21
 
 ```
 git clone https://github.com/djuretic/cotw_editor.git
 cd cotw_editor
-npm install
-npm run build
+bun install
+bun run build
 ```
 
-And then open dist/index.html in your browser, or use `npm run serve` instead.
+And then open dist/index.html in your browser, or use `bun run serve` instead.
 
 ## Tests
 
 ```bash
-npm run test
+bun run test
 ```

@@ -22,7 +22,6 @@
     "@types/file-saver": "^2.0.5",
     "@types/jest": "^29.2.4",
     "@types/modernizr": "^3.5.3",
-    "@types/node": "^18.11.11",
     "@types/react": "^18.0.26",
     "@types/react-dom": "^18.0.9",
     "assert": "^2.0.0",
