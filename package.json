@@ -6,8 +6,7 @@
     "build": "vite build --outDir dist",
     "build:modernizr": "modernizr -c modernizr.config.json -d static/modernizr.js",
     "preview": "vite preview --outDir dist",
-    "serve": "vite",
-    "test": "jest src/__tests__"
+    "serve": "vite"
   },
   "dependencies": {
     "file-saver": "^2.0.5",
