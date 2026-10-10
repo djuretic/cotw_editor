@@ -1,16 +1,20 @@
 {
   "compilerOptions": {
     "outDir": "./dist/",
+    "skipLibCheck": true,
     "sourceMap": true,
     "strict": true,
     "noImplicitReturns": true,
     "noImplicitAny": true,
-    "module": "es6",
-    "moduleResolution": "node",
-    "target": "es5",
+    "module": "esnext",
+    "moduleResolution": "bundler",
+    "target": "es2022",
+    "lib": ["ES2022", "DOM", "DOM.Iterable"],
     "allowJs": true,
     "jsx": "react",
-    "allowSyntheticDefaultImports": true
+    "noEmit": true,
+    "allowSyntheticDefaultImports": true,
+    "types": ["vite/client", "bun", "modernizr"]
   },
   "include": [
       "./src/**/*"
