@@ -8,13 +8,9 @@ import FileInput, { FileInputHandles } from './FileInput'
 import Spellbook from './Spellbook'
 import SpellBar from './SpellBar'
 import CharacterProfile from './CharacterProfile'
-import OutdatedBrowserWarning from './OutdatedBrowserWarning'
 import SelectSpellModal from './SelectSpellModal'
 
 import iconImage from '../../assets/icon.png'
-
-/* global Modernizr */
-const browserSupported = Modernizr.typedarrays && Modernizr.xhrresponsetypearraybuffer
 
 const MainEditor: React.FC<{}> = ({}) => {
   const [showErrorModal, setShowErrorModal] = useState(false)
@@ -108,7 +104,6 @@ const MainEditor: React.FC<{}> = ({}) => {
 
   return (
     <Container>
-      <OutdatedBrowserWarning initialShow={!browserSupported}/>
       <div className="header">
         <h1><img src={iconImage} height="32" width="32" />Castle of the Winds Editor</h1>
         <a href="https://github.com/djuretic/cotw_editor" target="_blank">View on Github</a>

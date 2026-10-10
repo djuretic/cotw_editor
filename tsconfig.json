@@ -14,7 +14,7 @@
     "jsx": "react-jsx",
     "noEmit": true,
     "allowSyntheticDefaultImports": true,
-    "types": ["vite/client", "bun", "modernizr"]
+    "types": ["vite/client", "bun"]
   },
   "include": [
       "./src/**/*"
