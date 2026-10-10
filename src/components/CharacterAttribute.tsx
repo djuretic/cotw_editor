@@ -1,4 +1,3 @@
-import React from 'react'
 import {Row, Col, InputGroup, Form} from 'react-bootstrap'
 import { FIELDS, NumberFieldId } from '../constants'
 import { isInt } from '../utils'

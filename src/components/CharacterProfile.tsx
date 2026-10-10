@@ -1,4 +1,3 @@
-import React from 'react'
 import {Row, Col} from 'react-bootstrap'
 import CharacterAttribute from './CharacterAttribute'
 import {FieldId} from '../constants'

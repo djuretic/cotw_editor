@@ -1,4 +1,3 @@
-import React from 'react'
 import { Modal, Button, Row, Col } from 'react-bootstrap'
 import { SpellNumber, spellIds } from '../constants'
 import { formatSpellName } from '../utils'

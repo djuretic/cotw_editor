@@ -1,4 +1,3 @@
-import React from 'react'
 import { Col, Form } from 'react-bootstrap'
 import { isInt, formatSpellName } from '../utils'
 import { SpellId } from '../constants'
@@ -23,7 +22,7 @@ const SpellRow: React.FC<SpellRowProps> = ({spellName, index, value, handleChang
   const n = index || 0
   const cssClases = 'spell '+(learned ? 'spell-learned ' : 'spell-not-learned ') + (isValid ? '' : 'has-error')
   return (
-    <React.Fragment>
+    <>
       <Col xs={4} md={3} className={"text-right " + cssClases}>
         <SpellIcon spellNumber={n} />
         <Form.Label className="hide-overflow" htmlFor={`spell-${spellName}`}>{formatSpellName(spellName)}</Form.Label>
@@ -39,7 +38,7 @@ const SpellRow: React.FC<SpellRowProps> = ({spellName, index, value, handleChang
           required
         />
       </Col>
-    </React.Fragment>
+    </>
   )
 }
 

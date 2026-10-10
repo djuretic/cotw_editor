@@ -1,4 +1,3 @@
-import React from 'react'
 import { SpellNumber } from '../constants'
 
 interface SpellIconProps {

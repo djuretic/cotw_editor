@@ -11,7 +11,7 @@
     "target": "es2022",
     "lib": ["ES2022", "DOM", "DOM.Iterable"],
     "allowJs": true,
-    "jsx": "react",
+    "jsx": "react-jsx",
     "noEmit": true,
     "allowSyntheticDefaultImports": true,
     "types": ["vite/client", "bun", "modernizr"]
