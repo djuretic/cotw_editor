@@ -1,6 +1,6 @@
 import { expect, describe, it, jest } from 'bun:test'
 import SavegameParser from '../savegameParser'
-import { SavegameDefinition } from '../constants'
+import type { SavegameDefinition } from '../constants'
 
 describe('SavegameParser', () => {
 	it('reads file', async () => {

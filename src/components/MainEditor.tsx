@@ -2,9 +2,10 @@ import React, { useState } from 'react'
 import {Button, Container, Row, Col, Modal, Alert} from 'react-bootstrap'
 
 import SavegameParser from '../savegameParser'
-import {emptySavegame, SavegameDefinition, SpellId, SpellNumber, FieldId} from '../constants'
+import { emptySavegame } from '../constants'
+import type { SavegameDefinition, SpellId, SpellNumber, FieldId } from '../constants'
 
-import FileInput, { FileInputHandles } from './FileInput'
+import FileInput, { type FileInputHandles } from './FileInput'
 import Spellbook from './Spellbook'
 import SpellBar from './SpellBar'
 import CharacterProfile from './CharacterProfile'

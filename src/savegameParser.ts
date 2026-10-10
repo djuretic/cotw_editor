@@ -1,6 +1,6 @@
 import {
   FIELDS, SPELLS, spellIds, stringFieldIds, numberFieldIds,
-  fieldIds, emptySavegame, SavegameDefinition, spellBarInitOffset
+  fieldIds, emptySavegame, type SavegameDefinition, spellBarInitOffset
 } from './constants'
 import {saveAs} from 'file-saver'
 

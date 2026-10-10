@@ -1,6 +1,6 @@
 import {Row, Col} from 'react-bootstrap'
 import CharacterAttribute from './CharacterAttribute'
-import {FieldId} from '../constants'
+import type {FieldId} from '../constants'
 
 import HeroFemale from '../../assets/hero_female.png'
 import HeroMale from '../../assets/hero_male.png'

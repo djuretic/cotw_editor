@@ -1,4 +1,4 @@
-import { SpellNumber } from '../constants'
+import type { SpellNumber } from '../constants'
 
 interface SpellIconProps {
   spellNumber: SpellNumber

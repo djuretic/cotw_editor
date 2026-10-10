@@ -3,8 +3,8 @@ import { Row, Col, Container, ToggleButton, ToggleButtonGroup } from 'react-boot
 import SpellFilter from './SpellFilter'
 import SpellRow from './SpellRow'
 import {
-  SpellId, spellIds, spellTypes,
-  SpellType, SPELL_TYPES, nonLearnableSpellIds
+  type SpellId, spellIds, spellTypes,
+  type SpellType, SPELL_TYPES, nonLearnableSpellIds
 } from '../constants'
 
 interface SpellbookProps {

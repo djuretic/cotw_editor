@@ -1,5 +1,5 @@
 import { Modal, Button, Row, Col } from 'react-bootstrap'
-import { SpellNumber, spellIds } from '../constants'
+import { type SpellNumber, spellIds } from '../constants'
 import { formatSpellName } from '../utils'
 import SpellIcon from './SpellIcon'
 

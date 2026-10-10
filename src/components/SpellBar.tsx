@@ -1,5 +1,5 @@
 import { Button, OverlayTrigger, Tooltip } from 'react-bootstrap'
-import { SpellNumber, spellIds } from '../constants'
+import { type SpellNumber, spellIds } from '../constants'
 import SpellIcon from './SpellIcon'
 import { formatSpellName } from '../utils'
 

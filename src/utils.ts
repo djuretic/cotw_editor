@@ -1,4 +1,4 @@
-import { SpellId } from './constants'
+import type { SpellId } from './constants'
 
 //source: http://stackoverflow.com/a/14794066
 export function isInt(value: any) {

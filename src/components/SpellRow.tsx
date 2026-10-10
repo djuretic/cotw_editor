@@ -1,6 +1,6 @@
 import { Col, Form } from 'react-bootstrap'
 import { isInt, formatSpellName } from '../utils'
-import { SpellId } from '../constants'
+import type { SpellId } from '../constants'
 import SpellIcon from './SpellIcon'
 
 interface SpellRowProps {

@@ -1,5 +1,5 @@
 import {Row, Col, InputGroup, Form} from 'react-bootstrap'
-import { FIELDS, NumberFieldId } from '../constants'
+import { FIELDS, type NumberFieldId } from '../constants'
 import { isInt } from '../utils'
 import GameNumberInput from './GameNumberInput'
 
