@@ -3,58 +3,58 @@ import SavegameParser from '../savegameParser'
 import type { SavegameDefinition } from '../constants'
 
 describe('SavegameParser', () => {
-	it('reads file', async () => {
-		const fn = jest.fn()
-		const failFn = jest.fn()
-		SavegameParser.parse(await Bun.file(__dirname + '/example.cwg').arrayBuffer(), fn, failFn)
-		expect(failFn).not.toBeCalled()
-		expect(fn).toBeCalled()
-	})
+  it('reads file', async () => {
+    const fn = jest.fn()
+    const failFn = jest.fn()
+    SavegameParser.parse(await Bun.file(__dirname + '/example.cwg').arrayBuffer(), fn, failFn)
+    expect(failFn).not.toBeCalled()
+    expect(fn).toBeCalled()
+  })
 
-	it('reads character information', async () => {
+  it('reads character information', async () => {
     const fn = jest.fn<(arg0: SavegameDefinition) => void>()
     const errFn = jest.fn()
-		SavegameParser.parse(await Bun.file(__dirname + '/example.cwg').arrayBuffer(), fn, errFn)
+    SavegameParser.parse(await Bun.file(__dirname + '/example.cwg').arrayBuffer(), fn, errFn)
     let state = fn.mock.calls[0][0]
-		let expected: SavegameDefinition = {
+    let expected: SavegameDefinition = {
       rawFile: new ArrayBuffer(0),
-			name: 'Maria',
-			strBase: 59,
-			intBase: 59,
-			conBase: 58,
-			dexBase: 54,
-			str: 59,
-			int: 59,
-			con: 58,
-			dex: 54,
-			strPenalty: 0,
-			intPenalty: 0,
-			conPenalty: 0,
-			dexPenalty: 0,
-			strBonus: 0,
-			intBonus: 0,
-			conBonus: 0,
-			dexBonus: 0,
-			hp: 10,
-			maxHp: 10,
-			mp: 5,
-			maxMp: 5,
-			level: 1,
-			armorClass: 0,
-			exp: 0,
-			expAlt: 0,
-			bonusHit: 0,
-			bonusDamage: 0,
-			gender: 1,
-			resistFire: 0,
-			resistCold: 0,
-			resistLightning: 0,
-			resistAcid: 0,
-			resistFear: 0,
-			resistDrainLife: 0,
-			weight: 3300,
-			bulk: 3300,
-			maxWeight: 36000,
+      name: 'Maria',
+      strBase: 59,
+      intBase: 59,
+      conBase: 58,
+      dexBase: 54,
+      str: 59,
+      int: 59,
+      con: 58,
+      dex: 54,
+      strPenalty: 0,
+      intPenalty: 0,
+      conPenalty: 0,
+      dexPenalty: 0,
+      strBonus: 0,
+      intBonus: 0,
+      conBonus: 0,
+      dexBonus: 0,
+      hp: 10,
+      maxHp: 10,
+      mp: 5,
+      maxMp: 5,
+      level: 1,
+      armorClass: 0,
+      exp: 0,
+      expAlt: 0,
+      bonusHit: 0,
+      bonusDamage: 0,
+      gender: 1,
+      resistFire: 0,
+      resistCold: 0,
+      resistLightning: 0,
+      resistAcid: 0,
+      resistFear: 0,
+      resistDrainLife: 0,
+      weight: 3300,
+      bulk: 3300,
+      maxWeight: 36000,
       maxBulk: 1000000,
       spellBar: [3, -1, -1, -1, -1, -1, -1, -1, -1, -1],
       spellBook: {
@@ -95,17 +95,17 @@ describe('SavegameParser', () => {
         teleportAway: -1,
         cloneMonster: -1
       }
-		}
-		for(let property in expected){
+    }
+    for(let property in expected){
       if (property === 'rawFile') {
         expect(state[property]).not.toBeNull()
         continue
       }
-			if(expected.hasOwnProperty(property)){
+      if(expected.hasOwnProperty(property)){
         // @ts-ignore
-				expect(state[property]).toStrictEqual(expected[property])
-			}
-		}
-	})
+        expect(state[property]).toStrictEqual(expected[property])
+      }
+    }
+  })
 
 });
