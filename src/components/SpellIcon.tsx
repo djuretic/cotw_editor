@@ -1,4 +1,4 @@
-import type { SpellNumber } from '../constants'
+import type { SpellNumber } from "../constants"
 
 interface SpellIconProps {
   spellNumber: SpellNumber
@@ -11,8 +11,10 @@ const SpellIcon: React.FC<SpellIconProps> = ({ spellNumber }) => {
     // the last 4 spells don't have icons
     return <span className="spell-icon-none">?</span>
   }
-  const spriteStyles = {backgroundPosition: `-${24*spellNumber}px -${22*Math.floor(spellNumber/8)}px`}
-  return <span className="spell-icon" style={spriteStyles}/>
+  const spriteStyles = {
+    backgroundPosition: `-${24 * spellNumber}px -${22 * Math.floor(spellNumber / 8)}px`,
+  }
+  return <span className="spell-icon" style={spriteStyles} />
 }
 
 export default SpellIcon

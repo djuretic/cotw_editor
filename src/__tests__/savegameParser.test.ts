@@ -1,24 +1,32 @@
-import { expect, describe, it, jest } from 'bun:test'
-import SavegameParser from '../savegameParser'
-import type { SavegameDefinition } from '../constants'
+import { describe, expect, it, jest } from "bun:test"
+import type { SavegameDefinition } from "../constants"
+import SavegameParser from "../savegameParser"
 
-describe('SavegameParser', () => {
-  it('reads file', async () => {
+describe("SavegameParser", () => {
+  it("reads file", async () => {
     const fn = jest.fn()
     const failFn = jest.fn()
-    SavegameParser.parse(await Bun.file(__dirname + '/example.cwg').arrayBuffer(), fn, failFn)
+    SavegameParser.parse(
+      await Bun.file(__dirname + "/example.cwg").arrayBuffer(),
+      fn,
+      failFn,
+    )
     expect(failFn).not.toBeCalled()
     expect(fn).toBeCalled()
   })
 
-  it('reads character information', async () => {
+  it("reads character information", async () => {
     const fn = jest.fn<(arg0: SavegameDefinition) => void>()
     const errFn = jest.fn()
-    SavegameParser.parse(await Bun.file(__dirname + '/example.cwg').arrayBuffer(), fn, errFn)
-    let state = fn.mock.calls[0]![0]
-    let expected: SavegameDefinition = {
+    SavegameParser.parse(
+      await Bun.file(__dirname + "/example.cwg").arrayBuffer(),
+      fn,
+      errFn,
+    )
+    const state = fn.mock.calls[0]![0]
+    const expected: SavegameDefinition = {
       rawFile: new ArrayBuffer(0),
-      name: 'Maria',
+      name: "Maria",
       strBase: 59,
       intBase: 59,
       conBase: 58,
@@ -72,7 +80,7 @@ describe('SavegameParser', () => {
         levitation: -1,
         neutralizePoison: -1,
         coldBall: -1,
-        'healMed.Wounds': -1,
+        "healMed.Wounds": -1,
         fireBolt: -1,
         lightningBolt: -1,
         removeCurse: -1,
@@ -89,23 +97,22 @@ describe('SavegameParser', () => {
         fireball: -1,
         ballLightning: -1,
         healing: -1,
-        'trans.Monster': -1,
+        "trans.Monster": -1,
         createTraps: -1,
         hasteMonster: -1,
         teleportAway: -1,
-        cloneMonster: -1
-      }
+        cloneMonster: -1,
+      },
     }
-    for(let property in expected){
-      if (property === 'rawFile') {
+    for (const property in expected) {
+      if (property === "rawFile") {
         expect(state[property]).not.toBeNull()
         continue
       }
-      if(expected.hasOwnProperty(property)){
-        // @ts-ignore
+      if (Object.hasOwn(expected, property)) {
+        // @ts-expect-error
         expect(state[property]).toStrictEqual(expected[property])
       }
     }
   })
-
-});
+})

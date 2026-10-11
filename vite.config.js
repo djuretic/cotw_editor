@@ -1,3 +1,3 @@
 export default {
-  publicDir: 'static'
+  publicDir: "static",
 }

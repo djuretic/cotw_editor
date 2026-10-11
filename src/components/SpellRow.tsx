@@ -1,31 +1,43 @@
-import { Col, Form } from 'react-bootstrap'
-import { isInt, formatSpellName } from '../utils'
-import type { SpellId } from '../constants'
-import SpellIcon from './SpellIcon'
+import { Col, Form } from "react-bootstrap"
+import type { SpellId } from "../constants"
+import { formatSpellName, isInt } from "../utils"
+import SpellIcon from "./SpellIcon"
 
 interface SpellRowProps {
-  spellName: SpellId,
-  index?: number,
-  value?: number,
-  handleChange?: (spellName: SpellId, event: React.ChangeEvent<HTMLInputElement>) => void
+  spellName: SpellId
+  index?: number
+  value?: number
+  handleChange?: (
+    spellName: SpellId,
+    event: React.ChangeEvent<HTMLInputElement>,
+  ) => void
 }
 
-
-const SpellRow: React.FC<SpellRowProps> = ({spellName, index, value, handleChange}) => {
+const SpellRow: React.FC<SpellRowProps> = ({
+  spellName,
+  index,
+  value,
+  handleChange,
+}) => {
   const isValid = isInt(value)
   let learned = false
   if (isValid) {
-    // @ts-ignore
+    // @ts-expect-error
     const intValue = parseInt(value) // TODO value can be string
     learned = isValid && intValue !== -1 && intValue !== -2
   }
   const n = index || 0
-  const cssClases = 'spell '+(learned ? 'spell-learned ' : 'spell-not-learned ') + (isValid ? '' : 'has-error')
+  const cssClases =
+    "spell " +
+    (learned ? "spell-learned " : "spell-not-learned ") +
+    (isValid ? "" : "has-error")
   return (
     <>
       <Col xs={4} md={3} className={"text-right " + cssClases}>
         <SpellIcon spellNumber={n} />
-        <Form.Label className="hide-overflow" htmlFor={`spell-${spellName}`}>{formatSpellName(spellName)}</Form.Label>
+        <Form.Label className="hide-overflow" htmlFor={`spell-${spellName}`}>
+          {formatSpellName(spellName)}
+        </Form.Label>
       </Col>
       <Col xs={2} md={1} className={cssClases}>
         <Form.Control
@@ -34,7 +46,13 @@ const SpellRow: React.FC<SpellRowProps> = ({spellName, index, value, handleChang
           value={value}
           min="-9"
           max="9"
-          onChange={(event) => {if(handleChange) handleChange(spellName, event as React.ChangeEvent<HTMLInputElement>)}}
+          onChange={(event) => {
+            if (handleChange)
+              handleChange(
+                spellName,
+                event as React.ChangeEvent<HTMLInputElement>,
+              )
+          }}
           required
         />
       </Col>

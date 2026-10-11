@@ -1,10 +1,10 @@
-import { createRoot } from 'react-dom/client'
+import { createRoot } from "react-dom/client"
 
-import '../assets/css/main.css'
-import MainEditor from './components/MainEditor'
+import "../assets/css/main.css"
+import MainEditor from "./components/MainEditor"
 
-import './googleAnalytics'
+import "./googleAnalytics"
 
-const container = document.getElementById('react-app')
+const container = document.getElementById("react-app")
 const root = createRoot(container!)
 root.render(<MainEditor />)
