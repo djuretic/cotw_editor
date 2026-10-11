@@ -7,7 +7,7 @@ describe("SavegameParser", () => {
     const fn = jest.fn()
     const failFn = jest.fn()
     SavegameParser.parse(
-      await Bun.file(__dirname + "/example.cwg").arrayBuffer(),
+      await Bun.file(`${__dirname}/example.cwg`).arrayBuffer(),
       fn,
       failFn,
     )
@@ -19,11 +19,11 @@ describe("SavegameParser", () => {
     const fn = jest.fn<(arg0: SavegameDefinition) => void>()
     const errFn = jest.fn()
     SavegameParser.parse(
-      await Bun.file(__dirname + "/example.cwg").arrayBuffer(),
+      await Bun.file(`${__dirname}/example.cwg`).arrayBuffer(),
       fn,
       errFn,
     )
-    const state = fn.mock.calls[0]![0]
+    const state = fn.mock.calls[0]?.[0]
     const expected: SavegameDefinition = {
       rawFile: new ArrayBuffer(0),
       name: "Maria",
@@ -106,7 +106,7 @@ describe("SavegameParser", () => {
     }
     for (const property in expected) {
       if (property === "rawFile") {
-        expect(state[property]).not.toBeNull()
+        expect(state?.[property]).not.toBeNull()
         continue
       }
       if (Object.hasOwn(expected, property)) {

@@ -33,6 +33,7 @@ const CharacterProfile: React.FC<CharacterProfileProps> = (props) => {
     <fieldset>
       <legend>Character</legend>
       <img
+        alt="Hero"
         src={props.gender === 1 ? HeroFemale : HeroMale}
         className="d-block mx-auto"
       />

@@ -15,7 +15,7 @@ import SelectSpellModal from "./SelectSpellModal"
 import SpellBar from "./SpellBar"
 import Spellbook from "./Spellbook"
 
-const MainEditor: React.FC<{}> = ({}) => {
+const MainEditor: React.FC = () => {
   const [showErrorModal, setShowErrorModal] = useState(false)
   const [currentSpellMenuSlot, setCurrentSpellMenuSlot] = useState<
     number | null
@@ -32,7 +32,7 @@ const MainEditor: React.FC<{}> = ({}) => {
     if (error instanceof RangeError) {
       text = "The file is not a valid Castle of the Winds savegame."
     }
-    fileInput.current!.clear()
+    fileInput.current?.clear()
     setShowErrorModal(true)
     setModalText(text)
   }
@@ -118,7 +118,7 @@ const MainEditor: React.FC<{}> = ({}) => {
     xhr.responseType = "arraybuffer"
     xhr.onload = () => {
       if (xhr.status === 200) {
-        fileInput.current!.clear()
+        fileInput.current?.clear()
         SavegameParser.parse(
           xhr.response,
           (state: SavegameDefinition) => setSavegame(state),
@@ -126,7 +126,7 @@ const MainEditor: React.FC<{}> = ({}) => {
         )
       } else {
         alert(
-          "Error loading the example file. Returned status of " + xhr.status,
+          `Error loading the example file. Returned status of ${xhr.status}`,
         )
       }
     }
@@ -137,7 +137,7 @@ const MainEditor: React.FC<{}> = ({}) => {
     <Container>
       <div className="header">
         <h1>
-          <img src={iconImage} height="32" width="32" />
+          <img src={iconImage} height="32" width="32" alt="Logo" />
           Castle of the Winds Editor
         </h1>
         <a
@@ -216,11 +216,10 @@ const MainEditor: React.FC<{}> = ({}) => {
           <Button onClick={closeErrorModal}>Close</Button>
         </Modal.Footer>
       </Modal>
-      {currentSpellMenuSlot && savegame.spellBar[currentSpellMenuSlot] && (
+      {currentSpellMenuSlot && (
         <SelectSpellModal
           show={showSpellModal}
           slot={currentSpellMenuSlot}
-          value={savegame.spellBar[currentSpellMenuSlot]}
           onSelectSpell={handleSpellSelected}
           onHide={closeSpellModal}
         />

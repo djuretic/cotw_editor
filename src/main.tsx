@@ -6,5 +6,7 @@ import MainEditor from "./components/MainEditor"
 import "./googleAnalytics"
 
 const container = document.getElementById("react-app")
-const root = createRoot(container!)
-root.render(<MainEditor />)
+if (container) {
+  const root = createRoot(container)
+  root.render(<MainEditor />)
+}

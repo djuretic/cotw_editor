@@ -59,6 +59,7 @@ export default {
     success_callback: (state: SavegameDefinition) => void,
     error_callback: (error: Error) => void,
   ) {
+    var reader: FileReader
     const parseData = (event: ProgressEvent<FileReader> | ArrayBuffer) => {
       const buffer = event instanceof ArrayBuffer ? event : event.target?.result
       if (!buffer || typeof buffer === "string") {
@@ -98,8 +99,8 @@ export default {
           // TODO clone?
           state.spellBar[i] = readInt(dataView, spellBarInitOffset + 2 * i, 2)
         }
-      } catch (e: any) {
-        error_callback(e)
+      } catch (e) {
+        error_callback(e instanceof Error ? e : new Error(String(e)))
       }
       success_callback(state)
     }
@@ -107,7 +108,7 @@ export default {
       // only when using the example savegame
       parseData(file_or_arraybuffer)
     } else {
-      var reader = new FileReader()
+      reader = new FileReader()
       // we are not using reader.onload because it's harder to test
       reader.addEventListener("load", parseData)
       reader.readAsArrayBuffer(file_or_arraybuffer)

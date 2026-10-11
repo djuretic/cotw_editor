@@ -32,8 +32,8 @@ const CharacterAttribute: React.FC<CharacterAttributeProps> = ({
   values,
   onChange,
 }) => {
-  var inputs
-  const inputId = "attribute-" + (vars ? vars[0] : varr)
+  let inputs = <></>
+  const inputId = `attribute-${vars ? vars[0] : varr}`
   let isValid = false
   if (vars && values) {
     const var1 = vars[0]

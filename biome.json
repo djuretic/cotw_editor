@@ -6,7 +6,7 @@
     "useIgnoreFile": true
   },
   "files": {
-    "includes": ["**", "!!**/dist", "!googleAnalytics.js"]
+    "includes": ["**", "!!**/dist", "!**/googleAnalytics.js"]
   },
   "formatter": {
     "enabled": true,

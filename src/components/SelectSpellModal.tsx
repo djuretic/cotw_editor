@@ -6,7 +6,6 @@ import SpellIcon from "./SpellIcon"
 interface SelectSpellModalProps {
   show: boolean
   slot: number | null
-  value: SpellNumber | null
   onHide: () => void
   onSelectSpell: (slot: number | null, spellNumber: SpellNumber) => void
 }
@@ -14,7 +13,6 @@ interface SelectSpellModalProps {
 const SelectSpellModal: React.FC<SelectSpellModalProps> = ({
   show,
   slot,
-  value,
   onHide,
   onSelectSpell,
 }) => {
@@ -24,6 +22,7 @@ const SelectSpellModal: React.FC<SelectSpellModalProps> = ({
   const cellClass = "select-spell"
   const spells = [
     <Col
+      key={-1}
       xs={4}
       className={cellClass}
       onClick={() => {
@@ -39,6 +38,7 @@ const SelectSpellModal: React.FC<SelectSpellModalProps> = ({
     const n = spellIds.indexOf(spellId)
     spells.push(
       <Col
+        key={n}
         xs={4}
         className={cellClass}
         onClick={() => {

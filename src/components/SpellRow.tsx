@@ -23,7 +23,7 @@ const SpellRow: React.FC<SpellRowProps> = ({
   let learned = false
   if (isValid) {
     // @ts-expect-error
-    const intValue = parseInt(value) // TODO value can be string
+    const intValue = parseInt(value, 10) // TODO value can be string
     learned = isValid && intValue !== -1 && intValue !== -2
   }
   const n = index || 0
@@ -33,7 +33,7 @@ const SpellRow: React.FC<SpellRowProps> = ({
     (isValid ? "" : "has-error")
   return (
     <>
-      <Col xs={4} md={3} className={"text-right " + cssClases}>
+      <Col xs={4} md={3} className={`text-right ${cssClases}`}>
         <SpellIcon spellNumber={n} />
         <Form.Label className="hide-overflow" htmlFor={`spell-${spellName}`}>
           {formatSpellName(spellName)}
