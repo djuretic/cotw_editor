@@ -3,21 +3,13 @@ import { FIELDS, type NumberFieldId } from '../constants'
 import { isInt } from '../utils'
 import GameNumberInput from './GameNumberInput'
 
-// https://stackoverflow.com/a/59906630
-type ArrayLengthMutationKeys = 'splice' | 'push' | 'pop' | 'shift' | 'unshift' | number
-type ArrayItems<T extends Array<any>> = T extends Array<infer TItems> ? TItems : never
-  type FixedLengthArray<T extends any[]> =
-  Pick<T, Exclude<keyof T, ArrayLengthMutationKeys>>
-  & { [Symbol.iterator]: () => IterableIterator< ArrayItems<T> > }
-
-
 interface CharacterAttributeProps {
   name: string,
   // var is a reserved keyword
   varr?: NumberFieldId,
-  vars?: FixedLengthArray<[NumberFieldId, NumberFieldId]>,
+  vars?: readonly [current: NumberFieldId, max: NumberFieldId],
   value?: number,
-  values?: number[],
+  values?: readonly [current: number, max: number],
   onChange: (value: NumberFieldId | undefined, event: React.ChangeEvent<HTMLInputElement>) => void,
 }
 
@@ -39,7 +31,7 @@ const CharacterAttribute: React.FC<CharacterAttributeProps> = ({name, varr, vars
     const rules = [
       attributeRules(var1, values[0]),
       attributeRules(var2, values[1]),
-    ]
+    ] as const
     isValid = rules[0].valid && rules[1].valid
     inputs = (
       <InputGroup>

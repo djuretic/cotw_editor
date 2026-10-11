@@ -13,6 +13,9 @@ const SpellBar: React.FC<SpellBarProps> = ({bar, onClick}) => {
   let spells = []
   let n = 0
   for (let spell of bar) {
+    const spellId = spellIds[spell]
+    const spellName = spellId ? formatSpellName(spellId) :  "(None)"
+
     // needed for closure
     let current = n
     spells.push(
@@ -20,7 +23,7 @@ const SpellBar: React.FC<SpellBarProps> = ({bar, onClick}) => {
         key={`menu-bar-${n}`}
         placement="bottom"
         overlay={
-        <Tooltip id={`tooltip-${spell}`}>Slot {n+1}: {formatSpellName(spellIds[spell]) || "(None)"}</Tooltip>
+        <Tooltip id={`tooltip-${spell}`}>Slot {n+1}: {spellName}</Tooltip>
         }>
         <Button
           className="spell-menu-button"

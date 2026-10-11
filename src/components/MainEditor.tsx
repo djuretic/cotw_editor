@@ -55,7 +55,7 @@ const MainEditor: React.FC<{}> = ({}) => {
   }
 
   const savefileSelected = (e: React.ChangeEvent<HTMLInputElement>) => {
-    if (e.target.files) {
+    if (e.target.files?.[0]) {
       SavegameParser.parse(e.target.files[0], (state) => setSavegame(state), informError)
     }
   }
@@ -63,7 +63,7 @@ const MainEditor: React.FC<{}> = ({}) => {
   const downloadSavefile = (e: React.MouseEvent) => {
     e.preventDefault();
     var form = document.getElementsByTagName('form')[0]
-    if(form.checkValidity()){
+    if (form?.checkValidity()){
       setValidationMsg('')
       SavegameParser.write(savegame)
     } else {
@@ -151,12 +151,13 @@ const MainEditor: React.FC<{}> = ({}) => {
           <Button onClick={closeErrorModal}>Close</Button>
         </Modal.Footer>
       </Modal>
-      <SelectSpellModal
+      {currentSpellMenuSlot && savegame.spellBar[currentSpellMenuSlot] && <SelectSpellModal
         show={showSpellModal}
         slot={currentSpellMenuSlot}
-        value={currentSpellMenuSlot ? savegame.spellBar[currentSpellMenuSlot] : null}
+        value={savegame.spellBar[currentSpellMenuSlot]}
         onSelectSpell={handleSpellSelected}
         onHide={closeSpellModal} />
+      }
     </Container>
   )
 }

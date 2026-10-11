@@ -103,7 +103,7 @@ export default {
       writeInt(dataView, offset, state.spellBook[property], 1)
     }
     for (let i=0; i < 10; i++) {
-      writeInt(dataView, spellBarInitOffset + 2*i, state.spellBar[i], 2)
+      writeInt(dataView, spellBarInitOffset + 2*i, state.spellBar[i] ?? -1, 2)
     }
     let blob = new Blob([new Uint8Array(dataView.buffer)])
     saveAs(blob, 'savegame.cwg')

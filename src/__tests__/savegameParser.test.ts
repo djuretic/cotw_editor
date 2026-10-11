@@ -15,7 +15,7 @@ describe('SavegameParser', () => {
     const fn = jest.fn<(arg0: SavegameDefinition) => void>()
     const errFn = jest.fn()
     SavegameParser.parse(await Bun.file(__dirname + '/example.cwg').arrayBuffer(), fn, errFn)
-    let state = fn.mock.calls[0][0]
+    let state = fn.mock.calls[0]![0]
     let expected: SavegameDefinition = {
       rawFile: new ArrayBuffer(0),
       name: 'Maria',
